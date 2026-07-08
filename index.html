@@ -385,6 +385,15 @@
                                 </div>
                                 <span class="text-lg">➡️</span>
                             </button>
+
+                            <!-- Cloze test -->
+                            <button onclick="launchReviewGame('cloze')" class="p-4 bg-slate-950 border border-slate-800 rounded-2xl text-right hover:border-amber-400/40 transition-all flex items-center justify-between group col-span-1 sm:col-span-2">
+                                <div>
+                                    <h4 class="font-black text-sm text-slate-100 group-hover:text-amber-400 transition">🧩 تحدي إكمال فراغات القطع (Cloze Passage)</h4>
+                                    <p class="text-[9px] text-slate-400 mt-1">تسميع القطع القانونية والتعريفات الكاملة عن طريق ملء الكلمات المحذوفة.</p>
+                                </div>
+                                <span class="text-lg">➡️</span>
+                            </button>
                         </div>
                     </div>
 
@@ -552,9 +561,14 @@
                                 </select>
                             </div>
                         </div>
-                        <button onclick="saveSettingsProfile()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-2 rounded-xl text-xs transition">
-                            حفظ الملف الشخصي المعدل
-                        </button>
+                        <div class="flex gap-2">
+                            <button onclick="saveSettingsProfile()" class="flex-grow bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-2 rounded-xl text-xs transition">
+                                حفظ الملف الشخصي المعدل
+                            </button>
+                            <button onclick="logoutUser()" class="bg-red-950 hover:bg-red-900 text-red-200 font-bold px-4 py-2 rounded-xl text-xs transition">
+                                تسجيل الخروج 🚪
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Custom Word Addition form -->
@@ -854,6 +868,29 @@
                 fontScale = parseInt(savedScale);
                 document.documentElement.style.setProperty('--font-scale', fontScale + '%');
             }
+            
+            // Load saved user profile
+            const savedName = localStorage.getItem('userName');
+            const savedTitle = localStorage.getItem('userTitle');
+            const savedGender = localStorage.getItem('selectedGenderType');
+            
+            if (savedName && savedTitle) {
+                state.userName = savedName;
+                state.userTitle = savedTitle;
+                if (savedGender) selectedGenderType = savedGender;
+                
+                // Hide welcome modal
+                const welcomeModal = document.getElementById('welcome-modal');
+                if (welcomeModal) welcomeModal.classList.add('hidden');
+                
+                // Apply personalization
+                const welcomeHeader = document.getElementById('user-header-welcome');
+                if (welcomeHeader) welcomeHeader.innerText = `${state.userTitle} / ${state.userName}`;
+                
+                const greetingDash = document.getElementById('dash-greeting');
+                if (greetingDash) greetingDash.innerText = `أهلاً بك يا ${state.userTitle} ${state.userName}`;
+            }
+
             // Initiate app views
             initStudyMode();
             renderMistakesWidget();
@@ -886,6 +923,11 @@
 
             state.userTitle = selectedGenderType === 'male' ? "دكتور" : "دكتورة";
             state.userName = nameInput;
+
+            // Save to localStorage
+            localStorage.setItem('userName', state.userName);
+            localStorage.setItem('userTitle', state.userTitle);
+            localStorage.setItem('selectedGenderType', selectedGenderType);
 
             // Hide welcome panel
             document.getElementById('welcome-modal').classList.add('hidden');
@@ -954,6 +996,12 @@
                 // Keep Selection open, hide gameplay
                 document.getElementById('games-selection-hub').classList.remove('hidden');
                 document.getElementById('game-playground-container').classList.add('hidden');
+            } else if (tabId === 'user') {
+                const settingsUser = document.getElementById('settings-username');
+                const settingsTitle = document.getElementById('settings-title');
+                if (settingsUser) settingsUser.value = state.userName || '';
+                if (settingsTitle) settingsTitle.value = state.userTitle || 'دكتور';
+                renderVocabSettingsList();
             }
         }
 
@@ -1272,8 +1320,255 @@
                     </div>
                 `;
                 renderPlaygroundQuizQuestion();
+            } else if (gameType === 'quiz') {
+                document.getElementById('game-title-header').innerText = "اختبار الخيارات المتعددة (MCQ)";
+                state.quizCurrentIndex = 0;
+                state.quizScore = 0;
+                
+                const shuffled = [...activeTerms].sort(() => 0.5 - Math.random());
+                const itemsCount = Math.min(10, shuffled.length);
+                state.quizQuestions = shuffled.slice(0, itemsCount).map(item => {
+                    const isArToEn = Math.random() > 0.5;
+                    const alternatives = activeTerms
+                        .filter(g => g.id !== item.id)
+                        .sort(() => 0.5 - Math.random())
+                        .slice(0, 3)
+                        .map(alt => isArToEn ? alt.english : alt.arabic);
+
+                    const correctAnswer = isArToEn ? item.english : item.arabic;
+                    const answersList = [...alternatives, correctAnswer].sort(() => 0.5 - Math.random());
+
+                    return {
+                        question: isArToEn ? `ما هو المقابل الإنجليزي لـ [${item.arabic}]؟` : `ما هو المعنى المقابل للمصطلح [${item.english}]؟`,
+                        correctAnswer: correctAnswer,
+                        answers: answersList,
+                        termReference: item
+                    };
+                });
+
+                mount.innerHTML = `
+                    <div class="max-w-md mx-auto space-y-4">
+                        <div class="flex justify-between text-xs text-slate-400">
+                            <span id="g-quiz-progress-text">السؤال 1</span>
+                            <span id="g-quiz-score-text">الدرجة: 0</span>
+                        </div>
+                        <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800">
+                            <h4 id="g-quiz-question-lbl" class="text-sm font-bold text-slate-100"></h4>
+                        </div>
+                        <div class="space-y-2" id="g-quiz-answers-box"></div>
+                        <div id="g-quiz-feedback-box" class="p-3 rounded-xl border hidden text-xs leading-relaxed text-right"></div>
+                    </div>
+                `;
+                renderPlaygroundQuizQuestion();
+            } else if (gameType === 'cloze') {
+                document.getElementById('game-title-header').innerText = "تحدي إكمال فراغات القطع (Cloze Test)";
+                mount.innerHTML = `
+                    <div class="space-y-4 text-right max-w-xl mx-auto">
+                        <div id="cloze-selector-view" class="space-y-3">
+                            <h4 class="text-xs font-bold text-slate-400 mb-2">اختر القطعة القانونية للتدريب عليها:</h4>
+                            <div class="grid grid-cols-1 gap-2" id="cloze-passage-buttons"></div>
+                        </div>
+                        
+                        <div id="cloze-play-view" class="hidden space-y-4">
+                            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                                <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-0.5 rounded font-black" id="cloze-title"></span>
+                                <button onclick="exitClozeToSelector()" class="text-[10px] text-slate-400 hover:text-white transition">🔙 تغيير القطعة</button>
+                            </div>
+                            
+                            <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-850">
+                                <span class="text-[9px] text-slate-500 block mb-1">الترجمة العربية للمساعدة:</span>
+                                <p id="cloze-arabic-context" class="text-xs text-slate-300 leading-relaxed"></p>
+                            </div>
+                            
+                            <div class="bg-slate-950 p-5 rounded-2xl border border-slate-850 text-left font-serif leading-relaxed text-slate-200 text-sm sm:text-base select-none" dir="ltr" id="cloze-passage-container">
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <span class="text-[9px] text-slate-500 block text-right">الكلمات المتاحة (انقر على فراغ ثم انقر على الكلمة لوضعها):</span>
+                                <div class="flex flex-wrap gap-2 justify-center" id="cloze-words-bank">
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-2">
+                                <button onclick="checkClozeAnswer()" class="flex-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-2.5 rounded-xl text-xs transition">تحقق من الإجابة</button>
+                                <button onclick="resetClozeGame()" class="bg-slate-850 hover:bg-slate-800 text-slate-300 font-bold px-4 py-2.5 rounded-xl text-xs transition">إعادة المحاولة</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                startClozeGameSelector();
             }
         };
+
+        // --- SUB GAME 5: CLOZE PASSAGE MEMORIZATION ---
+        function startClozeGameSelector() {
+            const container = document.getElementById('cloze-passage-buttons');
+            container.innerHTML = '';
+            
+            Object.keys(definitionsData).forEach(key => {
+                const item = definitionsData[key];
+                const btn = document.createElement('button');
+                btn.className = "w-full p-3.5 bg-slate-950 border border-slate-850 hover:border-amber-500/30 text-right rounded-2xl flex justify-between items-center transition group";
+                btn.innerHTML = `
+                    <div class="text-right">
+                        <h5 class="font-bold text-xs text-slate-200 group-hover:text-amber-400 transition">${item.title}</h5>
+                        <p class="text-[9px] text-slate-400 mt-1 truncate max-w-xs">${item.arabic}</p>
+                    </div>
+                    <span class="text-xs text-amber-500">ابدأ التحدي ⬅</span>
+                `;
+                btn.onclick = () => selectClozePassage(key);
+                container.appendChild(btn);
+            });
+        }
+        
+        let clozeState = {
+            key: null,
+            answers: {},
+            selectedBlankIndex: null,
+            shuffledWords: []
+        };
+        
+        function selectClozePassage(key) {
+            clozeState.key = key;
+            clozeState.answers = {};
+            clozeState.selectedBlankIndex = 1;
+            
+            const def = definitionsData[key];
+            document.getElementById('cloze-title').innerText = def.title;
+            document.getElementById('cloze-arabic-context').innerText = def.arabic;
+            
+            const wordsList = def.blanks.map(b => b.word);
+            clozeState.shuffledWords = [...wordsList].sort(() => 0.5 - Math.random());
+            
+            document.getElementById('cloze-selector-view').classList.add('hidden');
+            document.getElementById('cloze-play-view').classList.remove('hidden');
+            
+            renderClozePassage();
+            renderClozeWordsBank();
+        }
+        
+        function exitClozeToSelector() {
+            document.getElementById('cloze-selector-view').classList.remove('hidden');
+            document.getElementById('cloze-play-view').classList.add('hidden');
+            startClozeGameSelector();
+        }
+        
+        function renderClozePassage() {
+            const def = definitionsData[clozeState.key];
+            const container = document.getElementById('cloze-passage-container');
+            
+            let text = def.passage;
+            
+            def.blanks.forEach(b => {
+                const blankIndex = b.index;
+                const placedWord = clozeState.answers[blankIndex] || ` [ الفراغ ${blankIndex} ] `;
+                const isSelected = clozeState.selectedBlankIndex === blankIndex;
+                const isFilled = !!clozeState.answers[blankIndex];
+                
+                const cssClass = isSelected 
+                    ? "px-2 py-0.5 mx-1 font-sans rounded-lg border-2 border-amber-500 bg-amber-500/10 text-amber-400 font-bold" 
+                    : isFilled 
+                        ? "px-2 py-0.5 mx-1 font-sans rounded-lg border border-amber-500/40 bg-slate-900 text-amber-300 font-bold font-serif"
+                        : "px-2 py-0.5 mx-1 font-sans rounded-lg border border-slate-800 bg-slate-950 text-slate-500 font-bold text-xs";
+                
+                const blankHtml = `<button onclick="selectClozeBlank(${blankIndex})" class="${cssClass}">${placedWord}</button>`;
+                text = text.replace(`{${b.word}}`, blankHtml);
+            });
+            
+            container.innerHTML = text;
+        }
+        
+        function selectClozeBlank(index) {
+            clozeState.selectedBlankIndex = index;
+            renderClozePassage();
+        }
+        
+        function renderClozeWordsBank() {
+            const container = document.getElementById('cloze-words-bank');
+            container.innerHTML = '';
+            
+            clozeState.shuffledWords.forEach(word => {
+                const isPlaced = Object.values(clozeState.answers).includes(word);
+                
+                const btn = document.createElement('button');
+                btn.className = `px-3 py-1.5 rounded-xl text-xs font-bold font-serif transition ${
+                    isPlaced 
+                        ? 'bg-slate-900 border border-slate-800 text-slate-600 cursor-not-allowed opacity-40' 
+                        : 'bg-slate-950 border border-slate-850 text-slate-300 hover:border-amber-500/40 hover:text-amber-300'
+                }`;
+                btn.innerText = word;
+                btn.disabled = isPlaced;
+                btn.onclick = () => placeWordInClozeBlank(word);
+                container.appendChild(btn);
+            });
+        }
+        
+        function placeWordInClozeBlank(word) {
+            if (clozeState.selectedBlankIndex === null) {
+                showToast("يرجى اختيار فراغ أولاً بالضغط عليه.", false);
+                return;
+            }
+            
+            const blankIndex = clozeState.selectedBlankIndex;
+            clozeState.answers[blankIndex] = word;
+            
+            const def = definitionsData[clozeState.key];
+            const nextEmptyBlank = def.blanks.find(b => !clozeState.answers[b.index]);
+            clozeState.selectedBlankIndex = nextEmptyBlank ? nextEmptyBlank.index : null;
+            
+            renderClozePassage();
+            renderClozeWordsBank();
+        }
+        
+        function resetClozeGame() {
+            clozeState.answers = {};
+            clozeState.selectedBlankIndex = 1;
+            renderClozePassage();
+            renderClozeWordsBank();
+        }
+        
+        function checkClozeAnswer() {
+            const def = definitionsData[clozeState.key];
+            
+            const unfilled = def.blanks.find(b => !clozeState.answers[b.index]);
+            if (unfilled) {
+                showToast("يرجى ملء جميع الفراغات قبل التحقق.", false);
+                return;
+            }
+            
+            let correctCount = 0;
+            const container = document.getElementById('cloze-passage-container');
+            
+            let text = def.passage;
+            def.blanks.forEach(b => {
+                const blankIndex = b.index;
+                const placed = clozeState.answers[blankIndex];
+                const actual = b.word;
+                const isCorrect = placed === actual;
+                
+                if (isCorrect) correctCount++;
+                
+                const cssClass = isCorrect 
+                    ? "px-2 py-0.5 mx-1 font-sans rounded-lg border-2 border-emerald-500 bg-emerald-950 text-emerald-300 font-bold font-serif" 
+                    : "px-2 py-0.5 mx-1 font-sans rounded-lg border-2 border-red-500 bg-red-950 text-red-355 font-bold font-serif";
+                
+                const blankHtml = `<span class="${cssClass}">${placed}</span>`;
+                text = text.replace(`{${b.word}}`, blankHtml);
+            });
+            
+            container.innerHTML = text;
+            
+            const total = def.blanks.length;
+            const percent = Math.round((correctCount / total) * 100);
+            
+            if (percent === 100) {
+                state.score += 50;
+                updateDashboardStats();
+                showToast(`أداء مذهل ومطابقة حرفية 100% للتعريف القانوني! +50 نقطة`, true);
+            } else {
+                showToast(`أحسنت محاولة الحفظ. إجاباتك الصحيحة: ${correctCount} من أصل ${total}. يرجى المراجعة وإعادة المحاولة.`, false);
+            }
+        }
 
         function closeCurrentGame() {
             if (state.matchTimerInterval) clearInterval(state.matchTimerInterval);
@@ -1695,6 +1990,11 @@
             state.userTitle = title;
             state.userName = name;
 
+            // Save to localStorage
+            localStorage.setItem('userName', state.userName);
+            localStorage.setItem('userTitle', state.userTitle);
+            localStorage.setItem('selectedGenderType', title === "دكتور" ? "male" : "female");
+
             document.getElementById('user-header-welcome').innerText = `${state.userTitle} / ${state.userName}`;
             document.getElementById('dash-greeting').innerText = `أهلاً بك يا ${state.userTitle} ${state.userName}`;
             
@@ -1704,6 +2004,25 @@
             }
 
             showToast("تم تحديث الملف الشخصي بنجاح!");
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('userName');
+            localStorage.removeItem('userTitle');
+            localStorage.removeItem('selectedGenderType');
+            
+            state.userName = "الباحث";
+            state.userTitle = "دكتور";
+            selectedGenderType = "male";
+            
+            const nameInput = document.getElementById('user-name-input');
+            if (nameInput) nameInput.value = '';
+            
+            const welcomeModal = document.getElementById('welcome-modal');
+            if (welcomeModal) welcomeModal.classList.remove('hidden');
+            
+            showToast("تم تسجيل الخروج بنجاح.");
+            switchTab('dashboard');
         }
 
         function renderVocabSettingsList() {
