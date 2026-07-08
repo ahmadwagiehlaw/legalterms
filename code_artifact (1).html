@@ -1,0 +1,2286 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق الحفظ الذكي للمصطلحات القانونية - المستشار أحمد وجيه</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        legal: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            gold: '#d4af37',
+                            goldHover: '#f3cd45',
+                            accent: '#0d9488',
+                            navy: '#1e3a8a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Cairo & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #0b0f19;
+            color: #f1f5f9;
+            -webkit-tap-highlight-color: transparent;
+            padding-bottom: 5.5rem;
+        }
+        .app-shell {
+            width: 100%;
+            max-width: 100%;
+        }
+        .mobile-card {
+            border-radius: 1.5rem;
+        }
+        .safe-padding {
+            padding-left: max(1rem, env(safe-area-inset-left));
+            padding-right: max(1rem, env(safe-area-inset-right));
+        }
+        .hero-glow {
+            background:
+                radial-gradient(circle at top right, rgba(212, 175, 55, 0.14), transparent 34%),
+                radial-gradient(circle at bottom left, rgba(13, 148, 136, 0.10), transparent 32%);
+        }
+        .english-text {
+            font-family: 'Playfair Display', serif;
+        }
+        /* 3D Flip Card Effect */
+        .flip-card {
+            background-color: transparent;
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- Welcome / Profile Setup Modal -->
+    <div id="welcome-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-950/90 backdrop-blur-sm px-4">
+        <div class="w-full max-w-md bg-slate-900 border border-amber-500/20 shadow-2xl rounded-3xl p-5 sm:p-6 mobile-card">
+            <div class="flex items-start justify-between gap-3 mb-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full mb-3">📘 مدرب موبايل-فيرست</div>
+                    <h2 class="text-xl font-extrabold text-slate-50 leading-snug">أهلاً بك في التطبيق يا دكتور / دكتورة</h2>
+                    <p class="text-sm text-slate-300 mt-2 leading-relaxed">اكتب اسمك وحدد النوع، وسيتم حفظ بياناتك محلياً لتظهر لك التحية والتقدم باسمك في كل مرة.</p>
+                </div>
+                <button id="welcome-close-btn" class="text-slate-400 hover:text-slate-100 text-2xl leading-none" aria-label="إغلاق">×</button>
+            </div>
+
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 mb-2">الاسم</label>
+                    <input id="profile-name-input" type="text" placeholder="مثال: أحمد" class="w-full bg-slate-950 border border-slate-800 focus:border-amber-400 rounded-2xl px-4 py-3 text-slate-100 text-sm focus:outline-none">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 mb-2">النوع</label>
+                        <select id="profile-gender-input" title="اختر النوع" aria-label="اختر النوع" class="w-full bg-slate-950 border border-slate-800 focus:border-amber-400 rounded-2xl px-4 py-3 text-slate-100 text-sm focus:outline-none">
+                            <option value="male">ذكر</option>
+                            <option value="female">أنثى</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 mb-2">التفعيل</label>
+                        <button id="save-profile-btn" class="w-full bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-extrabold rounded-2xl px-4 py-3 text-sm">ابدأ باسمك</button>
+                    </div>
+                </div>
+                <label class="flex items-center gap-2 text-xs text-slate-400 select-none pt-1">
+                    <input id="dont-show-welcome" type="checkbox" class="accent-amber-400">
+                    عدم إظهار نافذة الترحيب مرة أخرى على هذا الجهاز
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Modal -->
+    <div id="admin-modal" class="fixed inset-0 z-[110] hidden items-center justify-center bg-slate-950/90 backdrop-blur-sm px-4">
+        <div class="w-full max-w-2xl bg-slate-900 border border-sky-500/20 shadow-2xl rounded-3xl p-5 sm:p-6 mobile-card max-h-[92vh] overflow-y-auto">
+            <div class="flex items-start justify-between gap-3 mb-5">
+                <div>
+                    <div class="inline-flex items-center gap-2 text-xs font-bold text-sky-300 bg-sky-500/10 border border-sky-500/20 px-3 py-1 rounded-full mb-3">🛠 لوحة الأدمن المحلية</div>
+                    <h2 class="text-xl font-extrabold text-slate-50 leading-snug">إضافة كلمات وجمل وتمارين جديدة</h2>
+                    <p class="text-sm text-slate-300 mt-2 leading-relaxed">البيانات تحفظ على هذا الجهاز فقط بصيغة محلية، ثم تدخل تلقائيًا في الدراسة والاختبارات.</p>
+                </div>
+                <button id="admin-close-btn" class="text-slate-400 hover:text-slate-100 text-2xl leading-none" aria-label="إغلاق">×</button>
+            </div>
+
+            <div id="admin-lock-panel" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 mb-2">باسورد الأدمن</label>
+                    <input id="admin-password-input" type="password" title="باسورد الأدمن" aria-label="باسورد الأدمن" placeholder="اكتب الباسورد" class="w-full bg-slate-950 border border-slate-800 focus:border-sky-400 rounded-2xl px-4 py-3 text-slate-100 text-sm focus:outline-none">
+                </div>
+                <button id="admin-login-btn" class="w-full bg-gradient-to-r from-sky-500 to-cyan-400 text-slate-950 font-extrabold rounded-2xl px-4 py-3 text-sm">فتح لوحة الأدمن</button>
+                <p class="text-xs text-slate-500 leading-relaxed">ملاحظة: هذه حماية محلية خفيفة مناسبة لنسخة GitHub Pages وليست بديلًا عن نظام دخول سيرفر حقيقي.</p>
+            </div>
+
+            <div id="admin-workspace" class="hidden space-y-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                    <div class="rounded-2xl border border-slate-800 bg-slate-950/70 p-3">
+                        <div class="text-slate-500 font-bold mb-1">المحتوى المحلي</div>
+                        <div class="text-slate-100 font-black text-lg" id="admin-custom-count">0</div>
+                    </div>
+                    <div class="rounded-2xl border border-slate-800 bg-slate-950/70 p-3">
+                        <div class="text-slate-500 font-bold mb-1">إجمالي الكلمات</div>
+                        <div class="text-slate-100 font-black text-lg" id="admin-total-count">0</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 mb-2">العربية</label>
+                        <input id="admin-arabic-input" type="text" title="العربية" aria-label="العربية" placeholder="مثال: مبدأ المشروعية" class="w-full bg-slate-950 border border-slate-800 focus:border-sky-400 rounded-2xl px-4 py-3 text-slate-100 text-sm focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 mb-2">الإنجليزية</label>
+                        <input id="admin-english-input" type="text" title="الإنجليزية" aria-label="الإنجليزية" placeholder="مثال: Principle of legality" class="w-full bg-slate-950 border border-slate-800 focus:border-sky-400 rounded-2xl px-4 py-3 text-slate-100 text-sm focus:outline-none">
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-2">الصفحة</label>
+                            <input id="admin-page-input" type="text" title="الصفحة" aria-label="الصفحة" placeholder="مثال: 24" class="w-full bg-slate-950 border border-slate-800 focus:border-sky-400 rounded-2xl px-4 py-3 text-slate-100 text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-2">التصنيف</label>
+                            <input id="admin-category-input" type="text" title="التصنيف" aria-label="التصنيف" placeholder="مثال: مبادئ عامة" class="w-full bg-slate-950 border border-slate-800 focus:border-sky-400 rounded-2xl px-4 py-3 text-slate-100 text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-2">النوع</label>
+                            <select id="admin-type-input" title="نوع المحتوى" aria-label="نوع المحتوى" class="w-full bg-slate-950 border border-slate-800 focus:border-sky-400 rounded-2xl px-4 py-3 text-slate-100 text-sm focus:outline-none">
+                                <option value="word">كلمة</option>
+                                <option value="definition">تعريف</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 mb-2">ملاحظة / تعريف مختصر</label>
+                        <textarea id="admin-note-input" title="ملاحظة المحتوى" aria-label="ملاحظة المحتوى" rows="3" placeholder="اكتب تعريفًا أو ملاحظة قصيرة" class="w-full bg-slate-950 border border-slate-800 focus:border-sky-400 rounded-2xl px-4 py-3 text-slate-100 text-sm focus:outline-none resize-none"></textarea>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button id="admin-save-btn" class="flex-1 bg-gradient-to-r from-sky-500 to-cyan-400 text-slate-950 font-extrabold rounded-2xl px-4 py-3 text-sm">إضافة المحتوى المحلي</button>
+                    <button id="admin-clear-btn" class="flex-1 bg-slate-950 border border-slate-800 text-slate-200 font-bold rounded-2xl px-4 py-3 text-sm">مسح جميع الإضافات المحلية</button>
+                </div>
+
+                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4">
+                    <div class="flex items-center justify-between gap-3 mb-3">
+                        <h3 class="text-sm font-bold text-slate-100">آخر الإضافات</h3>
+                        <span class="text-[10px] text-slate-500">يتم حفظها محليًا فقط</span>
+                    </div>
+                    <div id="admin-custom-list" class="space-y-2 max-h-52 overflow-y-auto pr-1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Personalization / Profile Strip -->
+    <div class="hidden lg:block bg-slate-950 border-b border-slate-900 safe-padding">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between text-xs text-slate-300">
+            <div class="flex flex-wrap items-center gap-2">
+                <span class="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 px-3 py-1 font-bold" id="profile-badge">مرحباً يا دكتور</span>
+                <span class="text-slate-500">واجهة مهيأة للموبايل أولاً</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+                <button id="edit-profile-btn" class="rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-800 px-3 py-1.5 font-bold text-slate-200">تعديل الاسم</button>
+                <button id="admin-open-btn" class="rounded-full bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/20 px-3 py-1.5 font-bold text-sky-300">لوحة الأدمن</button>
+                <button onclick="switchTab('study')" class="rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 px-3 py-1.5 font-extrabold">ابدأ المذاكرة</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Navigation Header -->
+    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-lg">
+        <div class="app-shell max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            
+            <!-- Logo & Brand Info -->
+            <div class="flex items-center gap-3">
+                <div class="bg-gradient-to-tr from-amber-500 to-yellow-300 p-2.5 rounded-xl text-slate-950 shadow-md">
+                    <!-- Scales of Justice Icon -->
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2a1 1 0 0 1 .993.883L13 3v1.171l5.317 1.772a1 1 0 0 1 .672 1.135l-.01.082l-.46 2.302c1.923.633 3.321 2.348 3.473 4.41l.008.243V15a3 3 0 0 1-2.824 2.995L19 18h-5v3h3a1 1 0 0 1 .117 1.993L17 23H7a1 1 0 0 1-.117-1.993L7 21h3v-3H5a3 3 0 0 1-2.995-2.824L2 15v-.885c0-2.222 1.542-4.053 3.655-4.571l-.348-1.74a1 1 0 0 1 .59-1.135l.092-.033L11 4.17V3a1 1 0 0 1 .883-.993L12 2zm6.673 8.35a3.992 3.992 0 0 0-2.316-2.102l.24 1.198c.55 2.748-1.205 5.313-3.953 5.827l-.317.05v.678h4.673a1 1 0 0 0 .993-.883l.007-.117v-.885c0-1.5-.9-2.8-2.327-3.766zM5.327 8.35C3.9 9.317 3 10.615 3 12.115v.885a1 1 0 0 0 1 1h4.673v-.678l-.317-.05c-2.748-.514-4.503-3.08-3.953-5.827l.24-1.198a3.992 3.992 0 0 0-2.316 2.103zM12 6.396l-3.6 1.2v6.08a4.002 4.002 0 0 0 7.2 0V7.596l-3.6-1.2z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-slate-100 flex items-center flex-wrap gap-2">
+                        المدرب الذكي للمصطلحات القانونية
+                        <span class="text-xs bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full">تمهيدي دكتوراه</span>
+                    </h1>
+                    <!-- Intellectual Property -->
+                    <p class="text-xs text-amber-400 font-bold flex items-center gap-1 mt-0.5">
+                        <span>🛡 إعداد وتصميم / المستشار أحمد وجيه</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Action Quick Study Button & Score Widget -->
+            <div class="flex items-center flex-wrap gap-3">
+                <!-- Highlighted Memorization shortcut -->
+                <button onclick="switchTab('study')" class="bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-600 hover:to-yellow-500 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-md transition transform hover:scale-105">
+                    <span class="text-sm">📚</span>
+                    <span>ابدأ بوضع المذاكرة والحفظ أولاً</span>
+                </button>
+
+                <!-- Stats -->
+                <div class="flex items-center gap-3 text-xs bg-slate-800/90 px-3 py-2 rounded-xl border border-slate-700/60">
+                    <div class="flex items-center gap-1" title="النقاط">
+                        <span class="text-yellow-500">🏆</span>
+                        <span class="font-bold text-slate-200" id="total-score">0</span>
+                    </div>
+                    <div class="h-4 w-px bg-slate-700"></div>
+                    <div class="flex items-center gap-1" title="المصطلحات المتقنة">
+                        <span class="text-emerald-500">✔</span>
+                        <span class="font-bold text-slate-200" id="mastered-count">0</span>
+                        <span class="text-slate-400" id="total-terms-count">/ 35</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+        <div class="app-shell max-w-7xl mx-auto px-4 py-5 sm:px-6 lg:px-8 flex-grow w-full grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <section class="lg:col-span-4 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border border-slate-800 rounded-3xl p-5 sm:p-6 shadow-2xl relative overflow-hidden hero-glow">
+            <div class="relative flex flex-col gap-5">
+                <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+                    <div class="space-y-2">
+                        <div class="inline-flex items-center gap-2 text-[11px] font-extrabold tracking-wide text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full w-fit">واجهة احترافية للموبايل أولاً</div>
+                        <h2 class="text-2xl sm:text-3xl font-black text-slate-50 leading-tight">أهلاً بك يا <span id="hero-user-name">دكتور</span></h2>
+                        <p class="text-sm sm:text-base text-slate-300 max-w-3xl leading-relaxed" id="progress-hint">ابدأ أول جولة مذاكرة يا دكتور، وسنحوّل الكلمات إلى إتقان.</p>
+                            <div class="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-[11px] font-bold text-emerald-300" id="daily-mission">🎯 مهمة اليوم: 5 مصطلحات بإتقان</div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 sm:gap-3 w-full sm:w-auto">
+                        <div class="rounded-2xl border border-slate-800 bg-slate-950/70 px-3 py-2 text-center">
+                            <div class="text-[10px] text-slate-500 font-bold mb-1">النقاط</div>
+                            <div class="text-lg font-black text-amber-400" id="total-score-hero">0</div>
+                        </div>
+                        <div class="rounded-2xl border border-slate-800 bg-slate-950/70 px-3 py-2 text-center">
+                            <div class="text-[10px] text-slate-500 font-bold mb-1">الستريك</div>
+                            <div class="text-lg font-black text-emerald-400" id="streak-badge">🔥 1 يوم</div>
+                        </div>
+                        <div class="rounded-2xl border border-slate-800 bg-slate-950/70 px-3 py-2 text-center">
+                            <div class="text-[10px] text-slate-500 font-bold mb-1">المستوى</div>
+                            <div class="text-lg font-black text-sky-300" id="level-badge">مستوى تأسيسي</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button onclick="switchTab('study')" class="flex-1 bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black rounded-2xl px-5 py-4 text-base shadow-lg transition flex items-center justify-center gap-2">
+                        <span>📚</span>
+                        <span>ابدأ المذاكرة</span>
+                    </button>
+                    <button onclick="switchTab('quiz')" class="flex-1 bg-slate-950 border border-slate-700 hover:border-amber-500/40 text-slate-100 font-black rounded-2xl px-5 py-4 text-base shadow-lg transition flex items-center justify-center gap-2">
+                        <span>📝</span>
+                        <span>اختبار سريع</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sidebar Navigation -->
+        <div class="hidden lg:flex lg:col-span-1 flex-col gap-4">
+            <!-- Designer Card / Copyright -->
+            <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-amber-500/30 rounded-3xl p-4 shadow-xl relative overflow-hidden mobile-card">
+                <div class="absolute -right-8 -bottom-8 w-24 h-24 bg-amber-500/5 rounded-full blur-xl"></div>
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="text-xl">⚖</span>
+                    <span class="text-xs font-bold text-amber-400 uppercase tracking-wide">حقوق الملكية الفكرية</span>
+                </div>
+                <p class="text-slate-100 font-extrabold text-sm mb-1">المستشار أحمد وجيه</p>
+                <p class="text-[10px] text-slate-400 leading-relaxed">
+                    مادة المصطلحات القانونية بلغة أجنبية - مقرر د. محمود الشرقاوي - جامعة بني سويف.
+                </p>
+            </div>
+
+            <!-- Navigation Menu -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-3 shadow-xl mobile-card">
+                <h2 class="text-xs font-bold text-amber-500 uppercase tracking-wider mb-3 px-2 pb-2 border-b border-slate-800">أدوات الحفظ والتعليم</h2>
+                <nav class="flex flex-col gap-1.5" id="nav-menu">
+                    
+                    <!-- Nav 1: Study Mode (NEW) -->
+                    <button onclick="switchTab('study')" id="btn-study" class="nav-btn flex items-center justify-between w-full px-4 py-3 text-right rounded-xl text-slate-300 hover:text-slate-100 hover:bg-slate-800 transition duration-150 font-semibold text-sm">
+                        <span class="flex items-center gap-3">
+                            <span class="text-base">📚</span>
+                            وضــع المذاكــرة والحفظ
+                        </span>
+                        <span class="text-[10px] bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full font-bold">رئيسي</span>
+                    </button>
+
+                    <!-- Nav 2: Flashcards -->
+                    <button onclick="switchTab('flashcards')" id="btn-flashcards" class="nav-btn flex items-center justify-between w-full px-4 py-3 text-right rounded-xl text-slate-300 hover:text-slate-100 hover:bg-slate-800 transition duration-150 font-semibold text-sm">
+                        <span class="flex items-center gap-3">
+                            <span class="text-base">🗂</span>
+                            بطاقات الاستذكار (Flashcards)
+                        </span>
+                        <span class="text-[10px] bg-slate-850 text-slate-400 px-1.5 py-0.5 rounded border border-slate-800">حفظ</span>
+                    </button>
+
+                    <!-- Nav 3: Match Game -->
+                    <button onclick="switchTab('match')" id="btn-match" class="nav-btn flex items-center justify-between w-full px-4 py-3 text-right rounded-xl text-slate-300 hover:text-slate-100 hover:bg-slate-800 transition duration-150 font-semibold text-sm">
+                        <span class="flex items-center gap-3">
+                            <span class="text-base">🧩</span>
+                            لعبة المطابقة السريعة (Match)
+                        </span>
+                        <span class="text-[10px] bg-slate-850 text-slate-400 px-1.5 py-0.5 rounded border border-slate-800">لعب</span>
+                    </button>
+
+                    <!-- Nav 4: MCQ Quiz -->
+                    <button onclick="switchTab('quiz')" id="btn-quiz" class="nav-btn flex items-center justify-between w-full px-4 py-3 text-right rounded-xl text-slate-300 hover:text-slate-100 hover:bg-slate-800 transition duration-150 font-semibold text-sm">
+                        <span class="flex items-center gap-3">
+                            <span class="text-base">📝</span>
+                            الاختبارات المتعددة (MCQ)
+                        </span>
+                        <span class="text-[10px] bg-slate-850 text-slate-400 px-1.5 py-0.5 rounded border border-slate-800">اختبار</span>
+                    </button>
+
+                    <!-- Nav 5: Fill in Blanks -->
+                    <button onclick="switchTab('fillblanks')" id="btn-fillblanks" class="nav-btn flex items-center justify-between w-full px-4 py-3 text-right rounded-xl text-slate-300 hover:text-slate-100 hover:bg-slate-800 transition duration-150 font-semibold text-sm">
+                        <span class="flex items-center gap-3">
+                            <span class="text-base">✍</span>
+                            تحدي القطع وإكمال الفراغات
+                        </span>
+                        <span class="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 rounded font-bold">هام جداً</span>
+                    </button>
+
+                    <!-- Nav 6: Writing Practice -->
+                    <button onclick="switchTab('writing')" id="btn-writing" class="nav-btn flex items-center justify-between w-full px-4 py-3 text-right rounded-xl text-slate-300 hover:text-slate-100 hover:bg-slate-800 transition duration-150 font-semibold text-sm">
+                        <span class="flex items-center gap-3">
+                            <span class="text-base">⌨</span>
+                            تحدي الكتابة والإملاء المباشر
+                        </span>
+                        <span class="text-[10px] bg-slate-850 text-slate-400 px-1.5 py-0.5 rounded border border-slate-800">إملاء</span>
+                    </button>
+
+                    <!-- Nav 7: Interactive Book -->
+                    <button onclick="switchTab('book')" id="btn-book" class="nav-btn flex items-center justify-between w-full px-4 py-3 text-right rounded-xl text-slate-300 hover:text-slate-100 hover:bg-slate-800 transition duration-150 font-semibold text-sm">
+                        <span class="flex items-center gap-3">
+                            <span class="text-base">📖</span>
+                            المراجع ونصوص الكتاب الحرفية
+                        </span>
+                        <span class="text-[10px] bg-slate-850 text-slate-400 px-1.5 py-0.5 rounded border border-slate-800">مرجع</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Mobile Dock -->
+        <nav class="lg:hidden fixed bottom-3 left-3 right-3 z-50">
+            <div class="grid grid-cols-4 gap-2 rounded-3xl border border-slate-800 bg-slate-950/95 backdrop-blur-lg p-2 shadow-2xl">
+                <button onclick="switchTab('study')" class="flex flex-col items-center justify-center gap-1 rounded-2xl bg-slate-900 px-2 py-2 text-[10px] font-bold text-slate-200">
+                    <span class="text-base">📚</span>
+                    مذاكرة
+                </button>
+                <button onclick="switchTab('quiz')" class="flex flex-col items-center justify-center gap-1 rounded-2xl bg-slate-900 px-2 py-2 text-[10px] font-bold text-slate-200">
+                    <span class="text-base">📝</span>
+                    اختبار
+                </button>
+                <button onclick="openWelcomeModal()" class="flex flex-col items-center justify-center gap-1 rounded-2xl bg-slate-900 px-2 py-2 text-[10px] font-bold text-slate-200">
+                    <span class="text-base">👤</span>
+                    ملفي
+                </button>
+                <button onclick="openAdminModal()" class="flex flex-col items-center justify-center gap-1 rounded-2xl bg-amber-500 px-2 py-2 text-[10px] font-black text-slate-950">
+                    <span class="text-base">🛠</span>
+                    أدمن
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Display Screen -->
+        <div class="lg:col-span-3 flex flex-col gap-6">
+            
+            <div id="main-display-container">
+                
+                <!-- TAB 0: STUDY MODE (NEW & ENHANCED) -->
+                <div id="tab-study" class="tab-content block">
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl relative">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-800 pb-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-amber-400">قسم المذاكرة والتحضير والتسميع الذاتي</h3>
+                                <p class="text-xs text-slate-400">ذاكر المصطلحات جيداً وقم بالتسميع الذاتي قبل الدخول للألعاب والاختبارات.</p>
+                            </div>
+                            <!-- Show / Hide Columns Controllers -->
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="toggleStudyColumn('ar')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                                    👁 إظهار/إخفاء العربي
+                                </button>
+                                <button onclick="toggleStudyColumn('en')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                                    👁 إظهار/إخفاء الإنجليزي
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Copyright banner in study mode -->
+                        <div class="bg-slate-950/80 border border-amber-500/20 rounded-xl p-3 mb-6 flex justify-between items-center">
+                            <div class="flex items-center gap-2">
+                                <span class="text-amber-400 font-bold">✨ مادة المصطلحات القانونية:</span>
+                                <span class="text-xs text-slate-300">تم تجميع ومطابقة المسرد بالكامل وفقاً لامتحانات تمهيدي الدكتوراه بجامعة بني سويف.</span>
+                            </div>
+                            <span class="text-xs bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-1 rounded font-bold">مستشار أحمد وجيه</span>
+                        </div>
+
+                        <!-- Search Bar -->
+                        <div class="mb-4">
+                            <input type="text" id="study-search" oninput="filterStudyTable()" placeholder="🔍 ابحث عن أي مصطلح أو كلمة باللغة العربية أو الإنجليزية..." class="w-full bg-slate-950 text-slate-200 border border-slate-800 focus:border-amber-400 rounded-xl px-4 py-2.5 text-sm focus:outline-none transition">
+                        </div>
+
+                        <!-- Vocabulary Grid/Table -->
+                        <div class="overflow-x-auto rounded-xl border border-slate-800">
+                            <table class="w-full text-right border-collapse text-xs sm:text-sm">
+                                <thead>
+                                    <tr class="bg-slate-950 text-slate-400 uppercase tracking-wide border-b border-slate-800">
+                                        <th class="p-4">المصطلح بالعربية</th>
+                                        <th class="p-4 text-left">المقابل بالإنجليزية</th>
+                                        <th class="p-4 text-center">الصفحة</th>
+                                        <th class="p-4 text-center">أدوات</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="study-table-body" class="divide-y divide-slate-850">
+                                    <!-- Populated programmatically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 1: FLASHCARDS -->
+                <div id="tab-flashcards" class="tab-content hidden">
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
+                        
+                        <div class="flex justify-between items-center mb-6">
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-100">بطاقات الاستذكار التفاعلية</h3>
+                                <p class="text-xs text-slate-400">انقر على البطاقة لقلبها وسماع نطقها الدقيق.</p>
+                            </div>
+                            <select id="flashcard-filter" title="فلتر البطاقات" aria-label="فلتر البطاقات" onchange="filterFlashcards(this.value)" class="bg-slate-800 border border-slate-700 text-xs rounded-lg px-2.5 py-1.5 text-slate-100 font-bold focus:outline-none">
+                                <option value="all">الكل (المصطلحات والتعريفات)</option>
+                                <option value="words">مصطلحات المسرد فقط</option>
+                                <option value="definitions">التعريفات والمفاهيم الكبرى</option>
+                            </select>
+                        </div>
+
+                        <!-- Main 3D Flippable Card -->
+                        <div class="flex flex-col items-center justify-center my-8">
+                            <div class="flip-card w-full max-w-lg h-72 cursor-pointer" id="active-card" onclick="flipActiveCard()">
+                                <div class="flip-card-inner shadow-2xl border border-slate-700/60 rounded-2xl" id="card-inner">
+                                    
+                                    <!-- Front Side (Arabic) -->
+                                    <div class="flip-card-front bg-gradient-to-br from-slate-800 to-slate-900 flex flex-col justify-between p-6">
+                                        <div class="flex justify-between items-center w-full">
+                                            <span class="text-xs bg-slate-950/80 px-2 py-1 rounded border border-slate-700/50 text-amber-400" id="card-category-front">تصنيف</span>
+                                            <span class="text-slate-400 text-xs">اضغط للقلب 🔄</span>
+                                        </div>
+                                        <div class="text-center py-6">
+                                            <h4 class="text-2xl sm:text-3xl font-extrabold text-slate-100" id="card-arabic-term">قواعد آمرة</h4>
+                                            <p class="text-xs text-slate-400 mt-4" id="card-hint-front">تلميح بسيط للفهم السريع</p>
+                                        </div>
+                                        <div class="text-xs text-slate-500 text-right w-full" id="card-page-front">
+                                            مقرر د. محمود الشرقاوي
+                                        </div>
+                                    </div>
+
+                                    <!-- Back Side (English) -->
+                                    <div class="flip-card-back bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 border-2 border-amber-500/30 flex flex-col justify-between p-6">
+                                        <div class="flex justify-between items-center w-full">
+                                            <span class="text-xs bg-amber-500/20 text-amber-400 px-2 py-1 rounded border border-amber-500/30">المقابل الإنجليزي الحرفي</span>
+                                            <button onclick="speakCurrentWord(event)" class="bg-slate-800 hover:bg-slate-700 text-slate-100 hover:text-amber-400 px-3 py-1 rounded-lg text-xs font-bold flex items-center gap-1.5 transition">
+                                                🔊 نطق صوتي
+                                            </button>
+                                        </div>
+                                        <div class="text-center py-4">
+                                            <h4 class="text-3xl sm:text-4xl font-extrabold text-amber-400 english-text tracking-wide" id="card-english-term">Imperative rules</h4>
+                                            <p class="text-xs text-slate-200 px-4 mt-4 leading-relaxed overflow-y-auto max-h-24" id="card-definition-text">التعريف الحرفي الدقيق من المنهج.</p>
+                                        </div>
+                                        <div class="text-xs text-slate-500 text-right w-full flex justify-between" id="card-page-back">
+                                            <span>الصفحة: -</span>
+                                            <span class="text-amber-500 font-bold">اضغط للقلب والرجوع</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- Swipe Controls -->
+                            <div class="flex justify-center gap-4 mt-8 w-full max-w-md">
+                                <button onclick="sortCard(false)" class="flex-1 bg-red-950/60 hover:bg-red-900/80 border border-red-500/40 text-red-100 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold text-sm transition">
+                                    ❌ أحتاج مراجعتها
+                                </button>
+                                <button onclick="sortCard(true)" class="flex-1 bg-emerald-950/60 hover:bg-emerald-900/80 border border-emerald-500/40 text-emerald-100 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold text-sm transition">
+                                    ✔ تم الحفظ بنجاح
+                                </button>
+                            </div>
+
+                            <!-- Progress Track -->
+                            <div class="w-full max-w-md mt-6">
+                                <div class="flex justify-between text-xs text-slate-400 mb-2">
+                                    <span id="flashcard-index">البطاقة 1 من 35</span>
+                                    <span id="flashcard-percent">التقدم: 0%</span>
+                                </div>
+                                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-gradient-to-r from-amber-500 to-yellow-400 h-full transition-all duration-300" id="flashcard-progress-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- TAB 2: MATCHING GAME -->
+                <div id="tab-match" class="tab-content hidden">
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-100">لعبة المطابقة السريعة (Match)</h3>
+                                <p class="text-xs text-slate-400">طابق كل كلمة عربية بترجمتها الإنجليزية من الكتاب بدقة وسرعة.</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="text-center">
+                                    <p class="text-[10px] text-slate-400 uppercase font-semibold">المؤقت</p>
+                                    <p class="text-lg font-mono font-bold text-amber-500" id="match-timer">00:00</p>
+                                </div>
+                                <button onclick="resetMatchGame()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 px-4 py-2 rounded-xl text-xs font-bold transition">
+                                    🔄 إعادة تشغيل اللعبة
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Match Grid -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 my-8" id="match-grid">
+                            <!-- Dynamic items injected here -->
+                        </div>
+
+                        <!-- Win State -->
+                        <div id="match-win-pane" class="hidden text-center py-10 bg-slate-800/50 border border-emerald-500/20 rounded-2xl">
+                            <span class="text-5xl block mb-4">🏆🎖</span>
+                            <h4 class="text-2xl font-bold text-emerald-400">أداء رائع جداً ومحترف!</h4>
+                            <p class="text-slate-300 text-sm mt-2">لقد أكملت جميع المطابقات القانونية بشكل مثالي.</p>
+                            <p class="text-amber-400 font-mono text-lg mt-3" id="match-win-time">الوقت المستغرق: -- ثانية</p>
+                            <button onclick="resetMatchGame()" class="mt-6 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-2.5 rounded-xl transition">
+                                العب مجدداً وحطم رقمك القياسي
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: MCQ QUIZ -->
+                <div id="tab-quiz" class="tab-content hidden">
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl">
+                        <div class="flex justify-between items-center mb-6">
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-100">الاختبار المتعدد الأركان (MCQ Quiz)</h3>
+                                <p class="text-xs text-slate-400">اختبر ذكاءك القانوني وحفظك الحرفي للمصطلحات والخيارات.</p>
+                            </div>
+                            <span class="text-xs bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-xl text-amber-400 font-mono font-bold" id="quiz-question-number">السؤال 1 / 10</span>
+                        </div>
+
+                        <!-- Question -->
+                        <div class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-slate-700/50 mb-6">
+                            <span class="text-xs text-amber-400 font-bold block mb-1">السؤال المطروح:</span>
+                            <h4 class="text-lg font-extrabold text-slate-100" id="quiz-question-text">ما هو التوصيف القانوني لـ...</h4>
+                        </div>
+
+                        <!-- Answers Container -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="quiz-answers-container">
+                            <!-- Dynamic choices with ultra clear contrast -->
+                        </div>
+
+                        <!-- Explanatory Feedback / Correction -->
+                        <div id="quiz-feedback-box" class="mt-6 p-4 rounded-xl hidden transition-all duration-300">
+                            <div class="flex items-start gap-3">
+                                <span class="text-2xl" id="quiz-feedback-icon">✔</span>
+                                <div class="flex-grow">
+                                    <h5 class="font-bold text-sm" id="quiz-feedback-title">إجابة نموذجية!</h5>
+                                    <p class="text-xs text-slate-200 mt-1" id="quiz-feedback-text">المطابقة المنهجية الكاملة كما هي بالكتاب.</p>
+                                </div>
+                                <button onclick="nextQuizQuestion()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs px-4 py-2.5 rounded-xl transition">
+                                    التالي ⬅
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Result Card -->
+                        <div id="quiz-result-card" class="hidden text-center py-10 bg-slate-800/40 border border-slate-700 rounded-2xl">
+                            <span class="text-5xl block mb-4" id="quiz-result-emoji">🏆</span>
+                            <h4 class="text-2xl font-bold text-slate-100" id="quiz-result-title">انتهى الاختبار بنجاح!</h4>
+                            <p class="text-slate-300 text-sm mt-2" id="quiz-result-desc">درجتك النهائية في المراجعة السريعة:</p>
+                            <p class="text-4xl font-mono font-extrabold text-amber-500 mt-4" id="quiz-result-score">10 / 10</p>
+                            <div class="flex justify-center gap-3 mt-6">
+                                <button onclick="resetQuiz()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-2.5 rounded-xl transition">
+                                    إعادة تشغيل الاختبار العشوائي
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: FILL IN THE BLANKS (CRITICAL AND AMAZING MODULE - EXPANDED TO 7 SECTIONS) -->
+                <div id="tab-fillblanks" class="tab-content hidden">
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl">
+                        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6 border-b border-slate-800 pb-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-100">تحدي إكمال الفراغات وكتابة النصوص والقطع</h3>
+                                <p class="text-xs text-slate-400">املأ الفراغات بالكلمات الإنجليزية الصحيحة والمطابقة لحرفية الكتاب.</p>
+                            </div>
+                            <div class="flex items-center gap-2 w-full lg:w-auto">
+                                <label class="text-xs text-slate-400 shrink-0">اختر النص المستهدف:</label>
+                                <select id="fillblanks-select" title="اختر النص المستهدف" aria-label="اختر النص المستهدف" onchange="loadFillBlanks(this.value)" class="bg-slate-800 border border-slate-700 text-xs rounded-xl px-3 py-2 text-slate-100 font-bold focus:outline-none focus:border-amber-500 w-full lg:w-auto">
+                                    <option value="law">1. تعريف القانون (Definition of Law)</option>
+                                    <option value="characteristics">2. خصائص القانون (Characteristics of Law)</option>
+                                    <option value="contract">3. تعريف العقد (Definition of Contract)</option>
+                                    <option value="offer">4. تعريف الإيجاب (Definition of Offer)</option>
+                                    <option value="acceptance">5. تعريف القبول (Definition of Acceptance)</option>
+                                    <option value="arbitration">6. تعريف التحكيم (Definition of Arbitration)</option>
+                                    <option value="arbitration_char">7. خصائص التحكيم (Arbitration Characteristics)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Arabic Translation Guideline -->
+                        <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl mb-6">
+                            <span class="text-xs text-amber-400 font-bold block mb-1">الترجمة العربية الرسمية المعتمدة في المنهج:</span>
+                            <p class="text-slate-200 leading-relaxed font-semibold text-xs sm:text-sm" id="fill-arabic-reference">
+                                القانون هو عبارة عن مجموعة من القواعد العامة والمجردة والملزمة...
+                            </p>
+                        </div>
+
+                        <!-- Paragraph Blank Fill Arena -->
+                        <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 mb-6">
+                            <span class="text-xs text-slate-500 font-bold block mb-3 uppercase tracking-wide">املأ الفراغات الناقصة:</span>
+                            
+                            <!-- The Interactive Paragraph itself with High-Contrast inputs -->
+                            <div class="english-text text-base sm:text-lg text-slate-100 leading-loose text-left font-serif tracking-wide select-none" id="fill-paragraph-container" dir="ltr">
+                                <!-- Generated Dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- High Contrast Word Pool Box -->
+                        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5 mb-6">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="text-xs text-amber-400 font-bold block">💡 شريط الكلمات المساعدة (اضغط على الكلمة لتعبئتها تلقائياً):</span>
+                                <button onclick="toggleFillHints()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-2.5 py-1 rounded text-xs transition">
+                                    إظهار/إخفاء شريط الكلمات
+                                </button>
+                            </div>
+                            
+                            <!-- Word Pool Items with Ultra High Contrast and readable layout -->
+                            <div class="flex flex-wrap gap-2 transition-opacity duration-300" id="fill-word-pool">
+                                <!-- Clickable Word Tokens -->
+                            </div>
+                        </div>
+
+                        <!-- Controls -->
+                        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <div id="fill-result-feedback" class="text-sm font-semibold">
+                                <!-- status -->
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="checkFillAnswers()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-6 py-3 rounded-xl text-xs sm:text-sm transition">
+                                    💡 تحقق من إجابتك وصحح الأخطاء
+                                </button>
+                                <button onclick="revealFillAnswers()" class="bg-slate-850 hover:bg-slate-800 border border-slate-700 text-amber-400 font-bold px-4 py-3 rounded-xl text-xs sm:text-sm transition">
+                                    🔓 كشف الإجابات الصحيحة للحفظ
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- TAB 5: WRITING & SPELLING PRACTICE -->
+                <div id="tab-writing" class="tab-content hidden">
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl">
+                        <div class="flex justify-between items-center mb-6">
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-100">تحدي الكتابة والإملاء لجميع المصطلحات</h3>
+                                <p class="text-xs text-slate-400">انظر إلى الكلمة بالعربية، واكتب مقابلها الإنجليزي الصحيح من الذاكرة.</p>
+                            </div>
+                            <span class="text-xs bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-xl text-amber-400 font-mono font-bold" id="writing-progress">المصطلح 1 / 35</span>
+                        </div>
+
+                        <!-- Writing box layout -->
+                        <div class="flex flex-col items-center justify-center py-6">
+                            <div class="text-center mb-6">
+                                <span class="text-xs text-slate-500 font-bold block">المصطلح المطلوب كتابته:</span>
+                                <h4 class="text-3xl font-extrabold text-amber-400 mt-2" id="writing-arabic-term">قواعد آمرة</h4>
+                            </div>
+
+                            <div class="w-full max-w-lg">
+                                <label class="block text-xs text-slate-400 mb-2">اكتب الترجمة هنا باللغة الإنجليزية:</label>
+                                <!-- Custom High Contrast Input -->
+                                <input type="text" id="writing-input" autocomplete="off" placeholder="اكتب هنا بالإنجليزية..." class="w-full bg-slate-950 border-2 border-slate-800 focus:border-amber-400 rounded-xl px-4 py-3.5 text-center text-xl english-text font-bold text-amber-300 focus:outline-none transition shadow-inner">
+                                
+                                <div class="flex justify-between items-center mt-3">
+                                    <button onclick="revealWritingHint()" class="text-xs text-slate-400 hover:text-amber-400 transition">💡 تلميح بالأحرف الأولى</button>
+                                    <span class="text-xs text-amber-500 font-mono font-bold hidden" id="writing-hint-text">I_ _ _ _ _ _ _ _ e  r_ _ _s</span>
+                                </div>
+                            </div>
+
+                            <!-- Feedback area -->
+                            <div id="writing-feedback" class="w-full max-w-lg mt-6 p-4 rounded-xl hidden">
+                                <div class="flex items-start gap-2">
+                                    <span class="text-xl" id="writing-feedback-icon">✔</span>
+                                    <div>
+                                        <p class="font-bold text-sm" id="writing-feedback-title">صحيح تماماً!</p>
+                                        <p class="text-xs text-slate-200 mt-0.5" id="writing-feedback-text">المطابقة دقيقة مئة بالمئة.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="flex gap-3 mt-6 w-full max-w-lg">
+                                <button onclick="checkWritingAnswer()" class="flex-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition">
+                                    💡 تحقق من الإملاء المكتوب
+                                </button>
+                                <button onclick="skipWritingQuestion()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-3 px-6 rounded-xl text-xs sm:text-sm transition">
+                                    تجاوز هذا المصطلح ⬅
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- TAB 6: BOOK REFERENCES AND TEXT REVIEWS -->
+                <div id="tab-book" class="tab-content hidden">
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl">
+                        <div class="border-b border-slate-800 pb-4 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-100">نصوص ومراجع الكتاب المنهجي الحرفية</h3>
+                                <p class="text-xs text-slate-400">جميع الفصول والقطع مع ترجمتها الرسمية الدقيقة المتطابقة مع صفحات الكتاب.</p>
+                            </div>
+                            <!-- Intellectual signature -->
+                            <span class="text-xs bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1.5 rounded-lg font-bold">
+                                إعداد وتصميم / مستشار أحمد وجيه
+                            </span>
+                        </div>
+
+                        <!-- Sub-Navigation for references -->
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <button onclick="switchBookTab('book-law')" class="book-subtab-btn bg-slate-800 text-amber-400 border border-amber-500/20 px-4 py-2 rounded-xl text-xs font-bold transition">أولاً: القانون وخصائصه</button>
+                            <button onclick="switchBookTab('book-contract')" class="book-subtab-btn bg-slate-950 text-slate-400 hover:bg-slate-850 px-4 py-2 rounded-xl text-xs font-bold transition">ثانياً: العقد وأركانه وأنواعه</button>
+                            <button onclick="switchBookTab('book-arbitration')" class="book-subtab-btn bg-slate-950 text-slate-400 hover:bg-slate-850 px-4 py-2 rounded-xl text-xs font-bold transition">ثالثاً: التحكيم وخصائصه</button>
+                            <button onclick="switchBookTab('book-glossary')" class="book-subtab-btn bg-slate-950 text-slate-400 hover:bg-slate-850 px-4 py-2 rounded-xl text-xs font-bold transition">رابعاً: المسرد الكامل للمصطلحات</button>
+                        </div>
+
+                        <!-- Content blocks -->
+                        <div id="book-content-container" class="space-y-6">
+                            
+                            <!-- Law -->
+                            <div id="book-law" class="book-subtab-content block space-y-4">
+                                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-full font-bold">تعريف القانون (Definition of Law)</span>
+                                        <span class="text-xs text-slate-500 font-mono">صفحة 3</span>
+                                    </div>
+                                    <p class="text-slate-300 font-serif leading-relaxed text-left border-l-2 border-slate-700 pl-4 mb-4 text-base" dir="ltr">
+                                        "Law is a set of general, abstract, and binding rules that states enact or order their application, accompanied by a present and material penalty imposed by the public authority when these rules are violated."
+                                    </p>
+                                    <p class="text-slate-400 text-sm leading-relaxed border-r-2 border-amber-500 pr-4">
+                                        "القانون هو عبارة عن مجموعة من القواعد العامة والمجردة والملزمة التي تنص الدولة على سنها أو تأمر بتطبيقها، مصحوبة بعقوبة حالية ومادية تفرضها السلطة العامة عند انتهاك هذه القواعد."
+                                    </p>
+                                </div>
+
+                                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-full font-bold">خصائص القانون (Characteristics of law)</span>
+                                        <span class="text-xs text-slate-500 font-mono">صفحة 3</span>
+                                    </div>
+                                    <ul class="space-y-4">
+                                        <li class="border-b border-slate-900 pb-3">
+                                            <div class="text-slate-100 font-bold text-sm">First: a general and abstract rule (أولاً: قاعدة عامة ومجردة)</div>
+                                        </li>
+                                        <li class="border-b border-slate-900 pb-3">
+                                            <div class="text-slate-100 font-bold text-sm">Second: Laws are a form of social control that outlines rules, habits, and customs a society uses to enforce conformity to its norms. (ثانياً: القوانين كأداة ضبط اجتماعي)</div>
+                                        </li>
+                                        <li>
+                                            <div class="text-slate-100 font-bold text-sm">Third: a binding rule (ثالثاً: قاعدة ملزمة)</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Contract -->
+                            <div id="book-contract" class="book-subtab-content hidden space-y-4">
+                                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-full font-bold">تعريف العقد (Definition of Contract)</span>
+                                        <span class="text-xs text-slate-500 font-mono">صفحة 16</span>
+                                    </div>
+                                    <p class="text-slate-300 font-serif leading-relaxed text-left border-l-2 border-slate-700 pl-4 mb-4 text-base" dir="ltr">
+                                        "A contract is one of the most important sources of obligation, and it is an agreement between two wills to produce a legal effect that establishes rights and obligations between the parties of the contract. A contract is concluded by an offer from the first party which is accepted by the second party."
+                                    </p>
+                                    <p class="text-slate-400 text-sm leading-relaxed border-r-2 border-amber-500 pr-4">
+                                        "العقد هو أحد أهم مصادر الالتزام وهو عبارة عن اتفاق بين إرادتين لإحداث أثر قانوني، وينشأ حقوق والتزامات بين أطراف العقد. وبذلك ينشأ العقد عن طريق إيجاب من الطرف الأول يقابله قبول من الطرف الآخر."
+                                    </p>
+                                </div>
+
+                                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800">
+                                    <div class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-full font-bold mb-3">أركان وعناصر العقد (Elements)</div>
+                                    <div class="space-y-4">
+                                        <div class="bg-slate-900/50 p-4 rounded-xl">
+                                            <div class="text-slate-100 font-bold text-sm mb-1">1. الإيجاب (Offer):</div>
+                                            <p class="text-slate-400 font-serif text-xs text-left mb-1" dir="ltr">"An offer is essentially an expression of willingness to contract made with the intention that it shall become binding on the person making it as soon as it is accepted by the person to whom it is addressed."</p>
+                                        </div>
+                                        <div class="bg-slate-900/50 p-4 rounded-xl">
+                                            <div class="text-slate-100 font-bold text-sm mb-1">2. القبول (Acceptance):</div>
+                                            <p class="text-slate-400 font-serif text-xs text-left mb-1" dir="ltr">"An acceptance is a final and unqualified expression of assent to the terms of an offer. Acceptance can be deemed to have taken place through the conduct of the parties."</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Arbitration -->
+                            <div id="book-arbitration" class="book-subtab-content hidden space-y-4">
+                                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-full font-bold">تعريف التحكيم (Definition of Arbitration)</span>
+                                        <span class="text-xs text-slate-500 font-mono">صفحة 19</span>
+                                    </div>
+                                    <p class="text-slate-300 font-serif leading-relaxed text-left border-l-2 border-slate-700 pl-4 mb-4 text-base" dir="ltr">
+                                        "Arbitration is a procedure in which a dispute is submitted, by agreement of the parties, to one or more arbitrators who make a binding decision on the dispute. In choosing arbitration, the parties opt for a private dispute resolution instead of court litigation."
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Glossary -->
+                            <div id="book-glossary" class="book-subtab-content hidden">
+                                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800">
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="book-glossary-grid">
+                                        <!-- Will be filled programmatically -->
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Credit and License -->
+    <footer class="bg-slate-950 border-t border-slate-900 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p class="font-bold text-slate-400 flex items-center gap-1">
+                <span>🛡 إعداد وتصميم وتطوير وتجميع / المستشار أحمد وجيه</span>
+            </p>
+            <p>© 2026 تم تطوير هذا النظام الذكي وفق مقرر د. محمود الشرقاوي لتمهيدي الدكتوراه - بني سويف.</p>
+        </div>
+    </footer>
+
+    <!-- App Logic Script -->
+    <script>
+        // MASTER DATABASE OF ALL CONCEPTS AND WORD GLOSSARY (EXPANDED TO 35 TERMS)
+        const glossaryData = [
+            { id: 1, arabic: "قواعد مجردة", english: "Abstract rules", type: "word", page: "19", category: "قواعد ومبادئ" },
+            { id: 2, arabic: "تصرف / فعل / قانون", english: "Act", type: "word", page: "19", category: "تصرفات قانونية" },
+            { id: 3, arabic: "المحاكم الإدارية", english: "Administrative courts", type: "word", page: "19", category: "جهات قضائية" },
+            { id: 4, arabic: "هيئة النيابة الإدارية", english: "Administrative Prosecution Authority", type: "word", page: "19", category: "جهات قضائية" },
+            { id: 5, arabic: "مشروع القانون", english: "Bill", type: "word", page: "19", category: "تشريعات" },
+            { id: 6, arabic: "مجلس الوزراء", english: "Council of Ministers", type: "word", page: "20", category: "سلطات عامة" },
+            { id: 7, arabic: "السلطة التنفيذية", english: "Executive authority", type: "word", page: "20", category: "سلطات عامة" },
+            { id: 8, arabic: "قواعد آمرة", english: "Imperative rules", type: "word", page: "20", category: "قواعد ومبادئ" },
+            { id: 9, arabic: "العدالة", english: "Justice / Equity", type: "word", page: "20", category: "قواعد ومبادئ" },
+            { id: 10, arabic: "قواعد قانونية", english: "Legal rules", type: "word", page: "21", category: "قواعد ومبادئ" },
+            { id: 11, arabic: "المشرع", english: "Legislator", type: "word", page: "21", category: "تشريعات" },
+            { id: 12, arabic: "البرلمان", english: "Parliament", type: "word", page: "22", category: "سلطات عامة" },
+            { id: 13, arabic: "رئيس الجمهورية", english: "President of the republic", type: "word", page: "22", category: "سلطات عامة" },
+            { id: 14, arabic: "النيابة العامة", english: "Public Prosecution", type: "word", page: "22", category: "جهات قضائية" },
+            { id: 15, arabic: "هيئة قضايا الدولة", english: "State Lawsuit Authority", type: "word", page: "23", category: "جهات قضائية" },
+            { id: 16, arabic: "مجلس الدولة", english: "State Council", type: "word", page: "23", category: "جهات قضائية" },
+            { id: 17, arabic: "قانون", english: "Law", type: "word", page: "3", category: "قواعد ومبادئ" },
+            { id: 18, arabic: "عقد", english: "Contract", type: "word", page: "16", category: "تصرفات قانونية" },
+            { id: 19, arabic: "إيجاب", english: "Offer", type: "word", page: "16", category: "تصرفات قانونية" },
+            { id: 20, arabic: "قبول", english: "Acceptance", type: "word", page: "16", category: "تصرفات قانونية" },
+            { id: 21, arabic: "التحكيم", english: "Arbitration", type: "word", page: "19", category: "قضاء بديل" },
+            { id: 22, arabic: "العقود المدنية", english: "Civil Contracts", type: "word", page: "17", category: "عقود" },
+            { id: 23, arabic: "العقود التجارية", english: "Commercial Contracts", type: "word", page: "17", category: "عقود" },
+            { id: 24, arabic: "العقود المسماة", english: "Nominal Contracts", type: "word", page: "17", category: "عقود" },
+            { id: 25, arabic: "العقود غير المسماة", english: "Non-nominal contracts", type: "word", page: "17", category: "عقود" },
+            { id: 26, arabic: "العقود الفورية", english: "Instant contracts", type: "word", page: "18", category: "عقود" },
+            { id: 27, arabic: "العقود المستمرة", english: "Continuous Contracts", type: "word", page: "18", category: "عقود" },
+            { id: 28, arabic: "العقود الشكلية", english: "Formal Contracts", type: "word", page: "18", category: "عقود" },
+            { id: 29, arabic: "العقود الرضائية", english: "Consensual Contracts", type: "word", page: "18", category: "عقود" },
+            { id: 30, arabic: "العقود البسيطة", english: "Simple Contracts", type: "word", page: "18", category: "عقود" },
+            { id: 31, arabic: "العقود المختلطة", english: "Mixed Contracts", type: "word", page: "18", category: "عقود" },
+            { id: 32, arabic: "عقوبة مادية", english: "Material penalty", type: "word", page: "3", category: "جزاءات" },
+            { id: 33, arabic: "نزاع", english: "Dispute", type: "word", page: "19", category: "التحكيم" },
+            { id: 34, arabic: "تقاضي المحاكم", english: "Court litigation", type: "word", page: "19", category: "جهات قضائية" },
+            { id: 35, arabic: "إملاء الرضا والقبول", english: "Assent", type: "word", page: "16", category: "تصرفات قانونية" }
+        ];
+
+        // Complex Definitions & Paragraphs (EXPANDED TO 7 SECTIONS)
+        const definitionsData = {
+            law: {
+                title: "تعريف القانون",
+                arabic: "القانون هو عبارة عن مجموعة من القواعد العامة والمجردة والملزمة التي تنص الدولة على سنها أو تأمر بتطبيقها، مصحوبة بعقوبة حالية ومادية تفرضها السلطة العامة عند انتهاك هذه القواعد.",
+                fullEnglish: "Law is a set of general, abstract, and binding rules that states enact or order their application, accompanied by a present and material penalty imposed by the public authority when these rules are violated.",
+                blanks: [
+                    { word: "set", index: 1 },
+                    { word: "general", index: 2 },
+                    { word: "abstract", index: 3 },
+                    { word: "binding", index: 4 },
+                    { word: "states", index: 5 },
+                    { word: "application", index: 6 },
+                    { word: "present", index: 7 },
+                    { word: "material", index: 8 },
+                    { word: "penalty", index: 9 },
+                    { word: "violated", index: 10 }
+                ],
+                passage: "Law is a {set} of {general}, {abstract}, and {binding} rules that {states} enact or order their {application}, accompanied by a {present} and {material} {penalty} imposed by the public authority when these rules are {violated}."
+            },
+            characteristics: {
+                title: "خصائص القانون ومفهوم الضبط الاجتماعي",
+                arabic: "خصائص القانون: أولاً: قاعدة عامة ومجردة. ثانياً: القوانين هي شكل من أشكال الرقابة الاجتماعية التي تحدد القواعد والنهج التي يفرض بها المجتمع الامتثال لأعرافه. ثالثاً: قاعدة ملزمة.",
+                fullEnglish: "Characteristics of law are first: a general and abstract rule. Second: Laws are a form of social control that outlines rules, habits, and customs a society uses to enforce conformity to its norms. Third: a binding rule.",
+                blanks: [
+                    { word: "general", index: 1 },
+                    { word: "abstract", index: 2 },
+                    { word: "social", index: 3 },
+                    { word: "control", index: 4 },
+                    { word: "customs", index: 5 },
+                    { word: "enforce", index: 6 },
+                    { word: "norms", index: 7 },
+                    { word: "binding", index: 8 }
+                ],
+                passage: "Characteristics of law are first: a {general} and {abstract} rule. Second: Laws are a form of {social} {control} that outlines rules, habits, and {customs} a society uses to {enforce} conformity to its {norms}. Third: a {binding} rule."
+            },
+            contract: {
+                title: "تعريف العقد وأطرافه",
+                arabic: "العقد هو أحد أهم مصادر الالتزام وهو عبارة عن اتفاق بين إرادتين لإحداث أثر قانوني، وينشأ حقوق والتزامات بين أطراف العقد. وبذلك ينشأ العقد عن طريق إيجاب من الطرف الأول يقابله قبول من الطرف الآخر.",
+                fullEnglish: "A contract is one of the most important sources of obligation, and it is an agreement between two wills to produce a legal effect that establishes rights and obligations between the parties of the contract. A contract is concluded by an offer from the first party which is accepted by the second party.",
+                blanks: [
+                    { word: "contract", index: 1 },
+                    { word: "sources", index: 2 },
+                    { word: "obligation", index: 3 },
+                    { word: "agreement", index: 4 },
+                    { word: "wills", index: 5 },
+                    { word: "legal", index: 6 },
+                    { word: "rights", index: 7 },
+                    { word: "concluded", index: 8 },
+                    { word: "offer", index: 9 },
+                    { word: "accepted", index: 10 }
+                ],
+                passage: "A {contract} is one of the most important {sources} of {obligation}, and it is an {agreement} between two {wills} to produce a {legal} effect that establishes {rights} and obligations between the parties of the contract. A contract is {concluded} by an {offer} from the first party which is {accepted} by the second party."
+            },
+            offer: {
+                title: "تعريف الإيجاب للتعاقد",
+                arabic: "الإيجاب هو تعبير عن الرغبة للتعاقد يتم بنية أن يكون ملزماً على الشخص المعبر فور قبوله من الموجه إليه.",
+                fullEnglish: "An offer is essentially an expression of willingness to contract made with the intention that it shall become binding on the person making it as soon as it is accepted by the person to whom it is addressed.",
+                blanks: [
+                    { word: "offer", index: 1 },
+                    { word: "willingness", index: 2 },
+                    { word: "intention", index: 3 },
+                    { word: "binding", index: 4 },
+                    { word: "accepted", index: 5 },
+                    { word: "addressed", index: 6 }
+                ],
+                passage: "An {offer} is essentially an expression of {willingness} to contract made with the {intention} that it shall become {binding} on the person making it as soon as it is {accepted} by the person to whom it is {addressed}."
+            },
+            acceptance: {
+                title: "تعريف القبول وأحكامه",
+                arabic: "القبول: هو تعبير نهائي وغير مشروط بأحكام الإيجاب، يجوز إثبات حدوث القبول في تعاملات الأطراف.",
+                fullEnglish: "An acceptance is a final and unqualified expression of assent to the terms of an offer. Acceptance can be deemed to have taken place through the conduct of the parties.",
+                blanks: [
+                    { word: "acceptance", index: 1 },
+                    { word: "final", index: 2 },
+                    { word: "unqualified", index: 3 },
+                    { word: "assent", index: 4 },
+                    { word: "deemed", index: 5 },
+                    { word: "conduct", index: 6 }
+                ],
+                passage: "An {acceptance} is a {final} and {unqualified} expression of {assent} to the terms of an offer. Acceptance can be {deemed} to have taken place through the {conduct} of the parties."
+            },
+            arbitration: {
+                title: "تعريف التحكيم التجاري والدولي",
+                arabic: "التحكيم هو الإجراء الذي يتم فيه عرض النزاع، باتفاق الأطراف، على محكم واحد أو أكثر لاتخاذ قرار ملزم بشأن النزاع. عند اختيار التحكيم، يختار الطرفان إجراءً خاصاً لتسوية المنازعات بدلاً من اللجوء إلى المحكمة.",
+                fullEnglish: "Arbitration is a procedure in which a dispute is submitted, by agreement of the parties, to one or more arbitrators who make a binding decision on the dispute. In choosing arbitration, the parties opt for a private dispute resolution instead of court litigation.",
+                blanks: [
+                    { word: "Arbitration", index: 1 },
+                    { word: "procedure", index: 2 },
+                    { word: "dispute", index: 3 },
+                    { word: "submitted", index: 4 },
+                    { word: "agreement", index: 5 },
+                    { word: "arbitrators", index: 6 },
+                    { word: "binding", index: 7 },
+                    { word: "private", index: 8 },
+                    { word: "litigation", index: 9 }
+                ],
+                passage: "{Arbitration} is a {procedure} in which a {dispute} is {submitted}, by {agreement} of the parties, to one or more {arbitrators} who make a {binding} decision on the dispute. In choosing arbitration, the parties opt for a {private} dispute resolution instead of court {litigation}."
+            },
+            arbitration_char: {
+                title: "خصائص ومبادئ التحكيم الأساسية",
+                arabic: "الخصائص الرئيسية للتحكيم هي: 1- التحكيم رضائي. 2- حرية الأطراف في اختيار المحكمين. 3- التحكيم محايد. 4- سرية التحكيم. 5- قرار هيئة التحكيم نهائي وقابل للتنفيذ.",
+                fullEnglish: "The main characteristics of arbitration are: 1- Arbitration is consensual. 2- The parties' freedom to choose the arbitrator. 3- Arbitration is neutral. 4- Confidentiality of Arbitration. 5- The decision of the arbitral tribunal is final and enforceable.",
+                blanks: [
+                    { word: "consensual", index: 1 },
+                    { word: "freedom", index: 2 },
+                    { word: "arbitrator", index: 3 },
+                    { word: "neutral", index: 4 },
+                    { word: "Confidentiality", index: 5 },
+                    { word: "tribunal", index: 6 },
+                    { word: "final", index: 7 },
+                    { word: "enforceable", index: 8 }
+                ],
+                passage: "The main characteristics of arbitration are: 1- Arbitration is {consensual}. 2- The parties' {freedom} to choose the {arbitrator}. 3- Arbitration is {neutral}. 4- {Confidentiality} of Arbitration. 5- The decision of the arbitral {tribunal} is {final} and {enforceable}."
+            }
+        };
+
+        const APP_STORAGE_KEY = 'legalTermsApp.profile.v1';
+        const WELCOME_ACK_KEY = 'legalTermsApp.welcomeDismissed.v1';
+        const PROGRESS_STORAGE_KEY = 'legalTermsApp.progress.v1';
+        const CUSTOM_CONTENT_STORAGE_KEY = 'legalTermsApp.customContent.v1';
+        const ADMIN_PASSWORD = 'Doctor2026';
+        const defaultProfile = {
+            name: '',
+            gender: 'male'
+        };
+
+        // Application State
+        let state = {
+            score: 100,
+            streak: 1,
+            masteredIds: [],
+            reviewedIds: [],
+            
+            // Study Tab hide/show states
+            hideArabicStudy: false,
+            hideEnglishStudy: false,
+
+            // Flashcard
+            flashcardIndex: 0,
+            activeFlashcards: [...glossaryData],
+            
+            // Match Game
+            matchSelectedId: null,
+            matchTimerInterval: null,
+            matchStartTime: null,
+            matchElapsedTime: 0,
+            matchPairs: [],
+            
+            // Quiz
+            quizCurrentIndex: 0,
+            quizQuestions: [],
+            quizScore: 0,
+            
+            // Writing Practice
+            writingCurrentIndex: 0,
+            writingTerms: [...glossaryData],
+            writingHintRevealed: false,
+
+            // Profile
+            profile: { ...defaultProfile },
+            profileLoaded: false,
+
+            // Gamification
+            streakDays: 1,
+            lastActiveDay: null,
+
+            // Custom Content
+            customEntries: [],
+            adminUnlocked: false
+        };
+
+        // Initial setup
+        window.onload = function() {
+            initProfileSystem();
+            initProgressSystem();
+            initCustomContentSystem();
+            updateDashboardStats();
+            initStudyMode();
+            initFlashcards();
+            setupGlossaryBook();
+        };
+
+        function getProfileLabel() {
+            const name = state.profile?.name?.trim();
+            if (!name) return 'دكتور';
+            return state.profile.gender === 'female' ? `دكتورة ${name}` : `دكتور ${name}`;
+        }
+
+        function applyProfileToUI() {
+            const profileBadge = document.getElementById('profile-badge');
+            const heroUserName = document.getElementById('hero-user-name');
+            if (profileBadge) {
+                profileBadge.innerText = `مرحباً يا ${getProfileLabel()}`;
+            }
+            if (heroUserName) {
+                heroUserName.innerText = getProfileLabel();
+            }
+
+            document.title = state.profile?.name?.trim()
+                ? `تطبيق الحفظ الذكي - ${getProfileLabel()}`
+                : 'تطبيق الحفظ الذكي للمصطلحات القانونية - المستشار أحمد وجيه';
+        }
+
+        function loadProfileFromStorage() {
+            try {
+                const raw = localStorage.getItem(APP_STORAGE_KEY);
+                if (!raw) return { ...defaultProfile };
+                const parsed = JSON.parse(raw);
+                return {
+                    name: typeof parsed.name === 'string' ? parsed.name : '',
+                    gender: parsed.gender === 'female' ? 'female' : 'male'
+                };
+            } catch (error) {
+                return { ...defaultProfile };
+            }
+        }
+
+        function saveProfileToStorage(profile) {
+            localStorage.setItem(APP_STORAGE_KEY, JSON.stringify(profile));
+        }
+
+        function loadCustomEntries() {
+            try {
+                const raw = localStorage.getItem(CUSTOM_CONTENT_STORAGE_KEY);
+                if (!raw) return [];
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (error) {
+                return [];
+            }
+        }
+
+        function saveCustomEntries(entries) {
+            localStorage.setItem(CUSTOM_CONTENT_STORAGE_KEY, JSON.stringify(entries));
+        }
+
+        function getMergedCatalog() {
+            return [...glossaryData, ...(state.customEntries || [])];
+        }
+
+        function normalizeCustomEntry(entry) {
+            return {
+                id: entry.id,
+                arabic: entry.arabic,
+                english: entry.english,
+                type: entry.type || 'word',
+                page: entry.page || '-',
+                category: entry.category || 'محتوى مضاف',
+                note: entry.note || '',
+                source: 'custom'
+            };
+        }
+
+        function loadProgressFromStorage() {
+            try {
+                const raw = localStorage.getItem(PROGRESS_STORAGE_KEY);
+                if (!raw) return null;
+                return JSON.parse(raw);
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function saveProgressToStorage() {
+            localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify({
+                score: state.score,
+                masteredIds: state.masteredIds,
+                reviewedIds: state.reviewedIds,
+                streakDays: state.streakDays,
+                lastActiveDay: state.lastActiveDay,
+                profile: state.profile
+            }));
+        }
+
+        function getTodayKey() {
+            return new Date().toISOString().slice(0, 10);
+        }
+
+        function initProgressSystem() {
+            const saved = loadProgressFromStorage();
+            if (!saved) {
+                state.lastActiveDay = getTodayKey();
+                saveProgressToStorage();
+                return;
+            }
+
+            if (typeof saved.score === 'number') state.score = saved.score;
+            if (Array.isArray(saved.masteredIds)) state.masteredIds = saved.masteredIds;
+            if (Array.isArray(saved.reviewedIds)) state.reviewedIds = saved.reviewedIds;
+            if (typeof saved.streakDays === 'number') state.streakDays = saved.streakDays;
+            if (typeof saved.lastActiveDay === 'string') state.lastActiveDay = saved.lastActiveDay;
+
+            const todayKey = getTodayKey();
+            if (state.lastActiveDay !== todayKey) {
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                const yesterdayKey = yesterday.toISOString().slice(0, 10);
+                state.streakDays = state.lastActiveDay === yesterdayKey ? state.streakDays + 1 : 1;
+                state.lastActiveDay = todayKey;
+            }
+
+            applyProfileToUI();
+        }
+
+        function getStudyLevelLabel() {
+            if (state.score >= 900) return 'مستوى خبير';
+            if (state.score >= 700) return 'مستوى متقدم';
+            if (state.score >= 500) return 'مستوى قوي';
+            return 'مستوى تأسيسي';
+        }
+
+        function closeWelcomeModal() {
+            const modal = document.getElementById('welcome-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function openWelcomeModal() {
+            const modal = document.getElementById('welcome-modal');
+            const nameInput = document.getElementById('profile-name-input');
+            const genderInput = document.getElementById('profile-gender-input');
+
+            if (!modal) return;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            if (nameInput) nameInput.value = state.profile?.name || '';
+            if (genderInput) genderInput.value = state.profile?.gender || 'male';
+
+            setTimeout(() => nameInput && nameInput.focus(), 120);
+        }
+
+        function commitProfileFromForm() {
+            const nameInput = document.getElementById('profile-name-input');
+            const genderInput = document.getElementById('profile-gender-input');
+            const dontShow = document.getElementById('dont-show-welcome');
+
+            const name = nameInput ? nameInput.value.trim() : '';
+            const gender = genderInput && genderInput.value === 'female' ? 'female' : 'male';
+
+            state.profile = { name, gender };
+            saveProfileToStorage(state.profile);
+            applyProfileToUI();
+
+            if (dontShow && dontShow.checked) {
+                localStorage.setItem(WELCOME_ACK_KEY, '1');
+            }
+
+            closeWelcomeModal();
+            showToast(name ? `أهلاً بك يا ${getProfileLabel()}` : 'تم حفظ الإعدادات المحلية بنجاح', true);
+        }
+
+        function initProfileSystem() {
+            state.profile = loadProfileFromStorage();
+            state.profileLoaded = true;
+            applyProfileToUI();
+
+            const savedAck = localStorage.getItem(WELCOME_ACK_KEY);
+            const hasName = Boolean(state.profile?.name?.trim());
+
+            if (!savedAck || !hasName) {
+                openWelcomeModal();
+            }
+
+            const saveProfileBtn = document.getElementById('save-profile-btn');
+            const editProfileBtn = document.getElementById('edit-profile-btn');
+            const welcomeCloseBtn = document.getElementById('welcome-close-btn');
+            const nameInput = document.getElementById('profile-name-input');
+
+            if (saveProfileBtn) saveProfileBtn.addEventListener('click', commitProfileFromForm);
+            if (editProfileBtn) editProfileBtn.addEventListener('click', openWelcomeModal);
+            if (welcomeCloseBtn) welcomeCloseBtn.addEventListener('click', closeWelcomeModal);
+            if (nameInput) {
+                nameInput.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        commitProfileFromForm();
+                    }
+                });
+            }
+        }
+
+        function initCustomContentSystem() {
+            state.customEntries = loadCustomEntries().map(normalizeCustomEntry);
+            bindAdminSystem();
+            refreshAdminSummary();
+            applyCustomContentHints();
+        }
+
+        function refreshAdminSummary() {
+            const customCountEl = document.getElementById('admin-custom-count');
+            const totalCountEl = document.getElementById('admin-total-count');
+            const listEl = document.getElementById('admin-custom-list');
+
+            if (customCountEl) customCountEl.innerText = state.customEntries.length;
+            if (totalCountEl) totalCountEl.innerText = getMergedCatalog().length;
+            if (!listEl) return;
+
+            if (state.customEntries.length === 0) {
+                listEl.innerHTML = '<div class="text-xs text-slate-500 rounded-xl border border-dashed border-slate-800 px-3 py-4 text-center">لا توجد إضافات محلية حتى الآن.</div>';
+                return;
+            }
+
+            listEl.innerHTML = state.customEntries.map(item => `
+                <div class="rounded-xl border border-slate-800 bg-slate-900/80 p-3 flex items-start justify-between gap-3">
+                    <div>
+                        <div class="text-sm font-bold text-slate-100">${item.arabic}</div>
+                        <div class="text-xs text-sky-300 english-text mt-1">${item.english}</div>
+                        <div class="text-[10px] text-slate-500 mt-1">${item.category} • ${item.page}</div>
+                    </div>
+                    <button onclick="deleteCustomEntry('${item.id}')" class="shrink-0 rounded-lg border border-red-500/30 bg-red-950/40 px-2 py-1 text-[10px] font-bold text-red-300">حذف</button>
+                </div>
+            `).join('');
+        }
+
+        function bindAdminSystem() {
+            const closeBtn = document.getElementById('admin-close-btn');
+            const loginBtn = document.getElementById('admin-login-btn');
+            const saveBtn = document.getElementById('admin-save-btn');
+            const clearBtn = document.getElementById('admin-clear-btn');
+
+            const adminOpenBtn = document.getElementById('admin-open-btn');
+            if (adminOpenBtn) {
+                adminOpenBtn.addEventListener('click', openAdminModal);
+            }
+            if (closeBtn) closeBtn.addEventListener('click', closeAdminModal);
+            if (loginBtn) loginBtn.addEventListener('click', verifyAdminPassword);
+            if (saveBtn) saveBtn.addEventListener('click', addCustomEntryFromForm);
+            if (clearBtn) clearBtn.addEventListener('click', clearCustomEntries);
+        }
+
+        function applyCustomContentHints() {
+            const customCount = state.customEntries.length;
+            if (customCount > 0) {
+                const heroHint = document.getElementById('progress-hint');
+                if (heroHint && state.profile?.name?.trim()) {
+                    heroHint.innerText = `لديك الآن ${customCount} إضافة محلية جاهزة للمراجعة. استمر يا ${getProfileLabel()}.`;
+                }
+            }
+        }
+
+        function openAdminModal() {
+            const modal = document.getElementById('admin-modal');
+            if (!modal) return;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            const passwordInput = document.getElementById('admin-password-input');
+            if (state.adminUnlocked) {
+                document.getElementById('admin-lock-panel')?.classList.add('hidden');
+                document.getElementById('admin-workspace')?.classList.remove('hidden');
+            } else {
+                document.getElementById('admin-lock-panel')?.classList.remove('hidden');
+                document.getElementById('admin-workspace')?.classList.add('hidden');
+                if (passwordInput) passwordInput.focus();
+            }
+            refreshAdminSummary();
+        }
+
+        function closeAdminModal() {
+            const modal = document.getElementById('admin-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function verifyAdminPassword() {
+            const passwordInput = document.getElementById('admin-password-input');
+            const entered = passwordInput ? passwordInput.value.trim() : '';
+
+            if (entered === ADMIN_PASSWORD) {
+                state.adminUnlocked = true;
+                document.getElementById('admin-lock-panel')?.classList.add('hidden');
+                document.getElementById('admin-workspace')?.classList.remove('hidden');
+                refreshAdminSummary();
+                showToast('تم فتح لوحة الأدمن بنجاح', true);
+            } else {
+                showToast('باسورد الأدمن غير صحيح', false);
+            }
+        }
+
+        function addCustomEntryFromForm() {
+            if (!state.adminUnlocked) {
+                showToast('افتح لوحة الأدمن أولاً', false);
+                return;
+            }
+
+            const arabicInput = document.getElementById('admin-arabic-input');
+            const englishInput = document.getElementById('admin-english-input');
+            const pageInput = document.getElementById('admin-page-input');
+            const categoryInput = document.getElementById('admin-category-input');
+            const typeInput = document.getElementById('admin-type-input');
+            const noteInput = document.getElementById('admin-note-input');
+
+            const arabic = arabicInput ? arabicInput.value.trim() : '';
+            const english = englishInput ? englishInput.value.trim() : '';
+            if (!arabic || !english) {
+                showToast('اكتب العربية والإنجليزية قبل الإضافة', false);
+                return;
+            }
+
+            const entry = normalizeCustomEntry({
+                id: `custom-${Date.now()}`,
+                arabic,
+                english,
+                page: pageInput ? pageInput.value.trim() : '-',
+                category: categoryInput ? categoryInput.value.trim() : 'محتوى مضاف',
+                type: typeInput ? typeInput.value : 'word',
+                note: noteInput ? noteInput.value.trim() : ''
+            });
+
+            state.customEntries = [entry, ...state.customEntries];
+            saveCustomEntries(state.customEntries);
+            refreshAdminSummary();
+            syncLearningViews();
+
+            if (arabicInput) arabicInput.value = '';
+            if (englishInput) englishInput.value = '';
+            if (pageInput) pageInput.value = '';
+            if (categoryInput) categoryInput.value = '';
+            if (noteInput) noteInput.value = '';
+
+            showToast('تمت إضافة المحتوى المحلي بنجاح', true);
+        }
+
+        function deleteCustomEntry(entryId) {
+            state.customEntries = state.customEntries.filter(item => item.id !== entryId);
+            saveCustomEntries(state.customEntries);
+            refreshAdminSummary();
+            syncLearningViews();
+            showToast('تم حذف الإضافة المحلية', true);
+        }
+
+        function clearCustomEntries() {
+            state.customEntries = [];
+            saveCustomEntries(state.customEntries);
+            refreshAdminSummary();
+            syncLearningViews();
+            showToast('تم مسح جميع الإضافات المحلية', true);
+        }
+
+        function syncLearningViews() {
+            initStudyMode();
+            initFlashcards();
+            setupGlossaryBook();
+            initWritingPractice();
+            if (document.getElementById('tab-quiz') && !document.getElementById('tab-quiz').classList.contains('hidden')) {
+                resetQuiz();
+            }
+        }
+
+        function updateDashboardStats() {
+            document.getElementById('total-score').innerText = state.score;
+            const totalScoreHero = document.getElementById('total-score-hero');
+            if (totalScoreHero) totalScoreHero.innerText = state.score;
+            document.getElementById('mastered-count').innerText = state.masteredIds.length;
+            const totalTermsCount = document.getElementById('total-terms-count');
+            if (totalTermsCount) totalTermsCount.innerText = `/${getMergedCatalog().length}`;
+            const streakBadge = document.getElementById('streak-badge');
+            const levelBadge = document.getElementById('level-badge');
+            const progressHint = document.getElementById('progress-hint');
+            const dailyMission = document.getElementById('daily-mission');
+
+            if (streakBadge) streakBadge.innerText = `🔥 ${state.streakDays} يوم`;
+            if (levelBadge) levelBadge.innerText = getStudyLevelLabel();
+            if (progressHint) {
+                const mastered = state.masteredIds.length;
+                progressHint.innerText = mastered
+                    ? `أنت تتقن ${mastered} مصطلحات حتى الآن. استمر يا ${getProfileLabel()}.`
+                    : `ابدأ أول جولة مذاكرة يا ${getProfileLabel()}، وسنحوّل الكلمات إلى إتقان.`;
+            }
+            if (dailyMission) {
+                const mastered = state.masteredIds.length;
+                if (mastered === 0) {
+                    dailyMission.innerText = '🎯 مهمة اليوم: ابدأ بـ 5 مصطلحات';
+                } else if (mastered < 10) {
+                    dailyMission.innerText = '🎯 مهمة اليوم: أضف 3 مصطلحات جديدة';
+                } else {
+                    dailyMission.innerText = '🎯 مهمة اليوم: راجع 5 وأتمّ الامتحان السريع';
+                }
+            }
+
+            saveProgressToStorage();
+        }
+
+        function switchTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => {
+                tab.classList.add('hidden');
+                tab.classList.remove('block');
+            });
+
+            const targetTab = document.getElementById('tab-' + tabId);
+            if (targetTab) {
+                targetTab.classList.remove('hidden');
+                targetTab.classList.add('block');
+            }
+
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                btn.classList.remove('bg-slate-800', 'text-amber-400', 'border', 'border-amber-500/20');
+                btn.classList.add('text-slate-300');
+            });
+
+            const activeBtn = document.getElementById('btn-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-slate-300');
+                activeBtn.classList.add('bg-slate-800', 'text-amber-400', 'border', 'border-amber-500/20');
+            }
+
+            if (tabId === 'study') {
+                initStudyMode();
+            } else if (tabId === 'match') {
+                resetMatchGame();
+            } else if (tabId === 'quiz') {
+                resetQuiz();
+            } else if (tabId === 'fillblanks') {
+                loadFillBlanks('law');
+            } else if (tabId === 'writing') {
+                initWritingPractice();
+            }
+        }
+
+        // Speech Pronunciation Engine
+        function speakWord(word) {
+            if ('speechSynthesis' in window) {
+                // Cancel active speeches
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(word);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.85;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                showToast("النطق الصوتي غير متوفر في جهازك حالياً.", false);
+            }
+        }
+
+        function speakCurrentWord(event) {
+            if (event) event.stopPropagation();
+            const activeItem = state.activeFlashcards[state.flashcardIndex];
+            if (activeItem) {
+                speakWord(activeItem.english);
+            }
+        }
+
+        function showToast(message, isSuccess = true) {
+            const toast = document.createElement('div');
+            toast.className = `fixed bottom-5 left-5 z-50 px-4 py-3 rounded-xl shadow-2xl text-xs font-bold transition-all duration-300 flex items-center gap-2 ${isSuccess ? 'bg-emerald-950/90 border border-emerald-500/30 text-emerald-300' : 'bg-amber-950/95 border border-amber-500/30 text-amber-300'}`;
+            toast.innerHTML = `<span>${isSuccess ? '✔' : '⚠️'}</span><span>${message}</span>`;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+
+        // --- TAB 0: STUDY & PREPARATION MODE (NEW) ---
+        function initStudyMode() {
+            renderStudyTable(getMergedCatalog());
+        }
+
+        function renderStudyTable(data) {
+            const tbody = document.getElementById('study-table-body');
+            tbody.innerHTML = '';
+
+            data.forEach((item) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-900/60 transition duration-150 border-b border-slate-850";
+                
+                // Arabic column
+                const tdAr = document.createElement('td');
+                tdAr.className = "p-4 font-bold text-slate-100 transition-opacity duration-200";
+                tdAr.id = `study-ar-${item.id}`;
+                tdAr.style.opacity = state.hideArabicStudy ? "0" : "1";
+                tdAr.innerText = item.arabic;
+
+                // English column
+                const tdEn = document.createElement('td');
+                tdEn.className = "p-4 text-left font-serif text-amber-400 text-sm sm:text-base transition-opacity duration-200";
+                tdEn.id = `study-en-${item.id}`;
+                tdEn.style.opacity = state.hideEnglishStudy ? "0" : "1";
+                tdEn.innerText = item.english;
+
+                // Page
+                const tdPage = document.createElement('td');
+                tdPage.className = "p-4 text-center text-slate-500 font-mono text-xs";
+                tdPage.innerText = `ص ${item.page}`;
+
+                // Action tools (Speak and hide toggle)
+                const tdActions = document.createElement('td');
+                tdActions.className = "p-4 text-center flex justify-center items-center gap-1.5";
+                tdActions.innerHTML = `
+                    <button onclick="speakWord('${item.english}')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 p-1.5 rounded-lg text-[10px]" title="استمع للنطق">
+                        🔊
+                    </button>
+                    <button onclick="toggleStudySingleCard(${item.id})" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-2 py-1 rounded-lg text-[10px]" title="كشف/إخفاء">
+                        👁
+                    </button>
+                `;
+
+                tr.appendChild(tdAr);
+                tr.appendChild(tdEn);
+                tr.appendChild(tdPage);
+                tr.appendChild(tdActions);
+                tbody.appendChild(tr);
+            });
+        }
+
+        function toggleStudyColumn(lang) {
+            if (lang === 'ar') {
+                state.hideArabicStudy = !state.hideArabicStudy;
+                showToast(state.hideArabicStudy ? "تم إخفاء الكلمات العربية للتسميع الذاتي" : "تم إظهار الكلمات العربية");
+            } else {
+                state.hideEnglishStudy = !state.hideEnglishStudy;
+                showToast(state.hideEnglishStudy ? "تم إخفاء المقابلات الإنجليزية للتسميع الذاتي" : "تم إظهار الكلمات الإنجليزية");
+            }
+            initStudyMode();
+        }
+
+        function toggleStudySingleCard(id) {
+            const arEl = document.getElementById(`study-ar-${id}`);
+            const enEl = document.getElementById(`study-en-${id}`);
+            if (arEl && enEl) {
+                arEl.style.opacity = arEl.style.opacity === "0" ? "1" : "0";
+                enEl.style.opacity = enEl.style.opacity === "0" ? "1" : "0";
+            }
+        }
+
+        function filterStudyTable() {
+            const query = document.getElementById('study-search').value.toLowerCase().trim();
+            const filtered = getMergedCatalog().filter(item => 
+                item.arabic.toLowerCase().includes(query) || 
+                item.english.toLowerCase().includes(query) || 
+                item.category.toLowerCase().includes(query)
+            );
+            renderStudyTable(filtered);
+        }
+
+
+        // --- TAB 1: FLASHCARDS MODULE ---
+        function initFlashcards() {
+            state.flashcardIndex = 0;
+            state.activeFlashcards = [...getMergedCatalog()];
+            renderActiveFlashcard();
+        }
+
+        function filterFlashcards(filterType) {
+            if (filterType === 'all') {
+                state.activeFlashcards = [...getMergedCatalog()];
+            } else if (filterType === 'words') {
+                state.activeFlashcards = getMergedCatalog().filter(item => item.page !== '3' && item.page !== '16' && item.page !== '19');
+            } else if (filterType === 'definitions') {
+                state.activeFlashcards = getMergedCatalog().filter(item => ['Law', 'Contract', 'Offer', 'Acceptance', 'Arbitration'].includes(item.english));
+            }
+            state.flashcardIndex = 0;
+            renderActiveFlashcard();
+        }
+
+        function flipActiveCard() {
+            document.getElementById('active-card').classList.toggle('flipped');
+        }
+
+        function renderActiveFlashcard() {
+            if (state.activeFlashcards.length === 0) return;
+            const currentItem = state.activeFlashcards[state.flashcardIndex];
+            
+            document.getElementById('active-card').classList.remove('flipped');
+
+            document.getElementById('card-arabic-term').innerText = currentItem.arabic;
+            document.getElementById('card-english-term').innerText = currentItem.english;
+            document.getElementById('card-category-front').innerText = currentItem.category;
+            document.getElementById('card-page-front').innerText = `مقرر المستشار أحمد وجيه - صفحة ${currentItem.page}`;
+            document.getElementById('card-page-back').innerText = `صفحة ${currentItem.page} | تصفح البقية`;
+
+            const detailedDef = getDetailDefinition(currentItem.english);
+            document.getElementById('card-definition-text').innerText = detailedDef;
+            document.getElementById('card-hint-front').innerText = `انقر لقلب البطاقة ومعرفة الترجمة الرسمية لـ [${currentItem.arabic}]`;
+
+            const count = state.activeFlashcards.length;
+            document.getElementById('flashcard-index').innerText = `البطاقة ${state.flashcardIndex + 1} من ${count}`;
+            const percent = Math.round(((state.flashcardIndex + 1) / count) * 100);
+            document.getElementById('flashcard-percent').innerText = `التقدم: ${percent}%`;
+            document.getElementById('flashcard-progress-bar').style.width = `${percent}%`;
+        }
+
+        function getDetailDefinition(englishTerm) {
+            switch(englishTerm) {
+                case 'Law': return "القانون هو عبارة عن مجموعة من القواعد العامة والمجردة والملزمة التي تنص الدولة على سنها أو تأمر بتطبيقها، مصحوبة بعقوبة حالية ومادية تفرضها السلطة العامة عند انتهاك هذه القواعد.";
+                case 'Contract': return "العقد هو أحد أهم مصادر الالتزام وهو عبارة عن اتفاق بين إرادتين لإحداث أثر قانوني، وينشأ حقوق والتزامات بين أطراف العقد.";
+                case 'Arbitration': return "التحكيم هو الإجراء الذي يتم فيه عرض النزاع، باتفاق الأطراف، على محكم واحد أو أكثر لاتخاذ قرار ملزم بشأن النزاع.";
+                case 'Offer': return "الإيجاب هو تعبير عن الرغبة للتعاقد يتم بنية أن يكون ملزماً على الشخص المعبر فور قبوله من الموجه إليه.";
+                case 'Acceptance': return "القبول: هو تعبير نهائي وغير مشروط بأحكام الإيجاب، يجوز إثبات حدوث القبول في تعاملات الأطراف.";
+                default: return "مصطلح قانوني أساسي وارد في مسرد المصطلحات المعتمدة لتمهيدي الدكتوراه بكلية الحقوق.";
+            }
+        }
+
+        function sortCard(isMastered) {
+            const currentItem = state.activeFlashcards[state.flashcardIndex];
+            
+            if (isMastered) {
+                if (!state.masteredIds.includes(currentItem.id)) {
+                    state.masteredIds.push(currentItem.id);
+                    state.score += 15;
+                    showToast(`رائع! أتقنت "${currentItem.arabic}" (+15 نقطة)`);
+                }
+            } else {
+                if (!state.reviewedIds.includes(currentItem.id)) {
+                    state.reviewedIds.push(currentItem.id);
+                }
+            }
+
+            updateDashboardStats();
+
+            if (state.flashcardIndex < state.activeFlashcards.length - 1) {
+                state.flashcardIndex++;
+                renderActiveFlashcard();
+            } else {
+                showToast("أحسنت! أتممت المراجعة على كامل المجموعة.", true);
+                state.flashcardIndex = 0;
+                renderActiveFlashcard();
+            }
+        }
+
+
+        // --- TAB 2: MATCHING GAME ---
+        function resetMatchGame() {
+            if (state.matchTimerInterval) clearInterval(state.matchTimerInterval);
+
+            state.matchSelectedId = null;
+            state.matchElapsedTime = 0;
+            state.matchStartTime = Date.now();
+            document.getElementById('match-timer').innerText = "00:00";
+            document.getElementById('match-win-pane').classList.add('hidden');
+            document.getElementById('match-grid').classList.remove('hidden');
+
+            const shuffled = [...getMergedCatalog()].sort(() => 0.5 - Math.random());
+            const selected = shuffled.slice(0, 4); 
+
+            let items = [];
+            selected.forEach(item => {
+                items.push({ id: item.id, text: item.arabic, lang: 'ar' });
+                items.push({ id: item.id, text: item.english, lang: 'en' });
+            });
+
+            items.sort(() => 0.5 - Math.random());
+            state.matchPairs = items;
+
+            state.matchTimerInterval = setInterval(() => {
+                state.matchElapsedTime = Math.floor((Date.now() - state.matchStartTime) / 1000);
+                const minutes = String(Math.floor(state.matchElapsedTime / 60)).padStart(2, '0');
+                const seconds = String(state.matchElapsedTime % 60).padStart(2, '0');
+                document.getElementById('match-timer').innerText = `${minutes}:${seconds}`;
+            }, 1000);
+
+            renderMatchGrid();
+        }
+
+        function renderMatchGrid() {
+            const grid = document.getElementById('match-grid');
+            grid.innerHTML = '';
+
+            state.matchPairs.forEach((pair, index) => {
+                const cardBtn = document.createElement('button');
+                cardBtn.id = `match-card-${index}`;
+                // Ultra High Contrast classes applied here
+                cardBtn.className = `h-24 p-3 rounded-2xl flex items-center justify-center text-center font-extrabold text-sm border-2 transition duration-200 shadow-md ${
+                    pair.lang === 'en' ? 'english-text bg-slate-900 border-amber-500/40 text-slate-100 hover:bg-slate-800' : 'bg-slate-850 border-slate-700 text-slate-100 hover:bg-slate-800'
+                }`;
+                cardBtn.innerText = pair.text;
+                cardBtn.onclick = () => selectMatchCard(index);
+                grid.appendChild(cardBtn);
+            });
+        }
+
+        function selectMatchCard(index) {
+            const selectedCard = state.matchPairs[index];
+            if (!selectedCard || selectedCard.matched) return;
+
+            if (state.matchSelectedId === null) {
+                state.matchSelectedId = index;
+                document.getElementById(`match-card-${index}`).classList.add('border-amber-400', 'bg-amber-400/20', 'scale-105');
+            } else {
+                if (state.matchSelectedId === index) {
+                    document.getElementById(`match-card-${index}`).className = `h-24 p-3 rounded-2xl flex items-center justify-center text-center font-extrabold text-sm border-2 transition duration-200 shadow-md ${
+                        selectedCard.lang === 'en' ? 'english-text bg-slate-900 border-amber-500/40 text-slate-100' : 'bg-slate-850 border-slate-700 text-slate-100'
+                    }`;
+                    state.matchSelectedId = null;
+                    return;
+                }
+
+                const prevIndex = state.matchSelectedId;
+                const prevCard = state.matchPairs[prevIndex];
+
+                if (prevCard.id === selectedCard.id && prevCard.lang !== selectedCard.lang) {
+                    showMatchSuccess(prevIndex, index);
+                    state.score += 20;
+                    updateDashboardStats();
+                } else {
+                    showMatchError(prevIndex, index);
+                }
+
+                state.matchSelectedId = null;
+            }
+        }
+
+        function showMatchSuccess(idx1, idx2) {
+            const card1 = document.getElementById(`match-card-${idx1}`);
+            const card2 = document.getElementById(`match-card-${idx2}`);
+
+            [card1, card2].forEach(c => {
+                c.className = "h-24 p-3 rounded-2xl flex items-center justify-center text-center font-bold text-sm bg-emerald-950 border-2 border-emerald-500 text-emerald-300 scale-95 opacity-50 transition-all duration-300";
+            });
+
+            state.matchPairs[idx1].matched = true;
+            state.matchPairs[idx2].matched = true;
+
+            const allMatched = state.matchPairs.every(p => p.matched);
+            if (allMatched) {
+                clearInterval(state.matchTimerInterval);
+                setTimeout(() => {
+                    document.getElementById('match-grid').classList.add('hidden');
+                    document.getElementById('match-win-pane').classList.remove('hidden');
+                    document.getElementById('match-win-time').innerText = `الوقت المستغرق: ${state.matchElapsedTime} ثانية`;
+                }, 400);
+            }
+        }
+
+        function showMatchError(idx1, idx2) {
+            const card1 = document.getElementById(`match-card-${idx1}`);
+            const card2 = document.getElementById(`match-card-${idx2}`);
+
+            [card1, card2].forEach(c => {
+                c.className = "h-24 p-3 rounded-2xl flex items-center justify-center text-center font-bold text-sm bg-red-950 border-2 border-red-500 text-red-200";
+            });
+
+            setTimeout(() => {
+                [idx1, idx2].forEach(idx => {
+                    const el = document.getElementById(`match-card-${idx}`);
+                    if (el) {
+                        el.className = `h-24 p-3 rounded-2xl flex items-center justify-center text-center font-extrabold text-sm border-2 transition duration-200 shadow-md ${
+                            state.matchPairs[idx].lang === 'en' ? 'english-text bg-slate-900 border-amber-500/40 text-slate-100' : 'bg-slate-850 border-slate-700 text-slate-100'
+                        }`;
+                    }
+                });
+            }, 600);
+        }
+
+
+        // --- TAB 3: MCQ QUIZ MODULE ---
+        function resetQuiz() {
+            state.quizCurrentIndex = 0;
+            state.quizScore = 0;
+            document.getElementById('quiz-result-card').classList.add('hidden');
+            document.getElementById('quiz-question-number').classList.remove('hidden');
+            
+            const shuffled = [...getMergedCatalog()].sort(() => 0.5 - Math.random());
+            state.quizQuestions = shuffled.slice(0, 10).map(item => {
+                const isArToEn = Math.random() > 0.5;
+                const alternatives = getMergedCatalog()
+                    .filter(g => g.id !== item.id)
+                    .sort(() => 0.5 - Math.random())
+                    .slice(0, 3)
+                    .map(alt => isArToEn ? alt.english : alt.arabic);
+
+                const correctAnswer = isArToEn ? item.english : item.arabic;
+                const answersList = [...alternatives, correctAnswer].sort(() => 0.5 - Math.random());
+
+                return {
+                    question: isArToEn ? `ما هي الترجمة الصحيحة لـ: [${item.arabic}]؟` : `ما هو المعنى المقابل للمصطلح القانوني: [${item.english}]؟`,
+                    correctAnswer: correctAnswer,
+                    answers: answersList,
+                    arabicReference: item.arabic,
+                    englishReference: item.english,
+                    page: item.page
+                };
+            });
+
+            renderQuizQuestion();
+        }
+
+        function renderQuizQuestion() {
+            document.getElementById('quiz-feedback-box').classList.add('hidden');
+            const qContainer = document.getElementById('quiz-answers-container');
+            qContainer.innerHTML = '';
+            qContainer.classList.remove('hidden');
+
+            const currentQ = state.quizQuestions[state.quizCurrentIndex];
+            document.getElementById('quiz-question-number').innerText = `السؤال ${state.quizCurrentIndex + 1} / 10`;
+            document.getElementById('quiz-question-text').innerText = currentQ.question;
+
+            currentQ.answers.forEach((ans, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "quiz-choice-btn w-full p-4 bg-slate-950 border border-slate-800 text-slate-200 rounded-xl text-right font-bold text-sm hover:border-amber-400 hover:bg-slate-900 transition flex justify-between items-center";
+                btn.innerHTML = `<span>${ans}</span><span class="text-xs text-amber-500 font-mono">[${idx + 1}]</span>`;
+                btn.onclick = () => submitQuizAnswer(ans, btn);
+                qContainer.appendChild(btn);
+            });
+        }
+
+        function submitQuizAnswer(selectedAnswer, elementBtn) {
+            const currentQ = state.quizQuestions[state.quizCurrentIndex];
+            const allChoiceBtns = document.querySelectorAll('.quiz-choice-btn');
+            allChoiceBtns.forEach(btn => btn.disabled = true);
+
+            const isCorrect = selectedAnswer === currentQ.correctAnswer;
+            
+            if (isCorrect) {
+                state.quizScore++;
+                state.score += 10;
+                updateDashboardStats();
+                elementBtn.className = "quiz-choice-btn w-full p-4 bg-emerald-950 border-2 border-emerald-500 text-emerald-300 rounded-xl text-right font-bold text-sm transition flex justify-between items-center";
+                
+                document.getElementById('quiz-feedback-box').className = "mt-6 p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/20";
+                document.getElementById('quiz-feedback-icon').innerText = "✔";
+                document.getElementById('quiz-feedback-title').innerText = "إجابة صحيحة ومطابقة للكتاب!";
+                document.getElementById('quiz-feedback-title').className = "font-bold text-sm text-emerald-400";
+            } else {
+                elementBtn.className = "quiz-choice-btn w-full p-4 bg-red-950 border-2 border-red-500 text-red-200 rounded-xl text-right font-bold text-sm transition flex justify-between items-center";
+                
+                allChoiceBtns.forEach(btn => {
+                    if (btn.innerText.includes(currentQ.correctAnswer)) {
+                        btn.className = "quiz-choice-btn w-full p-4 bg-slate-950 border-2 border-emerald-500 text-emerald-300 rounded-xl text-right font-bold text-sm transition flex justify-between items-center";
+                    }
+                });
+
+                document.getElementById('quiz-feedback-box').className = "mt-6 p-4 rounded-xl bg-red-950/40 border border-red-500/20";
+                document.getElementById('quiz-feedback-icon').innerText = "⚠️";
+                document.getElementById('quiz-feedback-title').innerText = `الإجابة الصحيحة هي: [ ${currentQ.correctAnswer} ]`;
+                document.getElementById('quiz-feedback-title').className = "font-bold text-sm text-red-400";
+            }
+
+            document.getElementById('quiz-feedback-text').innerText = `وفق منهج المستشار أحمد وجيه: [${currentQ.arabicReference} = ${currentQ.englishReference}] - صفحة ${currentQ.page}.`;
+            document.getElementById('quiz-feedback-box').classList.remove('hidden');
+        }
+
+        function nextQuizQuestion() {
+            if (state.quizCurrentIndex < state.quizQuestions.length - 1) {
+                state.quizCurrentIndex++;
+                renderQuizQuestion();
+            } else {
+                document.getElementById('quiz-answers-container').classList.add('hidden');
+                document.getElementById('quiz-feedback-box').classList.add('hidden');
+                document.getElementById('quiz-question-number').classList.add('hidden');
+                document.getElementById('quiz-question-text').innerText = "انتهت أسئلة الاختبار!";
+                
+                const resultCard = document.getElementById('quiz-result-card');
+                resultCard.classList.remove('hidden');
+
+                const percent = Math.round((state.quizScore / 10) * 100);
+                document.getElementById('quiz-result-score').innerText = `${state.quizScore} / 10 (${percent}%)`;
+                
+                if (percent >= 80) {
+                    document.getElementById('quiz-result-emoji').innerText = "👑🎖";
+                    document.getElementById('quiz-result-title').innerText = "درجة علمية متميزة!";
+                    document.getElementById('quiz-result-desc').innerText = "لقد حققت معدلاً رائعاً يؤهلك للتفوق بالدرجة الكاملة.";
+                } else {
+                    document.getElementById('quiz-result-emoji').innerText = "📚⌛";
+                    document.getElementById('quiz-result-title').innerText = "تحتاج لتكرار المراجعة";
+                    document.getElementById('quiz-result-desc').innerText = "ننصحك بمراجعة المصطلحات عبر تبويب المذاكرة المفتوح بالأعلى.";
+                }
+            }
+        }
+
+
+        // --- TAB 4: FILL IN THE BLANKS (CRITICAL MODULE - 7 PARAGRAPHS) ---
+        let currentFillDef = 'law';
+        let isFillHintsVisible = true;
+
+        function loadFillBlanks(defKey) {
+            currentFillDef = defKey;
+            const item = definitionsData[defKey];
+            if (!item) return;
+
+            document.getElementById('fill-arabic-reference').innerText = item.arabic;
+            document.getElementById('fill-result-feedback').innerHTML = ''; 
+
+            const passageContainer = document.getElementById('fill-paragraph-container');
+            passageContainer.innerHTML = '';
+
+            const wordsSplit = item.passage.split(/({[^{}]+})/);
+            
+            wordsSplit.forEach(part => {
+                if (part.startsWith('{') && part.endsWith('}')) {
+                    const cleanWord = part.slice(1, -1);
+                    
+                    const inputEl = document.createElement('input');
+                    inputEl.type = 'text';
+                    // High contrast input styles so writing is perfectly clear!
+                    inputEl.className = 'mx-1 px-3 py-1 text-center font-bold text-amber-300 bg-slate-900 border-2 border-slate-700 focus:border-amber-400 focus:bg-slate-950 focus:outline-none rounded-xl text-base english-text inline-block transition shadow-inner';
+                    inputEl.style.width = `${Math.max(cleanWord.length * 11, 100)}px`;
+                    inputEl.dataset.correct = cleanWord;
+                    inputEl.autocomplete = 'off';
+                    passageContainer.appendChild(inputEl);
+                } else {
+                    const spanEl = document.createElement('span');
+                    spanEl.innerText = part;
+                    passageContainer.appendChild(spanEl);
+                }
+            });
+
+            renderWordPool();
+        }
+
+        function renderWordPool() {
+            const item = definitionsData[currentFillDef];
+            const pool = document.getElementById('fill-word-pool');
+            pool.innerHTML = '';
+
+            // Shuffle the blanks for the pool
+            const wordsList = item.blanks.map(b => b.word).sort(() => 0.5 - Math.random());
+            
+            wordsList.forEach(word => {
+                const helperBtn = document.createElement('span');
+                // Extremely High Contrast styling so it stands out and is 100% readable!
+                helperBtn.className = "bg-slate-800 text-slate-100 border-2 border-slate-700 font-bold px-3 py-2 rounded-xl text-xs sm:text-sm english-text cursor-pointer select-none shadow-md transition duration-150 active:scale-95 hover:bg-amber-400 hover:text-slate-950";
+                helperBtn.innerText = word;
+                helperBtn.onclick = () => {
+                    const container = document.getElementById('fill-paragraph-container');
+                    const inputs = container.querySelectorAll('input');
+                    for (let input of inputs) {
+                        if (input.value === '') {
+                            input.value = word;
+                            break;
+                        }
+                    }
+                };
+                pool.appendChild(helperBtn);
+            });
+        }
+
+        function toggleFillHints() {
+            isFillHintsVisible = !isFillHintsVisible;
+            const pool = document.getElementById('fill-word-pool');
+            if (isFillHintsVisible) {
+                pool.style.opacity = "1";
+                pool.style.pointerEvents = "auto";
+            } else {
+                pool.style.opacity = "0";
+                pool.style.pointerEvents = "none";
+            }
+        }
+
+        function checkFillAnswers() {
+            const container = document.getElementById('fill-paragraph-container');
+            const inputs = container.querySelectorAll('input');
+            let correctCount = 0;
+            let totalInputs = inputs.length;
+
+            inputs.forEach(input => {
+                const cleanInput = input.value.trim().toLowerCase();
+                const cleanCorrect = input.dataset.correct.toLowerCase();
+
+                if (cleanInput === cleanCorrect) {
+                    correctCount++;
+                    input.className = 'mx-1 px-3 py-1 text-center font-bold text-emerald-300 bg-emerald-950 border-2 border-emerald-500 rounded-xl text-base english-text inline-block transition';
+                } else {
+                    input.className = 'mx-1 px-3 py-1 text-center font-bold text-red-300 bg-red-950 border-2 border-red-500 rounded-xl text-base english-text inline-block transition';
+                }
+            });
+
+            const statusFeedback = document.getElementById('fill-result-feedback');
+            if (correctCount === totalInputs) {
+                state.score += 50;
+                updateDashboardStats();
+                statusFeedback.innerHTML = `<span class="text-emerald-400 font-extrabold flex items-center gap-1">🥇 إكمال كامل ونموذجي 100%! (+50 نقطة)</span>`;
+                showToast("ممتاز جداً! جميع الكلمات صحيحة ومطابقة.", true);
+            } else {
+                statusFeedback.innerHTML = `<span class="text-amber-400 font-bold">📝 أجبت بشكل صحيح على [${correctCount}/${totalInputs}] كلمات. راجع الكلمات الملونة بالأحمر.</span>`;
+            }
+        }
+
+        function revealFillAnswers() {
+            const container = document.getElementById('fill-paragraph-container');
+            const inputs = container.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.value = input.dataset.correct;
+                input.className = 'mx-1 px-3 py-1 text-center font-bold text-amber-300 bg-slate-900 border-2 border-slate-700 rounded-xl text-base english-text inline-block transition';
+            });
+            document.getElementById('fill-result-feedback').innerHTML = `<span class="text-amber-500 font-bold">🔓 تم إظهار الحلول لتسهيل الحفظ.</span>`;
+        }
+
+
+        // --- TAB 5: WRITING & SPELLING PRACTISE ---
+        function initWritingPractice() {
+            state.writingCurrentIndex = 0;
+            state.writingTerms = [...getMergedCatalog()].sort(() => 0.5 - Math.random());
+            renderWritingQuestion();
+        }
+
+        function renderWritingQuestion() {
+            const currentItem = state.writingTerms[state.writingCurrentIndex];
+            if (!currentItem) return;
+
+            document.getElementById('writing-feedback').classList.add('hidden');
+            document.getElementById('writing-hint-text').classList.add('hidden');
+            state.writingHintRevealed = false;
+
+            document.getElementById('writing-progress').innerText = `المصطلح ${state.writingCurrentIndex + 1} / ${state.writingTerms.length}`;
+            document.getElementById('writing-arabic-term').innerText = currentItem.arabic;
+
+            const input = document.getElementById('writing-input');
+            input.value = '';
+            input.className = "w-full bg-slate-950 border-2 border-slate-800 focus:border-amber-400 rounded-xl px-4 py-3.5 text-center text-xl english-text font-bold text-amber-300 focus:outline-none transition";
+            input.focus();
+        }
+
+        function checkWritingAnswer() {
+            const currentItem = state.writingTerms[state.writingCurrentIndex];
+            const userInput = document.getElementById('writing-input').value.trim().toLowerCase();
+            const correctText = currentItem.english.toLowerCase();
+
+            const feedbackEl = document.getElementById('writing-feedback');
+            const feedbackIcon = document.getElementById('writing-feedback-icon');
+            const feedbackTitle = document.getElementById('writing-feedback-title');
+            const feedbackText = document.getElementById('writing-feedback-text');
+            const input = document.getElementById('writing-input');
+
+            feedbackEl.classList.remove('hidden');
+
+            if (userInput === correctText) {
+                state.score += 25;
+                updateDashboardStats();
+                
+                input.className = "w-full bg-emerald-950 border-2 border-emerald-500 rounded-xl px-4 py-3.5 text-center text-xl english-text font-bold text-emerald-300 focus:outline-none transition";
+                
+                feedbackEl.className = "w-full max-w-lg mt-6 p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/20";
+                feedbackIcon.innerText = "✔";
+                feedbackTitle.innerText = "إملاء صحيح بنسبة 100%!";
+                feedbackTitle.className = "font-bold text-sm text-emerald-400";
+                feedbackText.innerText = `التوصيف المعتمد: ${currentItem.arabic} = ${currentItem.english}`;
+                
+                showToast("إجابة صحيحة بالكامل!", true);
+                
+                setTimeout(() => {
+                    skipWritingQuestion();
+                }, 1500);
+            } else {
+                input.className = "w-full bg-red-950 border-2 border-red-500 rounded-xl px-4 py-3.5 text-center text-xl english-text font-bold text-red-300 focus:outline-none transition";
+                
+                feedbackEl.className = "w-full max-w-lg mt-6 p-4 rounded-xl bg-red-950/40 border border-red-500/20";
+                feedbackIcon.innerText = "❌";
+                feedbackTitle.innerText = "هناك خطأ في التهجئة أو اللفظ!";
+                feedbackTitle.className = "font-bold text-sm text-red-400";
+                feedbackText.innerText = `الإجابة الصحيحة هي الحروف الكاملة لـ: [ ${currentItem.english} ]`;
+            }
+        }
+
+        function revealWritingHint() {
+            const currentItem = state.writingTerms[state.writingCurrentIndex];
+            const text = currentItem.english;
+            
+            let hint = "";
+            for (let i = 0; i < text.length; i++) {
+                if (i === 0 || text[i-1] === ' ' || text[i] === ' ') {
+                    hint += text[i];
+                } else {
+                    hint += "_";
+                }
+            }
+
+            const hintEl = document.getElementById('writing-hint-text');
+            hintEl.innerText = hint;
+            hintEl.classList.remove('hidden');
+        }
+
+        function skipWritingQuestion() {
+            if (state.writingCurrentIndex < state.writingTerms.length - 1) {
+                state.writingCurrentIndex++;
+                renderWritingQuestion();
+            } else {
+                showToast("أحسنت! مررت على جميع مصطلحات الإملاء.", true);
+                state.writingCurrentIndex = 0;
+                renderWritingQuestion();
+            }
+        }
+
+
+        // --- TAB 6: REFERENCE BOOK ---
+        function setupGlossaryBook() {
+            const grid = document.getElementById('book-glossary-grid');
+            grid.innerHTML = '';
+
+            getMergedCatalog().forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-slate-900 border border-slate-800/80 p-3.5 rounded-xl flex justify-between items-center hover:border-amber-500/20 transition-all duration-150";
+                card.innerHTML = `
+                    <div>
+                        <h5 class="text-slate-100 font-bold text-sm">${item.arabic}</h5>
+                        <p class="text-slate-500 text-[10px] mt-1 uppercase tracking-wide">التصنيف: ${item.category}</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-amber-400 english-text font-bold block text-sm">${item.english}</span>
+                        <span class="text-slate-500 text-[10px] block mt-1">صفحة ${item.page}</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function switchBookTab(bookSubTabId) {
+            const contents = document.querySelectorAll('.book-subtab-content');
+            contents.forEach(content => {
+                content.classList.add('hidden');
+                content.classList.remove('block');
+            });
+
+            const activeContent = document.getElementById(bookSubTabId);
+            if (activeContent) {
+                activeContent.classList.remove('hidden');
+                activeContent.classList.add('block');
+            }
+
+            const btns = document.querySelectorAll('.book-subtab-btn');
+            btns.forEach(btn => {
+                btn.className = "book-subtab-btn bg-slate-950 text-slate-400 hover:bg-slate-850 px-4 py-2 rounded-xl text-xs font-bold transition";
+            });
+
+            const activeBtn = Array.from(btns).find(btn => btn.getAttribute('onclick').includes(bookSubTabId));
+            if (activeBtn) {
+                activeBtn.className = "book-subtab-btn bg-slate-800 text-amber-400 border border-amber-500/20 px-4 py-2 rounded-xl text-xs font-bold transition";
+            }
+        }
+    </script>
+</body>
+</html>
