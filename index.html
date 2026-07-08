@@ -213,7 +213,7 @@
                     📱 تثبيت
                 </button>
                 <div class="text-[10px] bg-slate-950 px-2 py-1 rounded-lg border border-slate-800 font-bold" id="score-counter">
-                    🏆 <span id="score-val">100</span> نقطة
+                    🏆 <span id="score-val">0</span> نقطة
                 </div>
             </div>
         </div>
@@ -825,7 +825,7 @@
         let state = {
             userTitle: "دكتور",
             userName: "الباحث",
-            score: 100,
+            score: 0,
             failures: [], // tracked failed terms
 
             // Hide states
@@ -905,6 +905,14 @@
                 const greetingDash = document.getElementById('dash-greeting');
                 if (greetingDash) greetingDash.innerText = `أهلاً بك يا ${state.userTitle} ${state.userName}`;
             }
+            
+            // Load user score
+            const savedScore = localStorage.getItem('userScore');
+            if (savedScore !== null) {
+                state.score = parseInt(savedScore);
+                const scoreVal = document.getElementById('score-val');
+                if (scoreVal) scoreVal.innerText = state.score;
+            }
 
             // Initiate app views
             initStudyMode();
@@ -963,6 +971,7 @@
 
         function updateDashboardStats() {
             document.getElementById('score-val').innerText = state.score;
+            localStorage.setItem('userScore', state.score);
         }
 
         function switchTab(tabId) {
