@@ -1,0 +1,16 @@
+{
+  "name": "المدرب القانوني",
+  "short_name": "المدرب القانوني",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#f59e0b",
+  "description": "تطبيق المدرب القانوني للاستعداد لامتحانات الدكتوراه",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ]
+}
