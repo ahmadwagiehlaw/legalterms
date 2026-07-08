@@ -270,6 +270,20 @@
                         <p class="text-[10px] text-slate-500 text-center py-4">لا توجد أخطاء حالياً. استمر بالدراسة والتميز!</p>
                     </div>
                 </div>
+
+                <!-- Hardest Passages -->
+                <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl shadow-lg mt-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-xs font-black text-amber-400 flex items-center gap-1">
+                            <span>📖</span>
+                            <span>أصعب القطع التي تحتاج لمراجعة مكثفة</span>
+                        </h3>
+                    </div>
+                    
+                    <div class="space-y-1.5 max-h-32 overflow-y-auto no-scrollbar pr-1" id="dash-passages-mistakes-container">
+                        <p class="text-[10px] text-slate-500 text-center py-4">أداؤك ممتاز! لا توجد قطع صعبة مسجلة.</p>
+                    </div>
+                </div>
             </div>
 
             <!-- TAB 2: STUDY HUB (WORDS & PASSAGES COEXISTING IN TABS) -->
@@ -827,6 +841,7 @@
             userName: "الباحث",
             score: 0,
             failures: [], // tracked failed terms
+            failedPassages: [], // tracked failed passages
 
             // Hide states
             hideArStudy: false,
@@ -914,9 +929,17 @@
                 if (scoreVal) scoreVal.innerText = state.score;
             }
 
+            // Load failures and failed passages
+            const savedFailures = localStorage.getItem('userFailures');
+            if (savedFailures) state.failures = JSON.parse(savedFailures);
+            
+            const savedFailedPassages = localStorage.getItem('userFailedPassages');
+            if (savedFailedPassages) state.failedPassages = JSON.parse(savedFailedPassages);
+
             // Initiate app views
             initStudyMode();
             renderMistakesWidget();
+            if (typeof renderPassageMistakesWidget === 'function') renderPassageMistakesWidget();
         })();
 
         function toggleInstallModal() {
@@ -1084,12 +1107,14 @@
         function addMistake(term) {
             if (!state.failures.some(item => item.id === term.id)) {
                 state.failures.push(term);
+                localStorage.setItem('userFailures', JSON.stringify(state.failures));
                 renderMistakesWidget();
             }
         }
 
         function removeMistake(id) {
             state.failures = state.failures.filter(t => t.id !== id);
+            localStorage.setItem('userFailures', JSON.stringify(state.failures));
             renderMistakesWidget();
         }
 
@@ -1112,6 +1137,44 @@
                     <div class="flex items-center gap-1.5">
                         <button onclick="speakWord('${item.english}')" class="text-xs bg-slate-900 p-1.5 rounded-lg border border-slate-800">🔊</button>
                         <button onclick="removeMistake(${item.id})" class="text-[9px] bg-red-950 text-red-300 font-bold px-2 py-1 rounded-lg">إزالة ✓</button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function addPassageMistake(def) {
+            if (!state.failedPassages.some(item => item.title === def.title)) {
+                state.failedPassages.push(def);
+                localStorage.setItem('userFailedPassages', JSON.stringify(state.failedPassages));
+                renderPassageMistakesWidget();
+            }
+        }
+
+        function removePassageMistake(title) {
+            state.failedPassages = state.failedPassages.filter(t => t.title !== title);
+            localStorage.setItem('userFailedPassages', JSON.stringify(state.failedPassages));
+            renderPassageMistakesWidget();
+        }
+
+        function renderPassageMistakesWidget() {
+            const container = document.getElementById('dash-passages-mistakes-container');
+            if (!container) return;
+            if (state.failedPassages.length === 0) {
+                container.innerHTML = `<p class="text-[10px] text-slate-500 text-center py-4">أداؤك ممتاز! لا توجد قطع صعبة مسجلة.</p>`;
+                return;
+            }
+
+            container.innerHTML = '';
+            state.failedPassages.forEach(item => {
+                const row = document.createElement('div');
+                row.className = "flex justify-between items-center bg-slate-950 p-2.5 rounded-xl border border-red-900/30 text-[11px] mb-1.5";
+                row.innerHTML = `
+                    <div class="text-right flex-1 truncate ml-2">
+                        <span class="font-bold text-slate-200 block truncate" title="${item.title}">${item.title}</span>
+                    </div>
+                    <div class="flex items-center gap-1.5 shrink-0">
+                        <button onclick="removePassageMistake('${item.title}')" class="text-[9px] bg-red-950 text-red-300 font-bold px-2 py-1 rounded-lg">إزالة ✓</button>
                     </div>
                 `;
                 container.appendChild(row);
@@ -1620,6 +1683,7 @@
                 updateDashboardStats();
                 showToast(`أداء مذهل ومطابقة حرفية 100% للتعريف القانوني! +50 نقطة`, true);
             } else {
+                addPassageMistake(def);
                 showToast(`أحسنت محاولة الحفظ. إجاباتك الصحيحة: ${correctCount} من أصل ${total}. يرجى المراجعة وإعادة المحاولة.`, false);
             }
         }
@@ -1725,6 +1789,7 @@
             } else if (reorderState.constructed.length < reorderState.correctOrder.length) {
                 showToast("الرجاء إكمال ترتيب جميع الأجزاء المتاحة أولاً.", false);
             } else {
+                addPassageMistake(passagesData[reorderState.index]);
                 showToast("يوجد خطأ في الترتيب، قم بالتراجع عن بعض الخطوات وحاول مرة أخرى.", false);
             }
         }
@@ -1799,6 +1864,7 @@
                 feedbackBox.classList.add('border-emerald-500', 'bg-emerald-950/50', 'text-emerald-300');
                 feedbackBox.innerHTML = `<b>أحسنت! إجابة مثالية:</b><br><span dir="ltr" class="font-serif block mt-1">${pspellState.english}</span>`;
             } else {
+                addPassageMistake(passagesData[pspellState.index]);
                 feedbackBox.classList.add('border-red-500', 'bg-red-950/50', 'text-red-300');
                 feedbackBox.innerHTML = `<b>يوجد خطأ في الإملاء.</b> حاول المراجعة والتصحيح. إذا كنت بحاجة للمساعدة، استخدم زر التلميح.`;
             }
