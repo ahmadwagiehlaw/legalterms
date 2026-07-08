@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المدرب القانوني - لوحة تحكم المشرف</title>
+    <link rel="icon" type="image/png" href="icon.png">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Firebase Compat Libraries -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Tajawal', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Tajawal', sans-serif; }
+        .glass-panel { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(51, 65, 85, 0.5); }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200 min-h-screen p-4 sm:p-8">
+
+    <div class="max-w-6xl mx-auto space-y-6">
+        
+        <!-- Header -->
+        <header class="glass-panel p-6 rounded-3xl flex justify-between items-center shadow-xl">
+            <div>
+                <h1 class="text-2xl font-black text-amber-500">لوحة تحكم المشرف 👑</h1>
+                <p class="text-sm text-slate-400 mt-1">تتبع نشاط المتدربين المباشر في تطبيق المدرب القانوني</p>
+            </div>
+            <div class="flex gap-4 text-center">
+                <div class="bg-slate-900 px-4 py-2 rounded-xl border border-slate-800">
+                    <p class="text-xs text-slate-400">المتدربين الكلي</p>
+                    <p class="text-xl font-black text-slate-100" id="stat-total">0</p>
+                </div>
+                <div class="bg-slate-900 px-4 py-2 rounded-xl border border-emerald-900/50">
+                    <p class="text-xs text-slate-400">متصل الآن 🟢</p>
+                    <p class="text-xl font-black text-emerald-400" id="stat-online">0</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Data Table -->
+        <div class="glass-panel rounded-3xl overflow-hidden shadow-xl">
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-right">
+                    <thead class="text-xs uppercase bg-slate-900/80 text-slate-400 border-b border-slate-800">
+                        <tr>
+                            <th class="px-6 py-4 font-bold rounded-tr-2xl">اسم المتدرب / الباحث</th>
+                            <th class="px-6 py-4 font-bold">الحالة</th>
+                            <th class="px-6 py-4 font-bold text-center">النقاط 🏆</th>
+                            <th class="px-6 py-4 font-bold text-center">التدريبات المنجزة 🎯</th>
+                            <th class="px-6 py-4 font-bold rounded-tl-2xl">آخر ظهور</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-table-body" class="divide-y divide-slate-800/50">
+                        <!-- Users will be injected here via JS -->
+                        <tr>
+                            <td colspan="5" class="px-6 py-10 text-center text-slate-500 font-bold">
+                                جاري جلب البيانات من السحابة... ⏳
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB8FpmdmHMmoZkCJqpefr7POHFInSHAmlk",
+            authDomain: "legalterms-e66ad.firebaseapp.com",
+            projectId: "legalterms-e66ad",
+            storageBucket: "legalterms-e66ad.firebasestorage.app",
+            messagingSenderId: "560103968057",
+            appId: "1:560103968057:web:2a0696a84dc0d2768bace8"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Time formatter
+        function timeAgo(date) {
+            if (!date) return 'غير معروف';
+            const seconds = Math.floor((new Date() - date) / 1000);
+            let interval = seconds / 31536000;
+            if (interval > 1) return Math.floor(interval) + " سنة";
+            interval = seconds / 2592000;
+            if (interval > 1) return Math.floor(interval) + " شهر";
+            interval = seconds / 86400;
+            if (interval > 1) return Math.floor(interval) + " يوم";
+            interval = seconds / 3600;
+            if (interval > 1) return Math.floor(interval) + " ساعة";
+            interval = seconds / 60;
+            if (interval > 1) return Math.floor(interval) + " دقيقة";
+            return "الآن";
+        }
+
+        // Listen for real-time updates
+        db.collection("users").onSnapshot((querySnapshot) => {
+            const tableBody = document.getElementById("users-table-body");
+            tableBody.innerHTML = "";
+            
+            let totalUsers = 0;
+            let onlineUsers = 0;
+            const now = new Date();
+
+            const users = [];
+            querySnapshot.forEach((doc) => {
+                users.push(doc.data());
+            });
+
+            // Sort by score descending
+            users.sort((a, b) => (b.score || 0) - (a.score || 0));
+
+            users.forEach((data) => {
+                totalUsers++;
+                
+                let isOnline = false;
+                let lastActiveText = "غير معروف";
+                
+                if (data.lastActive) {
+                    const lastActiveDate = data.lastActive.toDate();
+                    lastActiveText = timeAgo(lastActiveDate);
+                    // Consider online if active within the last 3 minutes (180 seconds)
+                    if ((now - lastActiveDate) / 1000 < 180) {
+                        isOnline = true;
+                        onlineUsers++;
+                    }
+                }
+
+                const tr = document.createElement("tr");
+                tr.className = "hover:bg-slate-900/50 transition duration-150";
+                
+                tr.innerHTML = `
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-amber-500 font-bold border border-slate-700">
+                                ${(data.name || '?').charAt(0)}
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-200">${data.title || ''} / ${data.name || 'مجهول'}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        ${isOnline 
+                            ? '<span class="px-2.5 py-1 text-[10px] font-black rounded-full bg-emerald-950/80 text-emerald-400 border border-emerald-500/30">🟢 متصل الآن</span>' 
+                            : '<span class="px-2.5 py-1 text-[10px] font-bold rounded-full bg-slate-900 text-slate-500 border border-slate-700">⚪ غير متصل</span>'}
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                        <span class="font-bold text-amber-400 text-lg">${data.score || 0}</span>
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                        <span class="font-bold text-slate-300 text-lg">${data.completedExercises || 0}</span>
+                    </td>
+                    <td class="px-6 py-4 text-slate-400 text-xs">
+                        ${lastActiveText}
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+
+            if (users.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-slate-500 font-bold">لا يوجد متدربين مسجلين حتى الآن.</td></tr>`;
+            }
+
+            document.getElementById('stat-total').innerText = totalUsers;
+            document.getElementById('stat-online').innerText = onlineUsers;
+        });
+
+    </script>
+</body>
+</html>
