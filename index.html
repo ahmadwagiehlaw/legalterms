@@ -373,12 +373,14 @@
                         </div>
 
                         <!-- Games Grid -->
+                        <!-- Sub-Tabs for Games -->
+                        <div class="flex bg-slate-950 rounded-xl p-1 mb-4 border border-slate-800">
+                            <button onclick="switchGameSubTab('words')" id="games-tab-words" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-amber-500 text-slate-900 shadow-sm">🔤 تمارين الكلمات</button>
+                            <button onclick="switchGameSubTab('passages')" id="games-tab-passages" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-900">📖 تمارين القطع</button>
+                        </div>
+                        
                         <!-- Word Games Section -->
-                        <h4 class="text-xs font-black text-amber-500 mb-3 mt-4 border-b border-slate-800/50 pb-2 flex items-center gap-2">
-                            <span class="bg-amber-500/10 p-1.5 rounded-lg text-amber-400">🔤</span>
-                            تمارين ومراجعة الكلمات القصيرة
-                        </h4>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                        <div id="games-subtab-words" class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
                             <!-- Flashcards -->
                             <button onclick="launchReviewGame('flashcards')" class="p-4 bg-slate-950 border border-slate-800 rounded-2xl text-right hover:border-amber-400/40 transition-all flex items-center justify-between group">
                                 <div>
@@ -429,11 +431,7 @@
                         </div>
 
                         <!-- Passage Games Section -->
-                        <h4 class="text-xs font-black text-amber-500 mb-3 mt-8 border-b border-slate-800/50 pb-2 flex items-center gap-2">
-                            <span class="bg-emerald-900/40 p-1.5 rounded-lg text-emerald-400">📖</span>
-                            تمارين ومراجعة القطع الطويلة
-                        </h4>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div id="games-subtab-passages" class="grid grid-cols-1 sm:grid-cols-2 gap-3 hidden">
                             <!-- Cloze test -->
                             <button onclick="launchReviewGame('cloze')" class="p-4 bg-slate-950 border border-slate-800 rounded-2xl text-right hover:border-amber-400/40 transition-all flex items-center justify-between group">
                                 <div>
@@ -1219,6 +1217,22 @@
                 if (settingsUser) settingsUser.value = state.userName || '';
                 if (settingsTitle) settingsTitle.value = state.userTitle || 'دكتور';
                 if(typeof switchSettingsSubTab === 'function') switchSettingsSubTab('profile');
+            }
+        }
+
+        function switchGameSubTab(tab) {
+            document.getElementById('games-subtab-words').classList.toggle('hidden', tab !== 'words');
+            document.getElementById('games-subtab-passages').classList.toggle('hidden', tab !== 'passages');
+            
+            const wordsBtn = document.getElementById('games-tab-words');
+            const passagesBtn = document.getElementById('games-tab-passages');
+            
+            if (tab === 'words') {
+                wordsBtn.className = "flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-amber-500 text-slate-900 shadow-sm";
+                passagesBtn.className = "flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-900";
+            } else {
+                passagesBtn.className = "flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-emerald-500 text-slate-900 shadow-sm";
+                wordsBtn.className = "flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-900";
             }
         }
 
