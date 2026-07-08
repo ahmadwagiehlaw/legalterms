@@ -261,15 +261,18 @@
                         <p class="text-[11px] text-slate-400 mt-1">المدرب القانوني - دراسات عليا 2026</p>
                     </div>
 
-                    <!-- Compact Academic Progress Gauge -->
-                    <div class="flex-shrink-0 relative w-16 h-16 flex items-center justify-center bg-slate-900 rounded-full border border-slate-800 shadow-inner">
-                        <svg class="w-full h-full transform -rotate-90 absolute" viewBox="0 0 36 36">
-                            <path class="text-slate-850" stroke-width="3" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                            <path id="progress-circle" class="text-amber-500 transition-all duration-500" stroke-width="3" stroke-dasharray="0, 100" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                        </svg>
-                        <div class="absolute text-center mt-0.5">
-                            <span class="text-xs font-black text-slate-100 block" id="progress-percentage-val">0%</span>
+                    <div class="flex flex-col items-center justify-center gap-1.5">
+                        <!-- Compact Academic Progress Gauge -->
+                        <div class="flex-shrink-0 relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center bg-slate-900 rounded-full border border-slate-800 shadow-inner" title="يمثل هذا المؤشر نسبة المصطلحات التي قمت بتحديدها كـ (محفوظة) في قائمة المراجعة">
+                            <svg class="w-full h-full transform -rotate-90 absolute" viewBox="0 0 36 36">
+                                <path class="text-slate-850" stroke-width="3" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <path id="progress-circle" class="text-amber-500 transition-all duration-500" stroke-width="3" stroke-dasharray="0, 100" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            </svg>
+                            <div class="absolute text-center mt-0.5">
+                                <span class="text-xs sm:text-sm font-black text-slate-100 block" id="progress-percentage-val">0%</span>
+                            </div>
                         </div>
+                        <span class="text-[9px] text-amber-500 font-bold bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shadow-sm">معدل الإنجاز</span>
                     </div>
                 </div>
 
@@ -370,7 +373,12 @@
                         </div>
 
                         <!-- Games Grid -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <!-- Word Games Section -->
+                        <h4 class="text-xs font-black text-amber-500 mb-3 mt-4 border-b border-slate-800/50 pb-2 flex items-center gap-2">
+                            <span class="bg-amber-500/10 p-1.5 rounded-lg text-amber-400">🔤</span>
+                            تمارين ومراجعة الكلمات القصيرة
+                        </h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
                             <!-- Flashcards -->
                             <button onclick="launchReviewGame('flashcards')" class="p-4 bg-slate-950 border border-slate-800 rounded-2xl text-right hover:border-amber-400/40 transition-all flex items-center justify-between group">
                                 <div>
@@ -418,7 +426,14 @@
                                 </div>
                                 <span class="text-lg">➡️</span>
                             </button>
+                        </div>
 
+                        <!-- Passage Games Section -->
+                        <h4 class="text-xs font-black text-amber-500 mb-3 mt-8 border-b border-slate-800/50 pb-2 flex items-center gap-2">
+                            <span class="bg-emerald-900/40 p-1.5 rounded-lg text-emerald-400">📖</span>
+                            تمارين ومراجعة القطع الطويلة
+                        </h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <!-- Cloze test -->
                             <button onclick="launchReviewGame('cloze')" class="p-4 bg-slate-950 border border-slate-800 rounded-2xl text-right hover:border-amber-400/40 transition-all flex items-center justify-between group">
                                 <div>
@@ -1208,12 +1223,39 @@
         }
 
         // SPEECH AUDIO ENGINE
+        function getBestEnglishVoice() {
+            const voices = window.speechSynthesis.getVoices();
+            const preferredVoices = [
+                "Google US English",
+                "Google UK English Female",
+                "Google UK English Male",
+                "Microsoft Aria Online (Natural) - English (US)",
+                "Microsoft Guy Online (Natural) - English (US)",
+                "Microsoft Jenny Online (Natural) - English (US)",
+                "Samantha",
+                "Daniel"
+            ];
+            
+            for (let name of preferredVoices) {
+                const voice = voices.find(v => v.name === name);
+                if (voice) return voice;
+            }
+            return voices.find(v => v.lang.startsWith('en')) || voices[0];
+        }
+
+        // Initialize voices early
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+        }
+
         function speakWord(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'en-US';
-                utterance.rate = 0.8;
+                utterance.rate = 0.85;
+                const bestVoice = getBestEnglishVoice();
+                if (bestVoice) utterance.voice = bestVoice;
                 window.speechSynthesis.speak(utterance);
             } else {
                 showToast("محرك نطق الصوت غير مدعوم في جهازك.", false);
@@ -2736,9 +2778,12 @@
 
         function playDictationAudio() {
             if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(dictationState.english);
                 utterance.lang = 'en-US';
-                utterance.rate = 0.9;
+                utterance.rate = 0.85;
+                const bestVoice = getBestEnglishVoice();
+                if (bestVoice) utterance.voice = bestVoice;
                 window.speechSynthesis.speak(utterance);
             } else {
                 showToast("عذراً، متصفحك لا يدعم النطق الصوتي.", false);
