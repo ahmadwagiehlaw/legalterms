@@ -454,6 +454,42 @@
                                 </div>
                                 <span class="text-lg">➡️</span>
                             </button>
+
+                            <!-- Vanishing Text -->
+                            <button onclick="launchReviewGame('vanishing')" class="p-4 bg-slate-950 border border-slate-800 rounded-2xl text-right hover:border-amber-400/40 transition-all flex items-center justify-between group">
+                                <div>
+                                    <h4 class="font-black text-sm text-slate-100 group-hover:text-amber-400 transition flex items-center gap-2">
+                                        🌫️ النص المتلاشي
+                                        <span class="bg-emerald-900/40 text-emerald-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">📖 قطع</span>
+                                    </h4>
+                                    <p class="text-[9px] text-slate-400 mt-1">إخفاء تدريجي لكلمات القطعة لاختبار قوة الذاكرة وتثبيتها.</p>
+                                </div>
+                                <span class="text-lg">➡️</span>
+                            </button>
+
+                            <!-- Muscle Memory -->
+                            <button onclick="launchReviewGame('muscle')" class="p-4 bg-slate-950 border border-slate-800 rounded-2xl text-right hover:border-amber-400/40 transition-all flex items-center justify-between group">
+                                <div>
+                                    <h4 class="font-black text-sm text-slate-100 group-hover:text-amber-400 transition flex items-center gap-2">
+                                        ⌨️ الذاكرة العضلية
+                                        <span class="bg-emerald-900/40 text-emerald-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">📖 قطع</span>
+                                    </h4>
+                                    <p class="text-[9px] text-slate-400 mt-1">سرعة طباعة القطعة فوق نص باهت لنقل الحفظ لأصابعك.</p>
+                                </div>
+                                <span class="text-lg">➡️</span>
+                            </button>
+
+                            <!-- Blind Dictation -->
+                            <button onclick="launchReviewGame('dictation')" class="p-4 bg-slate-950 border border-slate-800 rounded-2xl text-right hover:border-amber-400/40 transition-all flex items-center justify-between group">
+                                <div>
+                                    <h4 class="font-black text-sm text-slate-100 group-hover:text-amber-400 transition flex items-center gap-2">
+                                        🎧 الإملاء الصوتي
+                                        <span class="bg-emerald-900/40 text-emerald-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">📖 قطع</span>
+                                    </h4>
+                                    <p class="text-[9px] text-slate-400 mt-1">استمع للنطق الإنجليزي الصحيح للقطعة واكتب ما تسمعه.</p>
+                                </div>
+                                <span class="text-lg">➡️</span>
+                            </button>
                         </div>
                     </div>
 
@@ -1687,6 +1723,111 @@
                     </div>
                 `;
                 startPSpellGameSelector();
+            } else if (gameType === 'vanishing') {
+                document.getElementById('game-title-header').innerText = "تحدي النص المتلاشي (Vanishing Text)";
+                mount.innerHTML = `
+                    <div class="space-y-4 text-right max-w-xl mx-auto">
+                        <div id="vanishing-selector-view" class="space-y-3">
+                            <h4 class="text-xs font-bold text-slate-400 mb-2">اختر القطعة لتحدي النص المتلاشي:</h4>
+                            <div class="grid grid-cols-1 gap-2" id="vanishing-passage-buttons"></div>
+                        </div>
+                        
+                        <div id="vanishing-play-view" class="hidden space-y-4">
+                            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                                <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-0.5 rounded font-black" id="vanishing-title"></span>
+                                <button onclick="exitVanishingToSelector()" class="text-[10px] text-slate-400 hover:text-white transition">🔙 تغيير القطعة</button>
+                            </div>
+                            
+                            <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-850">
+                                <span class="text-[9px] text-slate-500 block mb-1">الترجمة العربية للسياق:</span>
+                                <p id="vanishing-arabic-context" class="text-xs text-slate-300 leading-relaxed font-bold"></p>
+                            </div>
+                            
+                            <!-- The difficulty buttons -->
+                            <div class="flex justify-center gap-2 mb-2 flex-wrap">
+                                <button onclick="setVanishingLevel(0.2)" class="text-[10px] bg-emerald-900/40 text-emerald-300 px-3 py-1.5 rounded-lg border border-emerald-500/30 hover:bg-emerald-800/60 transition">إخفاء 20%</button>
+                                <button onclick="setVanishingLevel(0.5)" class="text-[10px] bg-blue-900/40 text-blue-300 px-3 py-1.5 rounded-lg border border-blue-500/30 hover:bg-blue-800/60 transition">إخفاء 50%</button>
+                                <button onclick="setVanishingLevel(0.8)" class="text-[10px] bg-amber-900/40 text-amber-300 px-3 py-1.5 rounded-lg border border-amber-500/30 hover:bg-amber-800/60 transition">إخفاء 80%</button>
+                                <button onclick="setVanishingLevel(1.0)" class="text-[10px] bg-red-900/40 text-red-300 px-3 py-1.5 rounded-lg border border-red-500/30 hover:bg-red-800/60 transition">غيابي (100%)</button>
+                            </div>
+
+                            <div class="bg-slate-950 p-5 rounded-2xl border border-slate-850 text-left font-serif leading-relaxed text-slate-200 text-sm sm:text-base select-none relative" dir="ltr">
+                                <div id="vanishing-text-container" class="leading-loose flex flex-wrap gap-2 items-center"></div>
+                            </div>
+                            
+                            <div class="flex gap-2">
+                                <button onclick="checkVanishingAnswer()" class="flex-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-2.5 rounded-xl text-xs transition">تحقق من الإجابة</button>
+                                <button onclick="revealVanishingHint()" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-4 py-2.5 rounded-xl text-xs transition">💡 مساعدة</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                startVanishingGameSelector();
+            } else if (gameType === 'muscle') {
+                document.getElementById('game-title-header').innerText = "الذاكرة العضلية (Typing Speed Test)";
+                mount.innerHTML = `
+                    <div class="space-y-4 text-right max-w-xl mx-auto">
+                        <div id="muscle-selector-view" class="space-y-3">
+                            <h4 class="text-xs font-bold text-slate-400 mb-2">اختر القطعة لتحدي سرعة الطباعة:</h4>
+                            <div class="grid grid-cols-1 gap-2" id="muscle-passage-buttons"></div>
+                        </div>
+                        
+                        <div id="muscle-play-view" class="hidden space-y-4">
+                            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                                <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-0.5 rounded font-black" id="muscle-title"></span>
+                                <button onclick="exitMuscleToSelector()" class="text-[10px] text-slate-400 hover:text-white transition">🔙 تغيير القطعة</button>
+                            </div>
+                            
+                            <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-850">
+                                <span class="text-[9px] text-slate-500 block mb-1">السياق العربي للقطعة:</span>
+                                <p id="muscle-arabic-context" class="text-xs text-slate-300 leading-relaxed font-bold"></p>
+                            </div>
+                            
+                            <div class="relative bg-slate-950 p-5 rounded-2xl border border-slate-850 text-left font-serif text-sm sm:text-base h-64 overflow-y-auto cursor-text no-scrollbar" dir="ltr" onclick="document.getElementById('muscle-hidden-input').focus()">
+                                <!-- Faint target text -->
+                                <div id="muscle-target-text" class="absolute inset-5 text-slate-700 whitespace-pre-wrap break-words pointer-events-none"></div>
+                                <!-- User typed text overlay (colored) -->
+                                <div id="muscle-typed-overlay" class="absolute inset-5 whitespace-pre-wrap break-words pointer-events-none z-10 text-white font-bold leading-normal"></div>
+                                <!-- Hidden input capturing keystrokes -->
+                                <textarea id="muscle-hidden-input" class="absolute opacity-0 w-full h-full inset-0 resize-none outline-none" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" oninput="handleMuscleTyping(event)"></textarea>
+                            </div>
+                            
+                            <div id="muscle-feedback" class="hidden p-3 rounded-xl border text-xs leading-relaxed text-center mt-2 font-bold font-mono"></div>
+                        </div>
+                    </div>
+                `;
+                startMuscleGameSelector();
+            } else if (gameType === 'dictation') {
+                document.getElementById('game-title-header').innerText = "تحدي الإملاء الصوتي المخفي (Blind Dictation)";
+                mount.innerHTML = `
+                    <div class="space-y-4 text-right max-w-xl mx-auto">
+                        <div id="dictation-selector-view" class="space-y-3">
+                            <h4 class="text-xs font-bold text-slate-400 mb-2">اختر القطعة للإملاء الصوتي:</h4>
+                            <div class="grid grid-cols-1 gap-2" id="dictation-passage-buttons"></div>
+                        </div>
+                        
+                        <div id="dictation-play-view" class="hidden space-y-4">
+                            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                                <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-0.5 rounded font-black" id="dictation-title"></span>
+                                <button onclick="exitDictationToSelector()" class="text-[10px] text-slate-400 hover:text-white transition">🔙 تغيير القطعة</button>
+                            </div>
+                            
+                            <div class="text-center py-6 bg-slate-950/80 rounded-2xl border border-slate-850 space-y-3">
+                                <button onclick="playDictationAudio()" class="w-16 h-16 bg-blue-600 hover:bg-blue-500 text-white rounded-full mx-auto flex items-center justify-center shadow-lg shadow-blue-900/50 transition transform active:scale-95 group">
+                                    <span class="text-3xl group-hover:scale-110 transition">🔊</span>
+                                </button>
+                                <p class="text-[10px] text-slate-400">انقر للاستماع للنطق الصحيح (يمكنك التكرار)</p>
+                            </div>
+                            
+                            <textarea id="dictation-input" rows="5" placeholder="اكتب ما تسمعه باللغة الإنجليزية هنا..." class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl p-4 text-left text-sm font-serif focus:border-amber-400 focus:outline-none" dir="ltr" spellcheck="false"></textarea>
+                            
+                            <button onclick="checkDictationAnswer()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-3 rounded-xl text-xs transition">تسليم الإجابة وتقييمها</button>
+                            
+                            <div id="dictation-feedback" class="hidden p-3 rounded-xl border text-xs leading-relaxed text-right mt-2"></div>
+                        </div>
+                    </div>
+                `;
+                startDictationGameSelector();
             }
         };
 
@@ -2349,6 +2490,293 @@
             }, 2500);
         }
 
+
+        // --- SUB GAME 8: VANISHING TEXT ---
+        let vanishingState = {
+            index: null,
+            english: "",
+            level: 0.2 // 20%
+        };
+
+        function startVanishingGameSelector() {
+            const container = document.getElementById('vanishing-passage-buttons');
+            container.innerHTML = '';
+            passagesData.forEach((item, index) => {
+                if (state.failuresOnlyMode && !state.failedPassages.some(f => f.title === item.title)) return;
+                const btn = document.createElement('button');
+                btn.className = "w-full p-3.5 bg-slate-950 border border-slate-850 hover:border-amber-500/30 text-right rounded-2xl flex justify-between items-center transition group";
+                btn.innerHTML = `
+                    <div class="text-right">
+                        <h5 class="font-bold text-xs text-slate-200 group-hover:text-amber-400 transition">${item.title}</h5>
+                        <p class="text-[9px] text-slate-400 mt-1 truncate max-w-xs">${item.arabic}</p>
+                    </div>
+                    <span class="text-xs text-amber-500">ابدأ التحدي ⬅</span>
+                `;
+                btn.onclick = () => selectVanishingPassage(index);
+                container.appendChild(btn);
+            });
+            if (container.children.length === 0) {
+                container.innerHTML = `<p class="text-center text-xs text-red-400 py-6 font-bold">لا يوجد قطع صعبة مسجلة!</p>`;
+            }
+        }
+
+        function selectVanishingPassage(index) {
+            vanishingState.index = index;
+            const def = passagesData[index];
+            vanishingState.english = def.english;
+            
+            document.getElementById('vanishing-title').innerText = def.title;
+            document.getElementById('vanishing-arabic-context').innerText = def.arabic;
+            document.getElementById('vanishing-selector-view').classList.add('hidden');
+            document.getElementById('vanishing-play-view').classList.remove('hidden');
+            
+            setVanishingLevel(0.2);
+        }
+
+        function setVanishingLevel(level) {
+            vanishingState.level = level;
+            const container = document.getElementById('vanishing-text-container');
+            container.innerHTML = '';
+            
+            const words = vanishingState.english.split(' ');
+            words.forEach((w, idx) => {
+                const shouldHide = Math.random() < level;
+                if (shouldHide) {
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.dataset.word = w.replace(/[.,!?;:"'()]/g, '');
+                    input.dataset.original = w;
+                    input.className = "vanishing-blank bg-slate-900 border-b-2 border-slate-700 text-amber-400 focus:border-amber-400 focus:outline-none text-center px-1 font-serif";
+                    input.style.width = `${Math.max(w.length * 10, 40)}px`;
+                    container.appendChild(input);
+                } else {
+                    const span = document.createElement('span');
+                    span.innerText = w;
+                    span.className = "text-slate-400";
+                    container.appendChild(span);
+                }
+            });
+        }
+
+        function checkVanishingAnswer() {
+            const inputs = document.querySelectorAll('.vanishing-blank');
+            let correct = 0;
+            inputs.forEach(input => {
+                const target = input.dataset.word.toLowerCase();
+                const val = input.value.trim().toLowerCase().replace(/[.,!?;:"'()]/g, '');
+                if (val === target) {
+                    input.classList.replace('border-slate-700', 'border-emerald-500');
+                    input.classList.add('text-emerald-400');
+                    correct++;
+                } else {
+                    input.classList.replace('border-slate-700', 'border-red-500');
+                    input.classList.add('text-red-400');
+                }
+            });
+            
+            if (correct === inputs.length && inputs.length > 0) {
+                showToast(`ممتاز! تذكرت كل الكلمات المفقودة بدقة. +30 نقطة`, true);
+                if (typeof triggerConfetti === "function") triggerConfetti();
+                state.score += 30;
+                updateDashboardStats();
+                incrementCompletedExercises();
+            } else {
+                addPassageMistake(passagesData[vanishingState.index]);
+                showToast(`إجابات صحيحة: ${correct} من ${inputs.length}. حاول مجدداً!`, false);
+            }
+        }
+        
+        function revealVanishingHint() {
+            const inputs = document.querySelectorAll('.vanishing-blank');
+            inputs.forEach(input => {
+                if (input.value.trim().toLowerCase() !== input.dataset.word.toLowerCase()) {
+                    input.value = input.dataset.original;
+                    input.classList.add('text-amber-500', 'opacity-70');
+                }
+            });
+        }
+
+        function exitVanishingToSelector() {
+            document.getElementById('vanishing-selector-view').classList.remove('hidden');
+            document.getElementById('vanishing-play-view').classList.add('hidden');
+            startVanishingGameSelector();
+        }
+
+        // --- SUB GAME 9: MUSCLE MEMORY ---
+        let muscleState = {
+            index: null,
+            targetText: ""
+        };
+
+        function startMuscleGameSelector() {
+            const container = document.getElementById('muscle-passage-buttons');
+            container.innerHTML = '';
+            passagesData.forEach((item, index) => {
+                if (state.failuresOnlyMode && !state.failedPassages.some(f => f.title === item.title)) return;
+                const btn = document.createElement('button');
+                btn.className = "w-full p-3.5 bg-slate-950 border border-slate-850 hover:border-amber-500/30 text-right rounded-2xl flex justify-between items-center transition group";
+                btn.innerHTML = `
+                    <div class="text-right">
+                        <h5 class="font-bold text-xs text-slate-200 group-hover:text-amber-400 transition">${item.title}</h5>
+                        <p class="text-[9px] text-slate-400 mt-1 truncate max-w-xs">${item.arabic}</p>
+                    </div>
+                    <span class="text-xs text-amber-500">ابدأ التحدي ⬅</span>
+                `;
+                btn.onclick = () => selectMusclePassage(index);
+                container.appendChild(btn);
+            });
+            if (container.children.length === 0) {
+                container.innerHTML = `<p class="text-center text-xs text-red-400 py-6 font-bold">لا يوجد قطع صعبة مسجلة!</p>`;
+            }
+        }
+
+        function selectMusclePassage(index) {
+            muscleState.index = index;
+            const def = passagesData[index];
+            muscleState.targetText = def.english.trim();
+            
+            document.getElementById('muscle-title').innerText = def.title;
+            document.getElementById('muscle-arabic-context').innerText = def.arabic;
+            
+            document.getElementById('muscle-target-text').innerText = muscleState.targetText;
+            document.getElementById('muscle-typed-overlay').innerHTML = '';
+            document.getElementById('muscle-hidden-input').value = '';
+            document.getElementById('muscle-feedback').classList.add('hidden');
+            
+            document.getElementById('muscle-selector-view').classList.add('hidden');
+            document.getElementById('muscle-play-view').classList.remove('hidden');
+            
+            setTimeout(() => document.getElementById('muscle-hidden-input').focus(), 100);
+        }
+
+        function handleMuscleTyping(event) {
+            const typed = event.target.value;
+            const target = muscleState.targetText;
+            
+            let html = '';
+            let isPerfect = true;
+            
+            for (let i = 0; i < typed.length; i++) {
+                if (typed[i] === target[i]) {
+                    html += `<span class="text-emerald-400">${typed[i]}</span>`;
+                } else {
+                    html += `<span class="text-red-500 bg-red-950/50">${target[i] === ' ' ? '_' : target[i]}</span>`;
+                    isPerfect = false;
+                }
+            }
+            
+            document.getElementById('muscle-typed-overlay').innerHTML = html;
+            
+            if (typed.length >= target.length) {
+                const fb = document.getElementById('muscle-feedback');
+                fb.classList.remove('hidden', 'border-emerald-500', 'text-emerald-400', 'border-red-500', 'text-red-400');
+                if (isPerfect) {
+                    fb.classList.add('border-emerald-500', 'text-emerald-400');
+                    fb.innerText = "رائع! ذاكرة عضلية مثالية. +30 نقطة";
+                    if (typeof triggerConfetti === "function") triggerConfetti();
+                    state.score += 30;
+                    updateDashboardStats();
+                    incrementCompletedExercises();
+                } else {
+                    addPassageMistake(passagesData[muscleState.index]);
+                    fb.classList.add('border-red-500', 'text-red-400');
+                    fb.innerText = "يوجد أخطاء في الطباعة. مسافات أو حروف خاطئة. راجع الألوان الحمراء وصححها (Backspace).";
+                }
+            }
+        }
+        
+        function exitMuscleToSelector() {
+            document.getElementById('muscle-selector-view').classList.remove('hidden');
+            document.getElementById('muscle-play-view').classList.add('hidden');
+            startMuscleGameSelector();
+        }
+
+        // --- SUB GAME 10: BLIND DICTATION ---
+        let dictationState = {
+            index: null,
+            english: ""
+        };
+
+        function startDictationGameSelector() {
+            const container = document.getElementById('dictation-passage-buttons');
+            container.innerHTML = '';
+            passagesData.forEach((item, index) => {
+                if (state.failuresOnlyMode && !state.failedPassages.some(f => f.title === item.title)) return;
+                const btn = document.createElement('button');
+                btn.className = "w-full p-3.5 bg-slate-950 border border-slate-850 hover:border-amber-500/30 text-right rounded-2xl flex justify-between items-center transition group";
+                btn.innerHTML = `
+                    <div class="text-right">
+                        <h5 class="font-bold text-xs text-slate-200 group-hover:text-amber-400 transition">${item.title}</h5>
+                        <p class="text-[9px] text-slate-400 mt-1 truncate max-w-xs">${item.arabic}</p>
+                    </div>
+                    <span class="text-xs text-amber-500">ابدأ التحدي ⬅</span>
+                `;
+                btn.onclick = () => selectDictationPassage(index);
+                container.appendChild(btn);
+            });
+            if (container.children.length === 0) {
+                container.innerHTML = `<p class="text-center text-xs text-red-400 py-6 font-bold">لا يوجد قطع صعبة مسجلة!</p>`;
+            }
+        }
+
+        function selectDictationPassage(index) {
+            dictationState.index = index;
+            const def = passagesData[index];
+            dictationState.english = def.english;
+            
+            document.getElementById('dictation-title').innerText = def.title;
+            document.getElementById('dictation-input').value = '';
+            document.getElementById('dictation-feedback').classList.add('hidden');
+            
+            document.getElementById('dictation-selector-view').classList.add('hidden');
+            document.getElementById('dictation-play-view').classList.remove('hidden');
+            
+            playDictationAudio();
+        }
+
+        function playDictationAudio() {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(dictationState.english);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                showToast("عذراً، متصفحك لا يدعم النطق الصوتي.", false);
+            }
+        }
+
+        function checkDictationAnswer() {
+            const input = document.getElementById('dictation-input').value;
+            const normalize = (text) => text.toLowerCase().replace(/[.,!?;:"'()]/g, '').replace(/\s+/g, ' ').trim();
+            
+            const normalizedInput = normalize(input);
+            const normalizedTarget = normalize(dictationState.english);
+            
+            const fb = document.getElementById('dictation-feedback');
+            fb.classList.remove('hidden', 'border-emerald-500', 'bg-emerald-950/50', 'text-emerald-300', 'border-red-500', 'bg-red-950/50', 'text-red-300');
+            
+            if (normalizedInput === normalizedTarget && normalizedInput.length > 0) {
+                showToast("ممتاز! إملاء صوتي صحيح 100%. +30 نقطة", true);
+                if (typeof triggerConfetti === "function") triggerConfetti();
+                state.score += 30;
+                updateDashboardStats();
+                incrementCompletedExercises();
+                
+                fb.classList.add('border-emerald-500', 'bg-emerald-950/50', 'text-emerald-300');
+                fb.innerHTML = `<b>أحسنت! الإجابة المثالية:</b><br><span dir="ltr" class="font-serif block mt-1">${dictationState.english}</span>`;
+            } else {
+                addPassageMistake(passagesData[dictationState.index]);
+                fb.classList.add('border-red-500', 'bg-red-950/50', 'text-red-300');
+                fb.innerHTML = `<b>يوجد أخطاء في الإملاء.</b> حاول الاستماع والمراجعة مرة أخرى.<br><span class="text-[10px] mt-2 block opacity-70">النص الأصلي كان: ${dictationState.english}</span>`;
+            }
+        }
+
+        function exitDictationToSelector() {
+            if(window.speechSynthesis) window.speechSynthesis.cancel();
+            document.getElementById('dictation-selector-view').classList.remove('hidden');
+            document.getElementById('dictation-play-view').classList.add('hidden');
+            startDictationGameSelector();
+        }
 
         // --- TAB 4: OFFICIAL INTERACTIVE EXAM SIMULATOR ---
         const officialExamQuestionsList = [
