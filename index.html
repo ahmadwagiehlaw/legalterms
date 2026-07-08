@@ -35,6 +35,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
     
     <style>
+        :root {
+            --font-scale: 100%;
+        }
+        html {
+            font-size: var(--font-scale);
+            transition: font-size 0.2s ease;
+        }
         body {
             font-family: 'Cairo', sans-serif;
             background-color: #03050a;
@@ -90,7 +97,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-amber-500/30 selection:text-amber-200">
+<body class="h-[100dvh] flex flex-col overflow-hidden selection:bg-amber-500/30 selection:text-amber-200">
 
     <!-- INSTALL PWA DIALOG TUTORIAL (MOBILE FRIENDLY) -->
     <div id="install-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-sm hidden">
@@ -158,11 +165,11 @@
     </div>
 
     <!-- MAIN HEADER -->
-    <header class="bg-slate-900/90 border-b border-slate-800 sticky top-0 z-40 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-4 py-2 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+    <header class="bg-slate-900/90 border-b border-slate-800 sticky top-0 z-40 backdrop-blur-md flex-shrink-0">
+        <div class="max-w-7xl mx-auto px-4 py-2 sm:px-6 lg:px-8 flex items-center justify-between gap-4 w-full">
             
             <div class="flex items-center gap-2">
-                <div class="bg-gradient-to-tr from-amber-500 to-yellow-300 p-1.5 rounded-lg text-slate-950">
+                <div class="bg-gradient-to-tr from-amber-500 to-yellow-300 p-1.5 rounded-lg text-slate-950 flex-shrink-0">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 2a1 1 0 0 1 .993.883L13 3v1.171l5.317 1.772a1 1 0 0 1 .672 1.135l-.01.082l-.46 2.302c1.923.633 3.321 2.348 3.473 4.41l.008.243V15a3 3 0 0 1-2.824 2.995L19 18h-5v3h3a1 1 0 0 1 .117 1.993L17 23H7a1 1 0 0 1-.117-1.993L7 21h3v-3H5a3 3 0 0 1-2.995-2.824L2 15v-.885c0-2.222 1.542-4.053 3.655-4.571l-.348-1.74a1 1 0 0 1 .59-1.135l.092-.033L11 4.17V3a1 1 0 0 1 .883-.993L12 2zm6.673 8.35c.55 2.748-1.205 5.313-3.953 5.827l-.317.05v.678h4.673a1 1 0 0 0 .993-.883l.007-.117v-.885zm-13.346 0C3.9 10.615 3 12.115 3 13.615v.885a1 1 0 0 0 1 1h4.673v-.678l-.317-.05c-2.748-.514-4.503-3.08-3.953-5.827l.24-1.198zM12 6.396l-3.6 1.2v6.08a4.002 4.002 0 0 0 7.2 0V7.596z"/>
                     </svg>
@@ -175,10 +182,35 @@
                 </div>
             </div>
 
+            <!-- Desktop Navigation Tabs (Hidden on Mobile) -->
+            <nav class="hidden sm:flex items-center gap-2 bg-slate-950/65 px-3 py-1.5 rounded-2xl border border-slate-855">
+                <button onclick="switchTab('dashboard')" id="desktop-nav-dashboard" class="px-3 py-1 text-xs font-bold text-slate-400 hover:text-amber-400 transition-all rounded-lg active-tab-nav">
+                    🏡 الرئيسية
+                </button>
+                <button onclick="switchTab('study')" id="desktop-nav-study" class="px-3 py-1 text-xs font-bold text-slate-400 hover:text-amber-400 transition-all rounded-lg">
+                    📚 المذاكرة
+                </button>
+                <button onclick="switchTab('review')" id="desktop-nav-review" class="px-3 py-1 text-xs font-bold text-slate-400 hover:text-amber-400 transition-all rounded-lg">
+                    🎯 المراجعة
+                </button>
+                <button onclick="switchTab('exam')" id="desktop-nav-exam" class="px-3 py-1 text-xs font-bold text-slate-400 hover:text-amber-400 transition-all rounded-lg">
+                    📝 الامتحان
+                </button>
+                <button onclick="switchTab('user')" id="desktop-nav-user" class="px-3 py-1 text-xs font-bold text-slate-400 hover:text-amber-400 transition-all rounded-lg">
+                    🔧 الإعدادات
+                </button>
+            </nav>
+
             <!-- Header Quick Actions -->
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 flex-shrink-0">
+                <!-- Font Size Controls -->
+                <div class="flex items-center bg-slate-950 border border-slate-800 rounded-xl overflow-hidden shadow-inner">
+                    <button onclick="changeFontSize('decrease')" class="px-2 py-1 text-[10px] text-slate-400 hover:text-amber-400 hover:bg-slate-900 border-l border-slate-800 transition font-bold" title="تصغير الخط">A-</button>
+                    <button onclick="changeFontSize('increase')" class="px-2 py-1 text-[10px] text-slate-400 hover:text-amber-400 hover:bg-slate-900 transition font-bold" title="تكبير الخط">A+</button>
+                </div>
+                
                 <button onclick="toggleInstallModal()" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-bold px-2 py-1 rounded-xl text-[9px] border border-amber-500/20 transition flex items-center gap-1">
-                    📱 تثبيت التطبيق
+                    📱 تثبيت
                 </button>
                 <div class="text-[10px] bg-slate-950 px-2 py-1 rounded-lg border border-slate-800 font-bold" id="score-counter">
                     🏆 <span id="score-val">100</span> نقطة
@@ -188,7 +220,7 @@
     </header>
 
     <!-- MAIN INTERACTIVE DISPLAY PORT -->
-    <main class="max-w-4xl mx-auto px-4 py-4 flex-grow w-full pb-20 overflow-y-auto">
+    <main class="max-w-4xl mx-auto px-4 py-4 flex-grow w-full pb-28 overflow-y-auto">
         <div id="main-tabs-content">
             
             <!-- TAB 1: DASHBOARD (HOME) -->
@@ -568,31 +600,31 @@
     </main>
 
     <!-- FIXED PREMIUM BOTTOM NAVIGATION BAR (IDEAL FOR ONE-HANDED MOBILE USE) -->
-    <div class="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 border-t border-slate-850 py-2.5 px-2 backdrop-blur-md flex justify-around items-center">
+    <div class="mobile-nav sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 border-t border-slate-850 py-3 px-2 backdrop-blur-md flex justify-around items-center">
         <!-- Dashboard / Home -->
         <button onclick="switchTab('dashboard')" id="mobile-nav-dashboard" class="flex flex-col items-center gap-1 text-slate-400 transition-all duration-200 active-tab-nav">
-            <span class="text-base">🏡</span>
-            <span class="text-[9px] font-bold">الرئيسية</span>
+            <span class="text-xl">🏡</span>
+            <span class="text-[10px] font-bold">الرئيسية</span>
         </button>
         <!-- Study -->
         <button onclick="switchTab('study')" id="mobile-nav-study" class="flex flex-col items-center gap-1 text-slate-400 transition-all duration-200">
-            <span class="text-base">📚</span>
-            <span class="text-[9px] font-bold">المذاكرة</span>
+            <span class="text-xl">📚</span>
+            <span class="text-[10px] font-bold">المذاكرة</span>
         </button>
         <!-- Review -->
         <button onclick="switchTab('review')" id="mobile-nav-review" class="flex flex-col items-center gap-1 text-slate-400 transition-all duration-200">
-            <span class="text-base">🎯</span>
-            <span class="text-[9px] font-bold">المراجعة</span>
+            <span class="text-xl">🎯</span>
+            <span class="text-[10px] font-bold">المراجعة</span>
         </button>
         <!-- Exam -->
         <button onclick="switchTab('exam')" id="mobile-nav-exam" class="flex flex-col items-center gap-1 text-slate-400 transition-all duration-200">
-            <span class="text-base">📝</span>
-            <span class="text-[9px] font-bold">الامتحان</span>
+            <span class="text-xl">📝</span>
+            <span class="text-[10px] font-bold">الامتحان</span>
         </button>
         <!-- User Settings -->
         <button onclick="switchTab('user')" id="mobile-nav-user" class="flex flex-col items-center gap-1 text-slate-400 transition-all duration-200">
-            <span class="text-base">🔧</span>
-            <span class="text-[9px] font-bold">الملف</span>
+            <span class="text-xl">🔧</span>
+            <span class="text-[10px] font-bold">الملف</span>
         </button>
     </div>
 
@@ -803,8 +835,25 @@
         };
 
         let selectedGenderType = "male";
+        let fontScale = 100;
+
+        function changeFontSize(direction) {
+            if (direction === 'increase') {
+                if (fontScale < 140) fontScale += 10;
+            } else if (direction === 'decrease') {
+                if (fontScale > 80) fontScale -= 10;
+            }
+            document.documentElement.style.setProperty('--font-scale', fontScale + '%');
+            localStorage.setItem('fontScale', fontScale);
+        }
 
         window.onload = function() {
+            // Load saved font scale
+            const savedScale = localStorage.getItem('fontScale');
+            if (savedScale) {
+                fontScale = parseInt(savedScale);
+                document.documentElement.style.setProperty('--font-scale', fontScale + '%');
+            }
             // Initiate app views
             initStudyMode();
             renderMistakesWidget();
@@ -844,7 +893,11 @@
             // Apply personalization
             document.getElementById('user-header-welcome').innerText = `${state.userTitle} / ${state.userName}`;
             document.getElementById('dash-greeting').innerText = `أهلاً بك يا ${state.userTitle} ${state.userName}`;
-            document.getElementById('study-title-welcome').innerText = `أهلاً بك ${state.userTitle} في وضع المذاكرة`;
+            
+            const studyTitleWelcome = document.getElementById('study-title-welcome');
+            if (studyTitleWelcome) {
+                studyTitleWelcome.innerText = `أهلاً بك ${state.userTitle} في وضع المذاكرة`;
+            }
 
             updateOverallProgress();
             updateDashboardStats();
@@ -878,6 +931,20 @@
             const currentMobileBtn = document.getElementById('mobile-nav-' + tabId);
             if (currentMobileBtn) {
                 currentMobileBtn.classList.add('active-tab-nav');
+                currentMobileBtn.classList.remove('text-slate-400');
+            }
+
+            // Highlighting desktop nav icons
+            const desktopBtns = document.querySelectorAll('nav.sm\\:flex button');
+            desktopBtns.forEach(btn => {
+                btn.classList.remove('active-tab-nav');
+                btn.classList.add('text-slate-400');
+            });
+
+            const currentDesktopBtn = document.getElementById('desktop-nav-' + tabId);
+            if (currentDesktopBtn) {
+                currentDesktopBtn.classList.add('active-tab-nav');
+                currentDesktopBtn.classList.remove('text-slate-400');
             }
 
             // Actions on load
@@ -1165,219 +1232,6 @@
                     </div>
                 `;
                 renderPlaygroundSpelling();
-            }
-        }
-
-        function launchReviewGameQuiz() {
-            launchReviewGame('quiz');
-        }
-
-        // Keep direct compatibility for button trigger mapping
-        function launchReviewGame(gameType) {
-            const container = document.getElementById('games-selection-hub');
-            const playground = document.getElementById('game-playground-container');
-            const mount = document.getElementById('game-mount-point');
-
-            container.classList.add('hidden');
-            playground.classList.remove('hidden');
-
-            const activeTerms = getActiveTerms();
-            if (activeTerms.length === 0) {
-                mount.innerHTML = `<p class="text-center text-xs text-red-400 py-6 font-bold">يرجى تنشيط/إلغاء تجاهل بعض الكلمات أولاً للتمكن من اللعب!</p>`;
-                return;
-            }
-
-            if (gameType === 'flashcards') {
-                document.getElementById('game-title-header').innerText = "بطاقات الاستذكار (Flashcards)";
-                state.activeFlashcards = activeTerms;
-                state.flashcardIndex = 0;
-                mount.innerHTML = `
-                    <div class="flex flex-col items-center justify-center space-y-4">
-                        <div class="flip-card w-full max-w-sm h-60 cursor-pointer" id="active-card" onclick="flipActiveCard()">
-                            <div class="flip-card-inner shadow-2xl border border-slate-800 rounded-3xl" id="card-inner">
-                                <div class="flip-card-front bg-slate-950 flex flex-col justify-between p-6">
-                                    <span class="text-[9px] text-slate-500 text-right">اضغط لقلب البطاقة 🔄</span>
-                                    <h4 class="text-xl font-black text-slate-100" id="g-card-ar"></h4>
-                                    <span id="g-card-cat" class="text-[9px] text-amber-500"></span>
-                                </div>
-                                <div class="flip-card-back bg-slate-900 border-2 border-amber-500/20 flex flex-col justify-between p-6">
-                                    <div class="flex justify-between items-center">
-                                        <span class="text-[9px] text-amber-500 font-bold">المقابل الإنجليزي</span>
-                                        <button onclick="speakCurrentWord(event)" class="text-[9px] bg-slate-800 px-2 py-1 rounded text-white font-bold">🔊 نطق</button>
-                                    </div>
-                                    <h4 class="text-xl font-black text-amber-400 english-text" id="g-card-en"></h4>
-                                    <span class="text-[9px] text-slate-500">اضغط للرجوع</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex gap-2 w-full max-w-sm">
-                            <button onclick="answerFlashcard(false)" class="flex-1 bg-red-950/60 border border-red-900 text-red-200 text-xs py-2.5 rounded-xl font-bold">❌ أحتاج مراجعتها</button>
-                            <button onclick="answerFlashcard(true)" class="flex-1 bg-emerald-950/60 border border-emerald-900 text-emerald-200 text-xs py-2.5 rounded-xl font-bold">✔ تم الحفظ</button>
-                        </div>
-                        <p class="text-[10px] text-slate-500" id="g-card-progress"></p>
-                    </div>
-                `;
-                renderPlaycard();
-            } else if (gameType === 'match') {
-                document.getElementById('game-title-header').innerText = "لعبة المطابقة السريعة (Match)";
-                mount.innerHTML = `
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs font-mono font-bold text-amber-500" id="match-timer-label">⏱️ المؤقت: 00:00</span>
-                            <button onclick="launchReviewGame('match')" class="text-[10px] bg-slate-800 text-slate-300 px-2 py-1 rounded-lg">إعادة خلط 🔄</button>
-                        </div>
-                        <div class="grid grid-cols-2 gap-2" id="playground-match-grid"></div>
-                    </div>
-                `;
-                initPlaygroundMatch();
-            } else if (gameType === 'spelling') {
-                document.getElementById('game-title-header').innerText = "تحدي الكتابة الحرة والإملاء";
-                state.writingTerms = [...activeTerms].sort(() => 0.5 - Math.random());
-                state.writingCurrentIndex = 0;
-                mount.innerHTML = `
-                    <div class="max-w-sm mx-auto space-y-4 text-center">
-                        <div>
-                            <span class="text-[9px] text-slate-500 block">المصطلح المطلوب كتابته بالعربية:</span>
-                            <h4 id="g-spell-ar" class="text-xl font-black text-amber-400 mt-1"></h4>
-                        </div>
-                        <input type="text" id="g-spell-input" autocomplete="off" placeholder="اكتب المصطلح الإنجليزي المقابل..." class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl py-3 text-center text-sm font-bold focus:border-amber-400 focus:outline-none">
-                        <button onclick="checkPlaygroundSpelling()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-2.5 rounded-xl text-xs">تحقق من الإملاء</button>
-                        <div class="flex justify-between items-center text-[10px] text-slate-500 px-1">
-                            <button onclick="revealSpellHint()" class="hover:text-amber-400 transition">💡 تلميح</button>
-                            <span id="g-spell-hint-lbl" class="font-mono text-amber-500 font-bold"></span>
-                            <button onclick="nextPlaygroundSpelling()" class="hover:text-white transition">تجاوز ⬅</button>
-                        </div>
-                    </div>
-                `;
-                renderPlaygroundSpelling();
-            } else if (gameType === 'quiz') {
-                document.getElementById('game-title-header').innerText = "اختبار الخيارات المتعددة (MCQ)";
-                state.quizCurrentIndex = 0;
-                state.quizScore = 0;
-                
-                // Shuffle terms for questions
-                const shuffled = [...activeTerms].sort(() => 0.5 - Math.random());
-                const itemsCount = Math.min(10, shuffled.length);
-                state.quizQuestions = shuffled.slice(0, itemsCount).map(item => {
-                    const isArToEn = Math.random() > 0.5;
-                    const alternatives = activeTerms
-                        .filter(g => g.id !== item.id)
-                        .sort(() => 0.5 - Math.random())
-                        .slice(0, 3)
-                        .map(alt => isArToEn ? alt.english : alt.arabic);
-
-                    const correctAnswer = isArToEn ? item.english : item.arabic;
-                    const answersList = [...alternatives, correctAnswer].sort(() => 0.5 - Math.random());
-
-                    return {
-                        question: isArToEn ? `ما هو المقابل الإنجليزي لـ [${item.arabic}]؟` : `ما هو المعنى المقابل للمصطلح [${item.english}]؟`,
-                        correctAnswer: correctAnswer,
-                        answers: answersList,
-                        termReference: item
-                    };
-                });
-
-                mount.innerHTML = `
-                    <div class="max-w-md mx-auto space-y-4">
-                        <div class="flex justify-between text-xs text-slate-400">
-                            <span id="g-quiz-progress-text">السؤال 1</span>
-                            <span id="g-quiz-score-text">الدرجة: 0</span>
-                        </div>
-                        <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800">
-                            <h4 id="g-quiz-question-lbl" class="text-sm font-bold text-slate-100"></h4>
-                        </div>
-                        <div class="space-y-2" id="g-quiz-answers-box"></div>
-                        <div id="g-quiz-feedback-box" class="p-3 rounded-xl border hidden text-xs leading-relaxed text-right"></div>
-                    </div>
-                `;
-                renderPlaygroundQuizQuestion();
-            }
-        }
-
-        // Backup mapping so that launchReviewGame('quiz') maps smoothly and robustly
-        function launchReviewGame(type) {
-            launchReviewGame(type);
-        }
-
-        // Bridge to avoid double declarations but maintaining correct trigger mapping
-        const originalLaunch = launchReviewGame;
-        launchReviewGame = function(gameType) {
-            const container = document.getElementById('games-selection-hub');
-            const playground = document.getElementById('game-playground-container');
-            const mount = document.getElementById('game-mount-point');
-
-            container.classList.add('hidden');
-            playground.classList.remove('hidden');
-
-            const activeTerms = getActiveTerms();
-            if (activeTerms.length === 0) {
-                mount.innerHTML = `<p class="text-center text-xs text-red-400 py-6 font-bold">يرجى تنشيط/إلغاء تجاهل بعض الكلمات أولاً للتمكن من اللعب!</p>`;
-                return;
-            }
-
-            if (gameType === 'flashcards') {
-                document.getElementById('game-title-header').innerText = "بطاقات الاستذكار (Flashcards)";
-                state.activeFlashcards = activeTerms;
-                state.flashcardIndex = 0;
-                mount.innerHTML = `
-                    <div class="flex flex-col items-center justify-center space-y-4">
-                        <div class="flip-card w-full max-w-sm h-60 cursor-pointer" id="active-card" onclick="flipActiveCard()">
-                            <div class="flip-card-inner shadow-2xl border border-slate-800 rounded-3xl" id="card-inner">
-                                <div class="flip-card-front bg-slate-950 flex flex-col justify-between p-6">
-                                    <span class="text-[9px] text-slate-500 text-right">اضغط لقلب البطاقة 🔄</span>
-                                    <h4 class="text-xl font-black text-slate-100" id="g-card-ar"></h4>
-                                    <span id="g-card-cat" class="text-[9px] text-amber-500"></span>
-                                </div>
-                                <div class="flip-card-back bg-slate-900 border-2 border-amber-500/20 flex flex-col justify-between p-6">
-                                    <div class="flex justify-between items-center">
-                                        <span class="text-[9px] text-amber-500 font-bold">المقابل الإنجليزي</span>
-                                        <button onclick="speakCurrentWord(event)" class="text-[9px] bg-slate-800 px-2 py-1 rounded text-white font-bold">🔊 نطق</button>
-                                    </div>
-                                    <h4 class="text-xl font-black text-amber-400 english-text" id="g-card-en"></h4>
-                                    <span class="text-[9px] text-slate-500">اضغط للرجوع</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex gap-2 w-full max-w-sm">
-                            <button onclick="answerFlashcard(false)" class="flex-1 bg-red-950/60 border border-red-900 text-red-200 text-xs py-2.5 rounded-xl font-bold">❌ أحتاج مراجعتها</button>
-                            <button onclick="answerFlashcard(true)" class="flex-1 bg-emerald-950/60 border border-emerald-900 text-emerald-200 text-xs py-2.5 rounded-xl font-bold">✔ تم الحفظ</button>
-                        </div>
-                        <p class="text-[10px] text-slate-500" id="g-card-progress"></p>
-                    </div>
-                `;
-                renderPlaycard();
-            } else if (gameType === 'match') {
-                document.getElementById('game-title-header').innerText = "لعبة المطابقة السريعة (Match)";
-                mount.innerHTML = `
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs font-mono font-bold text-amber-500" id="match-timer-label">⏱️ المؤقت: 00:00</span>
-                            <button onclick="launchReviewGame('match')" class="text-[10px] bg-slate-800 text-slate-300 px-2 py-1 rounded-lg">إعادة خلط 🔄</button>
-                        </div>
-                        <div class="grid grid-cols-2 gap-2" id="playground-match-grid"></div>
-                    </div>
-                `;
-                initPlaygroundMatch();
-            } else if (gameType === 'spelling') {
-                document.getElementById('game-title-header').innerText = "تحدي الكتابة الحرة والإملاء";
-                state.writingTerms = [...activeTerms].sort(() => 0.5 - Math.random());
-                state.writingCurrentIndex = 0;
-                mount.innerHTML = `
-                    <div class="max-w-sm mx-auto space-y-4 text-center">
-                        <div>
-                            <span class="text-[9px] text-slate-500 block">المصطلح المطلوب كتابته بالعربية:</span>
-                            <h4 id="g-spell-ar" class="text-xl font-black text-amber-400 mt-1"></h4>
-                        </div>
-                        <input type="text" id="g-spell-input" autocomplete="off" placeholder="اكتب المصطلح الإنجليزي المقابل..." class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl py-3 text-center text-sm font-bold focus:border-amber-400 focus:outline-none">
-                        <button onclick="checkPlaygroundSpelling()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-2.5 rounded-xl text-xs">تحقق من الإملاء</button>
-                        <div class="flex justify-between items-center text-[10px] text-slate-500 px-1">
-                            <button onclick="revealSpellHint()" class="hover:text-amber-400 transition">💡 تلميح</button>
-                            <span id="g-spell-hint-lbl" class="font-mono text-amber-500 font-bold"></span>
-                            <button onclick="nextPlaygroundSpelling()" class="hover:text-white transition">تجاوز ⬅</button>
-                        </div>
-                    </div>
-                `;
-                renderPlaygroundSpelling();
             } else if (gameType === 'quiz') {
                 document.getElementById('game-title-header').innerText = "اختبار الخيارات المتعددة (MCQ)";
                 state.quizCurrentIndex = 0;
@@ -1545,15 +1399,26 @@
                     }
                 } else {
                     // Error Match
-                    document.getElementById(`g-match-${prevIdx}`).className = "p-3 h-16 rounded-xl border-2 border-red-500 bg-red-950 text-red-200 font-bold text-xs sm:text-sm flex items-center justify-center text-center";
-                    document.getElementById(`g-match-${idx}`).className = "p-3 h-16 rounded-xl border-2 border-red-500 bg-red-950 text-red-200 font-bold text-xs sm:text-sm flex items-center justify-center text-center";
+                    const card1 = document.getElementById(`g-match-${prevIdx}`);
+                    const card2 = document.getElementById(`g-match-${idx}`);
+                    
+                    card1.className = "p-3 h-16 rounded-xl border-2 border-red-500 bg-red-950 text-red-200 font-bold text-xs sm:text-sm flex items-center justify-center text-center transition-all duration-200";
+                    card2.className = "p-3 h-16 rounded-xl border-2 border-red-500 bg-red-950 text-red-200 font-bold text-xs sm:text-sm flex items-center justify-center text-center transition-all duration-200";
                     
                     // Add mistake
                     const fullTerm = glossaryData.find(t => t.id === card.id);
                     if (fullTerm) addMistake(fullTerm);
 
                     setTimeout(() => {
-                        initPlaygroundMatch();
+                        const pCard = state.matchPairs[prevIdx];
+                        const cCard = state.matchPairs[idx];
+                        
+                        card1.className = `p-3 h-16 rounded-xl border font-bold text-xs sm:text-sm flex items-center justify-center text-center transition-all duration-200 ${
+                            pCard.lang === 'en' ? 'english-text bg-slate-950 border-amber-500/30 text-amber-300' : 'bg-slate-900 border-slate-800 text-slate-100'
+                        }`;
+                        card2.className = `p-3 h-16 rounded-xl border font-bold text-xs sm:text-sm flex items-center justify-center text-center transition-all duration-200 ${
+                            cCard.lang === 'en' ? 'english-text bg-slate-950 border-amber-500/30 text-amber-300' : 'bg-slate-900 border-slate-800 text-slate-100'
+                        }`;
                     }, 800);
                 }
                 state.matchSelectedId = null;
@@ -1832,7 +1697,11 @@
 
             document.getElementById('user-header-welcome').innerText = `${state.userTitle} / ${state.userName}`;
             document.getElementById('dash-greeting').innerText = `أهلاً بك يا ${state.userTitle} ${state.userName}`;
-            document.getElementById('study-title-welcome').innerText = `أهلاً بك ${state.userTitle} في وضع المذاكرة`;
+            
+            const studyTitleWelcome = document.getElementById('study-title-welcome');
+            if (studyTitleWelcome) {
+                studyTitleWelcome.innerText = `أهلاً بك ${state.userTitle} في وضع المذاكرة`;
+            }
 
             showToast("تم تحديث الملف الشخصي بنجاح!");
         }
