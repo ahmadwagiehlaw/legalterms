@@ -389,6 +389,20 @@
                                     <div class="w-4 h-4 bg-slate-400 rounded-full shadow-md transition-all" id="failures-mode-knob"></div>
                                 </div>
                             </div>
+                            
+                            <!-- Random Sort toggle -->
+                            <div class="mt-2 bg-slate-900 border border-slate-800 p-2.5 rounded-xl flex items-center justify-between cursor-pointer transition-all" id="random-sort-container" onclick="toggleRandomSortMode()">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-lg">🔀</span>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-amber-400" id="random-sort-title">ترتيب عشوائي</h4>
+                                        <p class="text-[9px] text-slate-500" id="random-sort-desc">تغيير ترتيب الأسئلة في كل مرة بدلاً من الترتيب المتسلسل.</p>
+                                    </div>
+                                </div>
+                                <div id="random-sort-toggle" class="w-10 h-6 bg-amber-500 rounded-full flex items-center p-1 transition-all">
+                                    <div class="w-4 h-4 bg-white rounded-full shadow-md transition-all transform -translate-x-4" id="random-sort-knob"></div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Games Grid -->
@@ -1017,7 +1031,10 @@
             examTimerInterval: null,
             examAnswersQ1: {},
             examAnswersQ2: "",
-            examAnswersQ3: ""
+            examAnswersQ3: "",
+            
+            // Smart mode
+            randomSortMode: true
         };
 
         let selectedGenderType = "male";
@@ -1202,8 +1219,46 @@
             if (typeof renderPassageMistakesWidget === 'function') renderPassageMistakesWidget();
             
             // Initial cloud sync
+            pullFromCloud();
             syncToCloud();
         })();
+        
+        function pullFromCloud() {
+            const uid = getUserId();
+            if (!uid) return;
+            
+            db.collection("users").doc(uid).get().then(doc => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    let needsReload = false;
+
+                    if (data.score !== undefined && data.score > (state.score || 0)) {
+                        state.score = data.score;
+                        localStorage.setItem('userScore', state.score);
+                        const sv = document.getElementById('score-val');
+                        if (sv) sv.innerText = state.score;
+                    }
+                    if (data.completedExercises !== undefined && data.completedExercises > (state.completedExercises || 0)) {
+                        state.completedExercises = data.completedExercises;
+                        localStorage.setItem('userCompletedExercises', state.completedExercises);
+                    }
+                    if (data.customTerms && JSON.stringify(data.customTerms) !== JSON.stringify(state.customTerms)) {
+                        state.customTerms = data.customTerms;
+                        localStorage.setItem('userCustomTerms', JSON.stringify(data.customTerms));
+                        needsReload = true;
+                    }
+                    if (data.failures && JSON.stringify(data.failures) !== JSON.stringify(state.failures)) {
+                        state.failures = data.failures;
+                        localStorage.setItem('userFailures', JSON.stringify(data.failures));
+                        needsReload = true;
+                    }
+
+                    if (needsReload) {
+                        location.reload();
+                    }
+                }
+            }).catch(e => console.log("Cloud pull failed", e));
+        }
 
         function toggleInstallModal() {
             const modal = document.getElementById('install-modal');
@@ -1248,6 +1303,27 @@
                 desc.className = "text-[9px] text-slate-500";
                 desc.innerText = "انقر لقصر التمارين على الكلمات والقطع الصعبة فقط.";
                 showToast("تم إيقاف وضع تحدي الصعوبات.", false);
+            }
+        }
+
+        function toggleRandomSortMode() {
+            state.randomSortMode = !state.randomSortMode;
+            const toggle = document.getElementById('random-sort-toggle');
+            const knob = document.getElementById('random-sort-knob');
+            const title = document.getElementById('random-sort-title');
+            
+            if(state.randomSortMode) {
+                toggle.className = "w-10 h-6 bg-amber-500 rounded-full flex items-center p-1 transition-all";
+                knob.className = "w-4 h-4 bg-white rounded-full shadow-md transition-all transform -translate-x-4";
+                title.className = "text-xs font-bold text-amber-400";
+                title.innerText = "ترتيب عشوائي";
+                showToast("تم تفعيل الترتيب العشوائي", true);
+            } else {
+                toggle.className = "w-10 h-6 bg-slate-800 rounded-full flex items-center p-1 transition-all";
+                knob.className = "w-4 h-4 bg-slate-400 rounded-full shadow-md transition-all transform translate-x-0";
+                title.className = "text-xs font-bold text-slate-300";
+                title.innerText = "ترتيب متسلسل";
+                showToast("تم إيقاف الترتيب العشوائي", false);
             }
         }
 
@@ -1644,12 +1720,15 @@
             if (state.failuresOnlyMode) {
                 terms = terms.filter(t => state.failures.some(f => f.id === t.id));
             }
-            // Smart sort: Failures get a massive weight boost + randomness
-            return terms.map(t => {
+            return terms.map((t, idx) => {
                 let isFailed = state.failures.some(f => f.id === t.id);
-                let score = (isFailed ? 5 : 0) + Math.random();
-                return { term: t, score: score };
-            }).sort((a, b) => b.score - a.score).map(x => x.term);
+                let score = isFailed ? 5 : 0;
+                if (state.randomSortMode) score += Math.random();
+                return { term: t, score: score, index: idx };
+            }).sort((a, b) => {
+                if (a.score === b.score) return a.index - b.index;
+                return b.score - a.score;
+            }).map(x => x.term);
         }
 
         function launchReviewGame(gameType) {
@@ -1690,8 +1769,9 @@
                             </div>
                         </div>
                         <div class="flex gap-2 w-full max-w-sm">
-                            <button onclick="answerFlashcard(false)" class="flex-1 bg-red-950/60 border border-red-900 text-red-200 text-xs py-2.5 rounded-xl font-bold">❌ أحتاج مراجعتها</button>
-                            <button onclick="answerFlashcard(true)" class="flex-1 bg-emerald-950/60 border border-emerald-900 text-emerald-200 text-xs py-2.5 rounded-xl font-bold">✔ تم الحفظ</button>
+                            <button onclick="answerFlashcard(false)" class="flex-1 bg-red-950/60 border border-red-900 text-red-200 text-[11px] sm:text-xs py-2.5 rounded-xl font-bold">❌ صعبة</button>
+                            <button onclick="skipFlashcard()" class="flex-1 bg-slate-800 border border-slate-700 text-slate-300 text-[11px] sm:text-xs py-2.5 rounded-xl font-bold">⏭️ تجاوز</button>
+                            <button onclick="answerFlashcard(true)" class="flex-1 bg-emerald-950/60 border border-emerald-900 text-emerald-200 text-[11px] sm:text-xs py-2.5 rounded-xl font-bold">✔ حفظتها</button>
                         </div>
                         <p class="text-[10px] text-slate-500" id="g-card-progress"></p>
                     </div>
@@ -1766,6 +1846,9 @@
                         </div>
                         <div class="space-y-2" id="g-quiz-answers-box"></div>
                         <div id="g-quiz-feedback-box" class="p-3 rounded-xl border hidden text-xs leading-relaxed text-right"></div>
+                        <div class="mt-4 flex justify-end">
+                            <button onclick="skipQuizQuestion()" class="bg-slate-800 border border-slate-700 text-slate-300 px-4 py-2 rounded-xl text-xs font-bold hover:bg-slate-700 transition shadow-md">⏭️ تجاوز السؤال</button>
+                        </div>
                     </div>
                 `;
                 renderPlaygroundQuizQuestion();
@@ -2417,6 +2500,16 @@
                 renderPlaycard();
             } else {
                 showToast("أنهيت كامل البطاقات التسميعية بنجاح!", true);
+                closeCurrentGame();
+            }
+        }
+
+        function skipFlashcard() {
+            if (state.flashcardIndex < state.activeFlashcards.length - 1) {
+                state.flashcardIndex++;
+                renderPlaycard();
+            } else {
+                showToast("لقد أنهيت جميع البطاقات المتاحة!", true);
                 closeCurrentGame();
             }
         }
