@@ -374,21 +374,23 @@
                     <div id="games-selection-hub" class="space-y-4">
                         <div class="border-b border-slate-800 pb-3">
                             <h3 class="text-base font-black text-slate-100">🎯 الألعاب والتمارين الذكية</h3>
-                            <p class="text-[10px] text-slate-400">تُستبعد من هنا أي كلمة تحددها ككلمة "سهلة ومحفوظة" لتوفر وقتك.</p>
-                            
-                            <!-- Smart mode toggle -->
-                            <div class="mt-3 bg-slate-900 border border-slate-800 p-2.5 rounded-xl flex items-center justify-between cursor-pointer transition-all" id="failures-mode-container" onclick="toggleFailuresOnlyMode()">
+                            <!-- Review Filter Selection -->
+                            <div class="mt-3 bg-slate-900 border border-slate-800 p-2.5 rounded-xl flex items-center justify-between transition-all">
                                 <div class="flex items-center gap-2">
-                                    <span class="text-lg">🚨</span>
+                                    <span class="text-lg">🎯</span>
                                     <div>
-                                        <h4 class="text-xs font-bold text-slate-300" id="failures-mode-title">الوضع الذكي (تفضيل الأخطاء)</h4>
-                                        <p class="text-[9px] text-slate-500" id="failures-mode-desc">انقر لقصر التمارين على الكلمات والقطع الصعبة فقط.</p>
+                                        <h4 class="text-xs font-bold text-slate-300">نطاق المراجعة</h4>
+                                        <p class="text-[9px] text-slate-500">تصفية الكلمات حسب الفئة المطلوبة</p>
                                     </div>
                                 </div>
-                                <div id="failures-mode-toggle" class="w-10 h-6 bg-slate-800 rounded-full flex items-center p-1 transition-all">
-                                    <div class="w-4 h-4 bg-slate-400 rounded-full shadow-md transition-all" id="failures-mode-knob"></div>
-                                </div>
+                                <select id="review-filter-select" onchange="changeReviewFilter()" class="bg-slate-950 border border-slate-800 text-amber-400 text-xs font-bold rounded-xl py-1.5 px-2 focus:outline-none focus:border-amber-500">
+                                    <option value="all">التدريب الشامل</option>
+                                    <option value="failures">الأخطاء والصعبة</option>
+                                    <option value="custom">الكلمات المضافة يدوياً</option>
+                                    <option value="passage-mistakes">أخطاء القطع الطويلة</option>
+                                </select>
                             </div>
+                            <p class="text-[10px] text-slate-400 mt-3">تُستبعد من هنا أي كلمة تحددها ككلمة "سهلة ومحفوظة" لتوفر وقتك.</p>
                             
                             <!-- Random Sort toggle -->
                             <div class="mt-2 bg-slate-900 border border-slate-800 p-2.5 rounded-xl flex items-center justify-between cursor-pointer transition-all" id="random-sort-container" onclick="toggleRandomSortMode()">
@@ -997,7 +999,7 @@
             failures: [], // tracked failed terms
             failedPassages: [], // tracked failed passages
             customTerms: [], // user-added terms
-            failuresOnlyMode: false,
+            reviewFilter: 'all', // 'all', 'failures', 'custom', 'passage-mistakes'
 
             // Hide states
             hideArStudy: false,
@@ -1036,6 +1038,11 @@
             // Smart mode
             randomSortMode: true
         };
+
+        function changeReviewFilter() {
+            state.reviewFilter = document.getElementById('review-filter-select').value;
+            showToast("تم تحديث نطاق المراجعة", true);
+        }
 
         let selectedGenderType = "male";
         let fontScale = 100;
@@ -1089,7 +1096,7 @@
             }).catch(e => {
                 console.error("Login fetch error:", e);
                 showToast("حدث خطأ في الاتصال بالسحابة.", false);
-                document.getElementById('login-modal').classList.remove('hidden');
+                document.getElementById('login-modal').classList.add('hidden');
             });
         }
 
@@ -1568,6 +1575,29 @@
                 state.failedPassages.push(def);
                 localStorage.setItem('userFailedPassages', JSON.stringify(state.failedPassages));
                 renderPassageMistakesWidget();
+                
+                // Extract to glossary automatically
+                const passageTextEn = def.passage || def.english || def.fullEnglish;
+                const passageTextAr = def.arabic;
+                if (passageTextEn && !state.customTerms.some(t => t.english === passageTextEn)) {
+                    const newId = glossaryData.length > 0 ? Math.max(...glossaryData.map(t => t.id)) + 1 : 1;
+                    const newTerm = {
+                        id: newId,
+                        arabic: passageTextAr,
+                        english: passageTextEn,
+                        type: "passage_mistake",
+                        page: def.page || "-",
+                        category: "أخطاء القطع",
+                        ignored: false,
+                        isCustom: true
+                    };
+                    state.customTerms.push(newTerm);
+                    glossaryData.unshift(newTerm);
+                    localStorage.setItem('userCustomTerms', JSON.stringify(state.customTerms));
+                    
+                    if (typeof syncToCloud === 'function') syncToCloud();
+                    if (typeof renderVocabSettingsList === 'function') renderVocabSettingsList();
+                }
             }
         }
 
@@ -1753,8 +1783,13 @@
 
         function getSmartTermsList() {
             let terms = getActiveTerms();
-            if (state.failuresOnlyMode) {
+            
+            if (state.reviewFilter === 'failures') {
                 terms = terms.filter(t => state.failures.some(f => f.id === t.id));
+            } else if (state.reviewFilter === 'custom') {
+                terms = terms.filter(t => t.isCustom && t.category !== "أخطاء القطع");
+            } else if (state.reviewFilter === 'passage-mistakes') {
+                terms = terms.filter(t => t.isCustom && t.category === "أخطاء القطع");
             }
             return terms.map((t, idx) => {
                 let isFailed = state.failures.some(f => f.id === t.id);
@@ -2112,7 +2147,7 @@
             
             Object.keys(definitionsData).forEach(key => {
                 const item = definitionsData[key];
-                if (state.failuresOnlyMode && !state.failedPassages.some(f => f.title === item.title)) return;
+                if (state.reviewFilter === 'failures' && !state.failedPassages.some(f => f.title === item.title)) return;
                 
                 const btn = document.createElement('button');
                 btn.className = "w-full p-3.5 bg-slate-950 border border-slate-850 hover:border-amber-500/30 text-right rounded-2xl flex justify-between items-center transition group";
@@ -2289,7 +2324,7 @@
             container.innerHTML = '';
             
             passagesData.forEach((item, index) => {
-                if (state.failuresOnlyMode && !state.failedPassages.some(f => f.title === item.title)) return;
+                if (state.reviewFilter === 'failures' && !state.failedPassages.some(f => f.title === item.title)) return;
                 
                 const btn = document.createElement('button');
                 btn.className = "w-full p-3.5 bg-slate-950 border border-slate-850 hover:border-amber-500/30 text-right rounded-2xl flex justify-between items-center transition group";
@@ -2414,7 +2449,7 @@
             const container = document.getElementById('pspell-passage-buttons');
             container.innerHTML = '';
             passagesData.forEach((item, index) => {
-                if (state.failuresOnlyMode && !state.failedPassages.some(f => f.title === item.title)) return;
+                if (state.reviewFilter === 'failures' && !state.failedPassages.some(f => f.title === item.title)) return;
                 
                 const btn = document.createElement('button');
                 btn.className = "w-full p-3.5 bg-slate-950 border border-slate-850 hover:border-amber-500/30 text-right rounded-2xl flex justify-between items-center transition group";
@@ -2786,7 +2821,7 @@
             const container = document.getElementById('vanishing-passage-buttons');
             container.innerHTML = '';
             passagesData.forEach((item, index) => {
-                if (state.failuresOnlyMode && !state.failedPassages.some(f => f.title === item.title)) return;
+                if (state.reviewFilter === 'failures' && !state.failedPassages.some(f => f.title === item.title)) return;
                 const btn = document.createElement('button');
                 btn.className = "w-full p-3.5 bg-slate-950 border border-slate-850 hover:border-amber-500/30 text-right rounded-2xl flex justify-between items-center transition group";
                 btn.innerHTML = `
@@ -2896,7 +2931,7 @@
             const container = document.getElementById('muscle-passage-buttons');
             container.innerHTML = '';
             passagesData.forEach((item, index) => {
-                if (state.failuresOnlyMode && !state.failedPassages.some(f => f.title === item.title)) return;
+                if (state.reviewFilter === 'failures' && !state.failedPassages.some(f => f.title === item.title)) return;
                 const btn = document.createElement('button');
                 btn.className = "w-full p-3.5 bg-slate-950 border border-slate-850 hover:border-amber-500/30 text-right rounded-2xl flex justify-between items-center transition group";
                 btn.innerHTML = `
@@ -2985,7 +3020,7 @@
             const container = document.getElementById('dictation-passage-buttons');
             container.innerHTML = '';
             passagesData.forEach((item, index) => {
-                if (state.failuresOnlyMode && !state.failedPassages.some(f => f.title === item.title)) return;
+                if (state.reviewFilter === 'failures' && !state.failedPassages.some(f => f.title === item.title)) return;
                 const btn = document.createElement('button');
                 btn.className = "w-full p-3.5 bg-slate-950 border border-slate-850 hover:border-amber-500/30 text-right rounded-2xl flex justify-between items-center transition group";
                 btn.innerHTML = `
