@@ -28,6 +28,7 @@
         };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
+        const APP_VERSION = "1.0.1";
 
         tailwind.config = {
             theme: {
@@ -120,6 +121,35 @@
     </style>
 </head>
 <body class="h-[100dvh] flex flex-col overflow-hidden selection:bg-amber-500/30 selection:text-amber-200">
+
+    <!-- AUTO UPDATE MODAL -->
+    <div id="update-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/95 backdrop-blur-md hidden">
+        <div class="bg-slate-900 border-2 border-emerald-500/30 w-full max-w-sm p-6 rounded-3xl text-center">
+            <span class="text-5xl block mb-4">🚀</span>
+            <h3 class="text-xl font-black text-emerald-400">تحديث جديد متاح!</h3>
+            <p class="text-sm text-slate-300 mt-2 mb-6 leading-relaxed">
+                لقد قمنا بإضافة ميزات جديدة ومهمة للتطبيق. اضغط على الزر لتحديث التطبيق الآن.
+            </p>
+            <button onclick="location.reload(true)" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-2xl shadow-lg transition-all text-sm">
+                تحديث الآن 🔄
+            </button>
+        </div>
+    </div>
+
+    <!-- LOGIN MODAL (CODE/PHONE) -->
+    <div id="login-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-sm hidden">
+        <div class="bg-slate-900 border-2 border-amber-500/30 w-full max-w-sm p-6 rounded-3xl text-center">
+            <span class="text-4xl block mb-2">🔐</span>
+            <h3 class="text-lg font-black text-amber-400">كود الدخول وحفظ البيانات</h3>
+            <p class="text-xs text-slate-300 mt-2 mb-4 leading-relaxed">
+                الرجاء إدخال <strong class="text-amber-500">رقم الهاتف أو كود المتدرب</strong> الخاص بك للتعرف عليك وحفظ بياناتك (النقاط، الأخطاء، الإعدادات) تلقائياً لتكمل من أي جهاز في أي وقت.
+            </p>
+            <input type="tel" id="login-phone-input" placeholder="اكتب الكود/الرقم هنا..." dir="ltr" class="w-full text-center p-3 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 focus:border-amber-500 focus:outline-none font-bold text-lg mb-4">
+            <button onclick="processLogin()" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-bold py-3 rounded-xl shadow-lg transition-all text-sm">
+                دخول وبدء التدريب
+            </button>
+        </div>
+    </div>
 
     <!-- INSTALL PWA DIALOG TUTORIAL (MOBILE FRIENDLY) -->
     <div id="install-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-sm hidden">
@@ -936,6 +966,7 @@
 
         // Application State
         let state = {
+            userId: null,
             userTitle: "دكتور",
             userName: "الباحث",
             score: 0,
@@ -992,31 +1023,86 @@
             localStorage.setItem('fontScale', fontScale);
         }
 
-        // --- CLOUD SYNC LOGIC ---
-        function getUserId() {
-            let uid = localStorage.getItem('user_device_id');
-            if (!uid) {
-                uid = 'user_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
-                localStorage.setItem('user_device_id', uid);
+        // --- CLOUD SYNC & LOGIN LOGIC ---
+        function processLogin() {
+            const phone = document.getElementById('login-phone-input').value.trim();
+            if (phone.length < 4) {
+                showToast("الرجاء إدخال كود أو رقم هاتف صحيح", false);
+                return;
             }
-            return uid;
+            
+            // Save locally
+            localStorage.setItem('user_device_id', phone);
+            state.userId = phone;
+            document.getElementById('login-modal').classList.add('hidden');
+            
+            showToast("جاري المزامنة مع السحابة...", true);
+            
+            // Fetch from Firestore
+            db.collection("users").doc(phone).get().then(doc => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    if (data.score) localStorage.setItem('userScore', data.score);
+                    if (data.name) localStorage.setItem('userName', data.name);
+                    if (data.title) localStorage.setItem('userTitle', data.title);
+                    if (data.failures) localStorage.setItem('userFailures', JSON.stringify(data.failures));
+                    if (data.failedPassages) localStorage.setItem('userFailedPassages', JSON.stringify(data.failedPassages));
+                    if (data.completedExercises) localStorage.setItem('userCompletedExercises', data.completedExercises);
+                    
+                    showToast("تم استرجاع بياناتك بنجاح! جاري التحديث...", true);
+                    setTimeout(() => location.reload(), 1500);
+                } else {
+                    showToast("حساب جديد! تم الحفظ، يمكنك البدء الآن.", true);
+                    syncToCloud();
+                }
+            }).catch(e => {
+                console.error("Login fetch error:", e);
+                showToast("حدث خطأ في الاتصال بالسحابة.", false);
+            });
+        }
+
+        function getUserId() {
+            return localStorage.getItem('user_device_id');
         }
 
         function syncToCloud() {
-            if (!state.userName || state.userName === "الباحث") return;
             const uid = getUserId();
+            if (!uid || !state.userName || state.userName === "الباحث") return;
+            
             db.collection("users").doc(uid).set({
                 name: state.userName,
                 title: state.userTitle,
                 score: state.score,
                 completedExercises: state.completedExercises || 0,
-                lastActive: firebase.firestore.FieldValue.serverTimestamp()
+                failures: state.failures || [],
+                failedPassages: state.failedPassages || [],
+                lastActive: firebase.firestore.FieldValue.serverTimestamp(),
+                appVersion: APP_VERSION
             }, { merge: true }).catch(err => console.error("Cloud sync failed: ", err));
+        }
+
+        function checkAutoUpdate() {
+            db.collection('settings').doc('appInfo').get().then(doc => {
+                if (doc.exists) {
+                    const latestVersion = doc.data().latest_version;
+                    if (latestVersion && latestVersion !== APP_VERSION) {
+                        document.getElementById('update-modal').classList.remove('hidden');
+                    }
+                }
+            }).catch(e => console.log("Update check failed", e));
         }
 
         setInterval(syncToCloud, 60000);
 
         (function initApp() {
+            const uid = getUserId();
+            if (!uid) {
+                document.getElementById('login-modal').classList.remove('hidden');
+            } else {
+                state.userId = uid;
+            }
+            checkAutoUpdate();
+            
             // Load saved font scale
             const savedScale = localStorage.getItem('fontScale');
             if (savedScale) {
@@ -1236,44 +1322,48 @@
             }
         }
 
-        // SPEECH AUDIO ENGINE
-        function getBestEnglishVoice() {
-            const voices = window.speechSynthesis.getVoices();
-            const preferredVoices = [
-                "Google US English",
-                "Google UK English Female",
-                "Google UK English Male",
-                "Microsoft Aria Online (Natural) - English (US)",
-                "Microsoft Guy Online (Natural) - English (US)",
-                "Microsoft Jenny Online (Natural) - English (US)",
-                "Samantha",
-                "Daniel"
-            ];
-            
-            for (let name of preferredVoices) {
-                const voice = voices.find(v => v.name === name);
-                if (voice) return voice;
-            }
-            return voices.find(v => v.lang.startsWith('en')) || voices[0];
-        }
+        // SPEECH AUDIO ENGINE (MOBILE-FRIENDLY GOOGLE TRANSLATE MP3)
+        let currentAudio = null;
 
-        // Initialize voices early
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
-        }
-
-        function speakWord(text) {
+        function fallbackSpeechSynthesis(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'en-US';
                 utterance.rate = 0.85;
-                const bestVoice = getBestEnglishVoice();
-                if (bestVoice) utterance.voice = bestVoice;
                 window.speechSynthesis.speak(utterance);
             } else {
                 showToast("محرك نطق الصوت غير مدعوم في جهازك.", false);
             }
+        }
+
+        function playGoogleTTS(text) {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+            try {
+                // Use unofficial Google Translate TTS endpoint for 100% natural voice on all devices
+                // Note: might fail for very long texts, in which case we fallback automatically
+                const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=en&client=tw-ob&q=${encodeURIComponent(text)}`;
+                currentAudio = new Audio(url);
+                
+                currentAudio.onerror = () => {
+                    console.log("Audio play failed (maybe too long?), using fallback.");
+                    fallbackSpeechSynthesis(text);
+                };
+                
+                currentAudio.play().catch(e => {
+                    console.log("Audio play blocked by browser, using fallback:", e);
+                    fallbackSpeechSynthesis(text);
+                });
+            } catch(err) {
+                fallbackSpeechSynthesis(text);
+            }
+        }
+
+        function speakWord(text) {
+            playGoogleTTS(text);
         }
 
         function speakCurrentWord(event) {
@@ -2791,17 +2881,7 @@
         }
 
         function playDictationAudio() {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(dictationState.english);
-                utterance.lang = 'en-US';
-                utterance.rate = 0.85;
-                const bestVoice = getBestEnglishVoice();
-                if (bestVoice) utterance.voice = bestVoice;
-                window.speechSynthesis.speak(utterance);
-            } else {
-                showToast("عذراً، متصفحك لا يدعم النطق الصوتي.", false);
-            }
+            playGoogleTTS(dictationState.english);
         }
 
         function checkDictationAnswer() {
