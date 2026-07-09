@@ -1219,15 +1219,15 @@
             if (typeof renderPassageMistakesWidget === 'function') renderPassageMistakesWidget();
             
             // Initial cloud sync
-            pullFromCloud();
+            setupRealtimeSync();
             syncToCloud();
         })();
         
-        function pullFromCloud() {
+        function setupRealtimeSync() {
             const uid = getUserId();
             if (!uid) return;
             
-            db.collection("users").doc(uid).get().then(doc => {
+            db.collection("users").doc(uid).onSnapshot(doc => {
                 if (doc.exists) {
                     const data = doc.data();
                     let needsReload = false;
@@ -1254,10 +1254,15 @@
                     }
 
                     if (needsReload) {
-                        location.reload();
+                        const isPlaying = !document.getElementById('game-playground-container').classList.contains('hidden');
+                        if (!isPlaying) {
+                            location.reload();
+                        } else {
+                            showToast("تم تحديث بعض البيانات (الكلمات أو الأخطاء) من جهاز آخر في الخلفية.", true);
+                        }
                     }
                 }
-            }).catch(e => console.log("Cloud pull failed", e));
+            }, e => console.log("Realtime sync failed", e));
         }
 
         function toggleInstallModal() {
