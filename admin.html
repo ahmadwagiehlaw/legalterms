@@ -30,6 +30,30 @@
 </head>
 <body class="bg-slate-950 text-slate-200 min-h-screen p-4 sm:p-8">
 
+    <!-- Edit User Modal -->
+    <div id="edit-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 hidden backdrop-blur-sm transition-all">
+        <div class="bg-slate-900 border border-slate-700 w-full max-w-sm p-6 rounded-3xl text-right shadow-2xl">
+            <h3 class="text-lg font-black text-amber-400 mb-4">تعديل بيانات المتدرب ✏️</h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-slate-400 mb-1 text-xs">الاسم:</label>
+                    <input type="text" id="edit-name" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-3 py-2.5 focus:border-amber-500 focus:outline-none transition">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1 text-xs">اللقب:</label>
+                    <select id="edit-title" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-3 py-2.5 focus:border-amber-500 focus:outline-none transition">
+                        <option value="دكتور">دكتور (باحث)</option>
+                        <option value="دكتورة">دكتورة (باحثة)</option>
+                    </select>
+                </div>
+                <div class="flex gap-2 mt-4 pt-2">
+                    <button onclick="saveEditedUser()" class="flex-grow bg-amber-600 hover:bg-amber-500 text-white font-bold py-2 rounded-xl text-sm transition">حفظ التعديلات</button>
+                    <button onclick="closeEditModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl text-sm transition">إلغاء</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="max-w-6xl mx-auto space-y-6">
         
         <!-- Header -->
@@ -57,16 +81,18 @@
                     <thead class="text-xs uppercase bg-slate-900/80 text-slate-400 border-b border-slate-800">
                         <tr>
                             <th class="px-6 py-4 font-bold rounded-tr-2xl">اسم المتدرب / الباحث</th>
+                            <th class="px-6 py-4 font-bold">رقم الهاتف</th>
                             <th class="px-6 py-4 font-bold">الحالة</th>
                             <th class="px-6 py-4 font-bold text-center">النقاط 🏆</th>
                             <th class="px-6 py-4 font-bold text-center">التدريبات المنجزة 🎯</th>
-                            <th class="px-6 py-4 font-bold rounded-tl-2xl">آخر ظهور</th>
+                            <th class="px-6 py-4 font-bold">آخر ظهور</th>
+                            <th class="px-6 py-4 font-bold text-center rounded-tl-2xl">الإجراءات</th>
                         </tr>
                     </thead>
                     <tbody id="users-table-body" class="divide-y divide-slate-800/50">
                         <!-- Users will be injected here via JS -->
                         <tr>
-                            <td colspan="5" class="px-6 py-10 text-center text-slate-500 font-bold">
+                            <td colspan="7" class="px-6 py-10 text-center text-slate-500 font-bold">
                                 جاري جلب البيانات من السحابة... ⏳
                             </td>
                         </tr>
@@ -120,7 +146,7 @@
 
             const users = [];
             querySnapshot.forEach((doc) => {
-                users.push(doc.data());
+                users.push({ id: doc.id, ...doc.data() });
             });
 
             // Sort by score descending
@@ -157,6 +183,9 @@
                         </div>
                     </td>
                     <td class="px-6 py-4">
+                        <span class="font-mono text-amber-400 font-bold" dir="ltr">${data.id}</span>
+                    </td>
+                    <td class="px-6 py-4">
                         ${isOnline 
                             ? '<span class="px-2.5 py-1 text-[10px] font-black rounded-full bg-emerald-950/80 text-emerald-400 border border-emerald-500/30">🟢 متصل الآن</span>' 
                             : '<span class="px-2.5 py-1 text-[10px] font-bold rounded-full bg-slate-900 text-slate-500 border border-slate-700">⚪ غير متصل</span>'}
@@ -170,17 +199,68 @@
                     <td class="px-6 py-4 text-slate-400 text-xs">
                         ${lastActiveText}
                     </td>
+                    <td class="px-6 py-4 text-center">
+                        <div class="flex gap-2 justify-center">
+                            <button onclick="openEditModal('${data.id}', '${data.name || ''}', '${data.title || ''}')" class="bg-blue-900/50 hover:bg-blue-800 text-blue-300 px-3 py-1.5 rounded-lg text-xs font-bold transition">تعديل</button>
+                            <button onclick="deleteUser('${data.id}')" class="bg-red-900/50 hover:bg-red-800 text-red-300 px-3 py-1.5 rounded-lg text-xs font-bold transition">حذف</button>
+                        </div>
+                    </td>
                 `;
                 tableBody.appendChild(tr);
             });
 
             if (users.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-slate-500 font-bold">لا يوجد متدربين مسجلين حتى الآن.</td></tr>`;
+                tableBody.innerHTML = `<tr><td colspan="7" class="px-6 py-10 text-center text-slate-500 font-bold">لا يوجد متدربين مسجلين حتى الآن.</td></tr>`;
             }
 
             document.getElementById('stat-total').innerText = totalUsers;
             document.getElementById('stat-online').innerText = onlineUsers;
         });
+
+        function deleteUser(id) {
+            if (confirm("هل أنت متأكد من حذف هذا المتدرب نهائياً؟ لا يمكن التراجع عن هذا الإجراء.")) {
+                db.collection("users").doc(id).delete().then(() => {
+                    // UI auto-updates via onSnapshot
+                }).catch((error) => {
+                    console.error("Error removing user: ", error);
+                    alert("فشل الحذف. تأكد من اتصالك بالإنترنت.");
+                });
+            }
+        }
+
+        let editingUserId = null;
+        function openEditModal(id, name, title) {
+            editingUserId = id;
+            document.getElementById('edit-name').value = name;
+            document.getElementById('edit-title').value = title;
+            document.getElementById('edit-modal').classList.remove('hidden');
+        }
+
+        function closeEditModal() {
+            editingUserId = null;
+            document.getElementById('edit-modal').classList.add('hidden');
+        }
+
+        function saveEditedUser() {
+            if (!editingUserId) return;
+            const newName = document.getElementById('edit-name').value.trim();
+            const newTitle = document.getElementById('edit-title').value;
+            
+            if (!newName) {
+                alert("الاسم لا يمكن أن يكون فارغاً");
+                return;
+            }
+
+            db.collection("users").doc(editingUserId).update({
+                name: newName,
+                title: newTitle
+            }).then(() => {
+                closeEditModal();
+            }).catch(e => {
+                console.error(e);
+                alert("فشل التحديث. تأكد من اتصالك بالإنترنت.");
+            });
+        }
 
     </script>
 </body>
