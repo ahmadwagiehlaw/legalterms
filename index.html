@@ -752,6 +752,15 @@
                             <button onclick="addNewCustomTerm()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-2.5 rounded-xl text-xs transition mt-2">
                                 إدراج المصطلح المخصص
                             </button>
+                            <div class="flex gap-2 mt-4 pt-4 border-t border-slate-800">
+                                <button onclick="exportCustomTerms()" class="flex-grow bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2 rounded-xl text-[10px] transition">
+                                    📥 تصدير الكلمات
+                                </button>
+                                <label for="import-terms-file" class="flex-grow bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2 rounded-xl text-[10px] transition text-center cursor-pointer">
+                                    📤 استيراد ملف
+                                </label>
+                                <input type="file" id="import-terms-file" accept=".json" class="hidden" onchange="importCustomTerms(event)">
+                            </div>
                         </div>
                     </div>
 
@@ -973,6 +982,7 @@
             completedExercises: 0,
             failures: [], // tracked failed terms
             failedPassages: [], // tracked failed passages
+            customTerms: [], // user-added terms
             failuresOnlyMode: false,
 
             // Hide states
@@ -1048,6 +1058,10 @@
                     if (data.failures) localStorage.setItem('userFailures', JSON.stringify(data.failures));
                     if (data.failedPassages) localStorage.setItem('userFailedPassages', JSON.stringify(data.failedPassages));
                     if (data.completedExercises) localStorage.setItem('userCompletedExercises', data.completedExercises);
+                    if (data.customTerms) {
+                        state.customTerms = data.customTerms;
+                        localStorage.setItem('userCustomTerms', JSON.stringify(data.customTerms));
+                    }
                     
                     showToast("تم استرجاع بياناتك بنجاح! جاري التحديث...", true);
                     setTimeout(() => location.reload(), 1500);
@@ -1076,6 +1090,7 @@
                 completedExercises: state.completedExercises || 0,
                 failures: state.failures || [],
                 failedPassages: state.failedPassages || [],
+                customTerms: state.customTerms || [],
                 lastActive: firebase.firestore.FieldValue.serverTimestamp(),
                 appVersion: APP_VERSION
             }, { merge: true }).catch(err => console.error("Cloud sync failed: ", err));
@@ -1150,6 +1165,18 @@
             // Load saved completed exercises
             const savedCompletedExercises = localStorage.getItem('userCompletedExercises');
             if (savedCompletedExercises) state.completedExercises = parseInt(savedCompletedExercises);
+
+            // Load custom terms and inject into glossary
+            const savedCustomTerms = localStorage.getItem('userCustomTerms');
+            if (savedCustomTerms) {
+                state.customTerms = JSON.parse(savedCustomTerms);
+                // Reverse so that unshift adds them in the correct original order
+                [...state.customTerms].reverse().forEach(term => {
+                    if (!glossaryData.some(g => g.arabic === term.arabic && g.english === term.english)) {
+                        glossaryData.unshift(term);
+                    }
+                });
+            }
 
             // Initiate app views
             initStudyMode();
@@ -1338,14 +1365,21 @@
         }
 
         function playGoogleTTS(text) {
+            // Safari iOS Hack: Unlock speechSynthesis synchronously first so it works inside async catch blocks
+            if ('speechSynthesis' in window) {
+                const unlockUtterance = new SpeechSynthesisUtterance('');
+                unlockUtterance.volume = 0;
+                window.speechSynthesis.speak(unlockUtterance);
+            }
+
             if (currentAudio) {
                 currentAudio.pause();
                 currentAudio.currentTime = 0;
             }
             try {
                 // Use unofficial Google Translate TTS endpoint for 100% natural voice on all devices
-                // Note: might fail for very long texts, in which case we fallback automatically
-                const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=en&client=tw-ob&q=${encodeURIComponent(text)}`;
+                // Note: changed from tw-ob to gtx for better mobile compatibility
+                const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=en&client=gtx&q=${encodeURIComponent(text)}`;
                 currentAudio = new Audio(url);
                 
                 currentAudio.onerror = () => {
@@ -3150,15 +3184,23 @@
             }
 
             const newId = glossaryData.length > 0 ? Math.max(...glossaryData.map(t => t.id)) + 1 : 1;
-            glossaryData.unshift({
+            const newTerm = {
                 id: newId,
                 arabic: ar,
                 english: en,
                 type: "word",
                 page: page,
                 category: cat,
-                ignored: false
-            });
+                ignored: false,
+                isCustom: true
+            };
+            glossaryData.unshift(newTerm);
+            state.customTerms.push(newTerm);
+            
+            // Save locally
+            localStorage.setItem('userCustomTerms', JSON.stringify(state.customTerms));
+            // Sync to cloud immediately
+            if (typeof syncToCloud === 'function') syncToCloud();
 
             // reset inputs
             document.getElementById('add-term-ar').value = '';
@@ -3170,6 +3212,59 @@
             renderVocabSettingsList();
             initStudyMode();
             updateOverallProgress();
+        }
+
+        function exportCustomTerms() {
+            if (!state.customTerms || state.customTerms.length === 0) {
+                showToast("لا توجد كلمات مضافة لتصديرها.", false);
+                return;
+            }
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state.customTerms));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "custom_legal_terms.json");
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+        }
+
+        function importCustomTerms(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (Array.isArray(imported)) {
+                        let addedCount = 0;
+                        imported.forEach(term => {
+                            if (!state.customTerms.some(c => c.arabic === term.arabic && c.english === term.english)) {
+                                state.customTerms.push(term);
+                                if (!glossaryData.some(g => g.arabic === term.arabic && g.english === term.english)) {
+                                    glossaryData.unshift(term);
+                                }
+                                addedCount++;
+                            }
+                        });
+                        if (addedCount > 0) {
+                            localStorage.setItem('userCustomTerms', JSON.stringify(state.customTerms));
+                            if (typeof syncToCloud === 'function') syncToCloud();
+                            showToast(`تم استيراد ${addedCount} كلمة بنجاح!`, true);
+                            renderVocabSettingsList();
+                            initStudyMode();
+                            updateOverallProgress();
+                        } else {
+                            showToast("الكلمات المستوردة موجودة مسبقاً.", false);
+                        }
+                    } else {
+                        showToast("ملف غير صالح.", false);
+                    }
+                } catch(err) {
+                    showToast("خطأ في قراءة الملف.", false);
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = ''; // reset
         }
 
         // --- SUB NAV FOR DETAILS MAPPING ---
