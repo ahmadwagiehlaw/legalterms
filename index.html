@@ -1264,8 +1264,14 @@
                     }
 
                     if (needsUIUpdate) {
-                        // Inject custom terms if any
+                        // Refresh custom terms in glossary
                         if (state.customTerms) {
+                            // Remove existing custom terms
+                            for (let i = glossaryData.length - 1; i >= 0; i--) {
+                                if (glossaryData[i].isCustom) glossaryData.splice(i, 1);
+                            }
+                            
+                            // Inject fresh custom terms
                             [...state.customTerms].reverse().forEach(term => {
                                 if (!glossaryData.some(g => g.arabic === term.arabic && g.english === term.english)) {
                                     glossaryData.unshift(term);
@@ -1279,6 +1285,7 @@
                         
                         // Render study lists again in case we are looking at them
                         initStudyMode();
+                        if (typeof renderVocabSettingsList === 'function') renderVocabSettingsList();
                         
                         const isPlaying = !document.getElementById('game-playground-container').classList.contains('hidden');
                         if (isPlaying) {
