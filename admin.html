@@ -74,6 +74,12 @@
             </div>
         </header>
 
+        <!-- Search Bar -->
+        <div class="glass-panel p-4 rounded-3xl shadow-xl flex items-center gap-3">
+            <span class="text-xl">🔍</span>
+            <input type="text" id="search-input" oninput="renderTable()" placeholder="ابحث بالاسم أو رقم الهاتف..." class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-2 focus:border-amber-500 focus:outline-none transition font-bold text-sm">
+        </div>
+
         <!-- Data Table -->
         <div class="glass-panel rounded-3xl overflow-hidden shadow-xl">
             <div class="overflow-x-auto">
@@ -135,39 +141,58 @@
             return "الآن";
         }
 
+        let allUsers = [];
+
         // Listen for real-time updates
         db.collection("users").onSnapshot((querySnapshot) => {
-            const tableBody = document.getElementById("users-table-body");
-            tableBody.innerHTML = "";
-            
-            let totalUsers = 0;
-            let onlineUsers = 0;
+            allUsers = [];
+            let onlineCount = 0;
             const now = new Date();
 
-            const users = [];
             querySnapshot.forEach((doc) => {
-                users.push({ id: doc.id, ...doc.data() });
-            });
-
-            // Sort by score descending
-            users.sort((a, b) => (b.score || 0) - (a.score || 0));
-
-            users.forEach((data) => {
-                totalUsers++;
+                const data = doc.data();
+                data.id = doc.id;
                 
-                let isOnline = false;
-                let lastActiveText = "غير معروف";
+                data.isOnline = false;
+                data.lastActiveText = "غير معروف";
                 
                 if (data.lastActive) {
                     const lastActiveDate = data.lastActive.toDate();
-                    lastActiveText = timeAgo(lastActiveDate);
-                    // Consider online if active within the last 3 minutes (180 seconds)
+                    data.lastActiveText = timeAgo(lastActiveDate);
                     if ((now - lastActiveDate) / 1000 < 180) {
-                        isOnline = true;
-                        onlineUsers++;
+                        data.isOnline = true;
+                        onlineCount++;
                     }
                 }
+                allUsers.push(data);
+            });
 
+            // Sort by score descending
+            allUsers.sort((a, b) => (b.score || 0) - (a.score || 0));
+            
+            document.getElementById('stat-total').innerText = allUsers.length;
+            document.getElementById('stat-online').innerText = onlineCount;
+
+            renderTable();
+        });
+
+        function renderTable() {
+            const tableBody = document.getElementById("users-table-body");
+            tableBody.innerHTML = "";
+            
+            const searchQuery = document.getElementById("search-input") ? document.getElementById("search-input").value.trim().toLowerCase() : "";
+
+            let displayedCount = 0;
+
+            allUsers.forEach((data) => {
+                const nameStr = data.name ? data.name.toLowerCase() : "";
+                const phoneStr = data.id.toLowerCase();
+                
+                if (searchQuery && !nameStr.includes(searchQuery) && !phoneStr.includes(searchQuery)) {
+                    return; // Skip this row
+                }
+
+                displayedCount++;
                 const tr = document.createElement("tr");
                 tr.className = "hover:bg-slate-900/50 transition duration-150";
                 
@@ -186,7 +211,7 @@
                         <span class="font-mono text-amber-400 font-bold" dir="ltr">${data.id}</span>
                     </td>
                     <td class="px-6 py-4">
-                        ${isOnline 
+                        ${data.isOnline 
                             ? '<span class="px-2.5 py-1 text-[10px] font-black rounded-full bg-emerald-950/80 text-emerald-400 border border-emerald-500/30">🟢 متصل الآن</span>' 
                             : '<span class="px-2.5 py-1 text-[10px] font-bold rounded-full bg-slate-900 text-slate-500 border border-slate-700">⚪ غير متصل</span>'}
                     </td>
@@ -197,7 +222,7 @@
                         <span class="font-bold text-slate-300 text-lg">${data.completedExercises || 0}</span>
                     </td>
                     <td class="px-6 py-4 text-slate-400 text-xs">
-                        ${lastActiveText}
+                        ${data.lastActiveText}
                     </td>
                     <td class="px-6 py-4 text-center">
                         <div class="flex gap-2 justify-center">
@@ -209,13 +234,10 @@
                 tableBody.appendChild(tr);
             });
 
-            if (users.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="7" class="px-6 py-10 text-center text-slate-500 font-bold">لا يوجد متدربين مسجلين حتى الآن.</td></tr>`;
+            if (displayedCount === 0) {
+                tableBody.innerHTML = `<tr><td colspan="7" class="px-6 py-10 text-center text-slate-500 font-bold">لا يوجد نتائج تطابق بحثك.</td></tr>`;
             }
-
-            document.getElementById('stat-total').innerText = totalUsers;
-            document.getElementById('stat-online').innerText = onlineUsers;
-        });
+        }
 
         function deleteUser(id) {
             if (confirm("هل أنت متأكد من حذف هذا المتدرب نهائياً؟ لا يمكن التراجع عن هذا الإجراء.")) {
