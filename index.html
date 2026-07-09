@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ط§ظ„ظ…ط¯ط±ط¨ ط§ظ„ظ‚ط§ظ†ظˆظ†ظٹ</title>
-    <meta name="apple-mobile-web-app-title" content="ط§ظ„ظ…ط¯ط±ط¨ ط§ظ„ظ‚ط§ظ†ظˆظ†ظٹ">
-    <meta name="application-name" content="ط§ظ„ظ…ط¯ط±ط¨ ط§ظ„ظ‚ط§ظ†ظˆظ†ظٹ">
+    <title>المدرب القانوني</title>
+    <meta name="apple-mobile-web-app-title" content="المدرب القانوني">
+    <meta name="application-name" content="المدرب القانوني">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icon.png">
     <link rel="apple-touch-icon" href="icon.png">
@@ -125,13 +125,13 @@
     <!-- AUTO UPDATE MODAL -->
     <div id="update-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/95 backdrop-blur-md hidden">
         <div class="bg-slate-900 border-2 border-emerald-500/30 w-full max-w-sm p-6 rounded-3xl text-center">
-            <span class="text-5xl block mb-4">ًںڑ€</span>
-            <h3 class="text-xl font-black text-emerald-400">طھط­ط¯ظٹط« ط¬ط¯ظٹط¯ ظ…طھط§ط­!</h3>
+            <span class="text-5xl block mb-4">🚀</span>
+            <h3 class="text-xl font-black text-emerald-400">تحديث جديد متاح!</h3>
             <p class="text-sm text-slate-300 mt-2 mb-6 leading-relaxed">
-                ظ„ظ‚ط¯ ظ‚ظ…ظ†ط§ ط¨ط¥ط¶ط§ظپط© ظ…ظٹط²ط§طھ ط¬ط¯ظٹط¯ط© ظˆظ…ظ‡ظ…ط© ظ„ظ„طھط·ط¨ظٹظ‚. ط§ط¶ط؛ط· ط¹ظ„ظ‰ ط§ظ„ط²ط± ظ„طھط­ط¯ظٹط« ط§ظ„طھط·ط¨ظٹظ‚ ط§ظ„ط¢ظ†.
+                لقد قمنا بإضافة ميزات جديدة ومهمة للتطبيق. اضغط على الزر لتحديث التطبيق الآن.
             </p>
             <button onclick="location.reload(true)" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-2xl shadow-lg transition-all text-sm">
-                طھط­ط¯ظٹط« ط§ظ„ط¢ظ† ًں”„
+                تحديث الآن 🔄
             </button>
         </div>
     </div>
@@ -139,14 +139,14 @@
     <!-- LOGIN MODAL (CODE/PHONE) -->
     <div id="login-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-sm hidden">
         <div class="bg-slate-900 border-2 border-amber-500/30 w-full max-w-sm p-6 rounded-3xl text-center">
-            <span class="text-4xl block mb-2">ًں”گ</span>
-            <h3 class="text-lg font-black text-amber-400">طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„ ط¨ط±ظ‚ظ… ط§ظ„ظ‡ط§طھظپ</h3>
+            <span class="text-4xl block mb-2">🔐</span>
+            <h3 class="text-lg font-black text-amber-400">تسجيل الدخول برقم الهاتف</h3>
             <p class="text-xs text-slate-300 mt-2 mb-4 leading-relaxed">
-                ط§ظ„ط±ط¬ط§ط، ط¥ط¯ط®ط§ظ„ <strong class="text-amber-500">ط±ظ‚ظ… ظ‡ط§طھظپظƒ</strong> ظ„ظ„طھط¹ط±ظپ ط¹ظ„ظٹظƒ ظˆط­ظپط¸ ط¨ظٹط§ظ†ط§طھظƒ (ط§ظ„ظ†ظ‚ط§ط·طŒ ط§ظ„ط£ط®ط·ط§ط،طŒ ط§ظ„ط¥ط¹ط¯ط§ط¯ط§طھ) طھظ„ظ‚ط§ط¦ظٹط§ظ‹ ظ„طھظƒظ…ظ„ ظ…ظ† ط£ظٹ ط¬ظ‡ط§ط² ظپظٹ ط£ظٹ ظˆظ‚طھ.
+                الرجاء إدخال <strong class="text-amber-500">رقم هاتفك</strong> للتعرف عليك وحفظ بياناتك (النقاط، الأخطاء، الإعدادات) تلقائياً لتكمل من أي جهاز في أي وقت.
             </p>
-            <input type="tel" id="login-phone-input" placeholder="ط§ظƒطھط¨ ط±ظ‚ظ… ظ‡ط§طھظپظƒ ظ‡ظ†ط§..." dir="ltr" class="w-full text-center p-3 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 focus:border-amber-500 focus:outline-none font-bold text-lg mb-4">
+            <input type="tel" id="login-phone-input" placeholder="اكتب رقم هاتفك هنا..." dir="ltr" class="w-full text-center p-3 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 focus:border-amber-500 focus:outline-none font-bold text-lg mb-4">
             <button onclick="processLogin()" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-bold py-3 rounded-xl shadow-lg transition-all text-sm">
-                ط¯ط®ظˆظ„ ظˆط¨ط¯ط، ط§ظ„طھط¯ط±ظٹط¨
+                دخول وبدء التدريب
             </button>
         </div>
     </div>
@@ -154,24 +154,24 @@
     <!-- PROFILE SETUP MODAL (NEW USERS) -->
     <div id="profile-setup-modal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-sm hidden">
         <div class="bg-slate-900 border-2 border-amber-500/30 w-full max-w-sm p-6 rounded-3xl text-right">
-            <h3 class="text-lg font-black text-amber-400 text-center mb-4">ط£ظ‡ظ„ط§ظ‹ ط¨ظƒ ظ„ط£ظˆظ„ ظ…ط±ط© ًں‘‹</h3>
+            <h3 class="text-lg font-black text-amber-400 text-center mb-4">أهلاً بك لأول مرة 👋</h3>
             <p class="text-xs text-slate-300 mb-6 text-center leading-relaxed">
-                ظٹط¨ط¯ظˆ ط£ظ† ط±ظ‚ظ… ط§ظ„ظ‡ط§طھظپ ظ‡ط°ط§ ط¬ط¯ظٹط¯. ظٹط±ط¬ظ‰ ط¥ط¯ط®ط§ظ„ ط§ط³ظ…ظƒ ظˆظ„ظ‚ط¨ظƒ ظ„ط¥ظ†ط´ط§ط، ظ…ظ„ظپظƒ ط§ظ„طھط¯ط±ظٹط¨ظٹ:
+                يبدو أن رقم الهاتف هذا جديد. يرجى إدخال اسمك ولقبك لإنشاء ملفك التدريبي:
             </p>
             <div class="space-y-4">
                 <div>
-                    <label class="block text-slate-400 mb-1 text-xs">ط§ظ„ط§ط³ظ…:</label>
-                    <input type="text" id="setup-username" placeholder="ط§ظƒطھط¨ ط§ط³ظ…ظƒ ظ‡ظ†ط§..." class="w-full bg-slate-950 border border-slate-700 text-white rounded-xl px-3 py-2.5 focus:border-amber-500 focus:outline-none">
+                    <label class="block text-slate-400 mb-1 text-xs">الاسم:</label>
+                    <input type="text" id="setup-username" placeholder="اكتب اسمك هنا..." class="w-full bg-slate-950 border border-slate-700 text-white rounded-xl px-3 py-2.5 focus:border-amber-500 focus:outline-none">
                 </div>
                 <div>
-                    <label class="block text-slate-400 mb-1 text-xs">ط§ظ„ظ„ظ‚ط¨:</label>
+                    <label class="block text-slate-400 mb-1 text-xs">اللقب:</label>
                     <select id="setup-title" class="w-full bg-slate-950 border border-slate-700 text-white rounded-xl px-3 py-2.5 focus:border-amber-500 focus:outline-none">
-                        <option value="ط¯ظƒطھظˆط±">ط¯ظƒطھظˆط± (ط¨ط§ط­ط«)</option>
-                        <option value="ط¯ظƒطھظˆط±ط©">ط¯ظƒطھظˆط±ط© (ط¨ط§ط­ط«ط©)</option>
+                        <option value="دكتور">دكتور (باحث)</option>
+                        <option value="دكتورة">دكتورة (باحثة)</option>
                     </select>
                 </div>
                 <button onclick="submitProfileSetup()" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-bold py-3 mt-2 rounded-xl shadow-lg transition-all text-sm">
-                    ط­ظپط¸ ط§ظ„ط¯ط®ظˆظ„ ظˆط¨ط¯ط، ط§ظ„طھط¯ط±ظٹط¨
+                    حفظ الدخول وبدء التدريب
                 </button>
             </div>
         </div>
@@ -180,22 +180,22 @@
     <!-- INSTALL PWA DIALOG TUTORIAL (MOBILE FRIENDLY) -->
     <div id="install-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-sm hidden">
         <div class="bg-slate-900 border-2 border-amber-500/30 w-full max-w-sm p-6 rounded-3xl text-center">
-            <span class="text-4xl">ًں“±</span>
-            <h3 class="text-lg font-black text-amber-400 mt-2">طھط«ط¨ظٹطھ ط§ظ„طھط·ط¨ظٹظ‚ ط¹ظ„ظ‰ ط´ط§ط´ط© ط§ظ„ظ‡ط§طھظپ</h3>
+            <span class="text-4xl">📱</span>
+            <h3 class="text-lg font-black text-amber-400 mt-2">تثبيت التطبيق على شاشة الهاتف</h3>
             <p class="text-xs text-slate-300 mt-2 leading-relaxed">
-                ظ„طھطµظپط­ ط§ظ„طھط·ط¨ظٹظ‚ ظƒط£ظ†ظ‡ طھط·ط¨ظٹظ‚ ظ‡ط§طھظپ ط°ظƒظٹ ط­ظ‚ظٹظ‚ظٹ ظˆط¨ط³ط±ط¹ط© ظپط§ط¦ظ‚ط© ط¯ظˆظ† ط¥ظ†طھط±ظ†طھطŒ ط§طھط¨ط¹ ط§ظ„ط¢طھظٹ:
+                لتصفح التطبيق كأنه تطبيق هاتف ذكي حقيقي وبسرعة فائقة دون إنترنت، اتبع الآتي:
             </p>
             <div class="text-right text-xs text-slate-400 my-4 space-y-2 bg-slate-950 p-4 rounded-2xl border border-slate-800">
-                <p class="font-bold text-amber-500">ًںچڈ ظ…ط³طھط®ط¯ظ…ظٹ ط§ظ„ط¢ظٹظپظˆظ† (Safari):</p>
-                <p>1. ط§ط¶ط؛ط· ط¹ظ„ظ‰ ط²ط± <span class="bg-slate-800 px-1 py-0.5 rounded text-white">ظ…ط´ط§ط±ظƒط© (Share)</span> ظپظٹ ظ…طھطµظپط­ ط³ظپط§ط±ظٹ ط¨ط§ظ„ط£ط³ظپظ„.</p>
-                <p>2. ط§ط®طھط± <span class="bg-slate-800 px-1 py-0.5 rounded text-white">ط¥ط¶ط§ظپط© ط¥ظ„ظ‰ ط§ظ„ط´ط§ط´ط© ط§ظ„ط±ط¦ظٹط³ظٹط© (Add to Home Screen)</span>.</p>
+                <p class="font-bold text-amber-500">🍏 مستخدمي الآيفون (Safari):</p>
+                <p>1. اضغط على زر <span class="bg-slate-800 px-1 py-0.5 rounded text-white">مشاركة (Share)</span> في متصفح سفاري بالأسفل.</p>
+                <p>2. اختر <span class="bg-slate-800 px-1 py-0.5 rounded text-white">إضافة إلى الشاشة الرئيسية (Add to Home Screen)</span>.</p>
                 <hr class="border-slate-800 my-1">
-                <p class="font-bold text-amber-500">ًں¤– ظ…ط³طھط®ط¯ظ…ظٹ ط§ظ„ط£ظ†ط¯ط±ظˆظٹط¯ (Chrome):</p>
-                <p>1. ط§ط¶ط؛ط· ط¹ظ„ظ‰ ط§ظ„ظ†ظ‚ط§ط· ط§ظ„ط«ظ„ط§ط« ط¨ط§ظ„ط£ط¹ظ„ظ‰ ط£ظˆ ط²ط± ط§ظ„طھظ†ط²ظٹظ„ ط§ظ„ط¸ط§ظ‡ط± ط¨ط´ط±ظٹط· ط§ظ„ط¹ظ†ظˆط§ظ†.</p>
-                <p>2. ط§ط®طھط± <span class="bg-slate-800 px-1 py-0.5 rounded text-white">طھط«ط¨ظٹطھ ط§ظ„طھط·ط¨ظٹظ‚ (Install App)</span>.</p>
+                <p class="font-bold text-amber-500">🤖 مستخدمي الأندرويد (Chrome):</p>
+                <p>1. اضغط على النقاط الثلاث بالأعلى أو زر التنزيل الظاهر بشريط العنوان.</p>
+                <p>2. اختر <span class="bg-slate-800 px-1 py-0.5 rounded text-white">تثبيت التطبيق (Install App)</span>.</p>
             </div>
             <button onclick="toggleInstallModal()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-2.5 rounded-xl text-xs transition">
-                ظپظ‡ظ…طھ ط°ظ„ظƒ
+                فهمت ذلك
             </button>
         </div>
     </div>
@@ -212,28 +212,28 @@
                 </div>
                 <div>
                     <h1 class="text-xs sm:text-sm font-black text-slate-100 flex items-center gap-1.5">
-                        ط§ظ„ظ…ط¯ط±ط¨ ط§ظ„ظ‚ط§ظ†ظˆظ†ظٹ
+                        المدرب القانوني
                     </h1>
-                    <p class="text-[9px] text-amber-400 font-bold" id="user-header-welcome">ط¯ظƒطھظˆط± / ط¨ط§ط­ط« طھظ…ظ‡ظٹط¯ظٹ ط§ظ„ط¯ظƒطھظˆط±ط§ظ‡</p>
+                    <p class="text-[9px] text-amber-400 font-bold" id="user-header-welcome">دكتور / باحث تمهيدي الدكتوراه</p>
                 </div>
             </div>
 
             <!-- Desktop Navigation Tabs (Hidden on Mobile) -->
             <nav class="hidden sm:flex items-center gap-2 bg-slate-950/65 px-3 py-1.5 rounded-2xl border border-slate-855">
                 <button onclick="switchTab('dashboard')" id="desktop-nav-dashboard" class="px-3 py-1 text-xs font-bold text-slate-400 hover:text-amber-400 transition-all rounded-lg active-tab-nav">
-                    ًںڈ، ط§ظ„ط±ط¦ظٹط³ظٹط©
+                    🏡 الرئيسية
                 </button>
                 <button onclick="switchTab('study')" id="desktop-nav-study" class="px-3 py-1 text-xs font-bold text-slate-400 hover:text-amber-400 transition-all rounded-lg">
-                    ًں“ڑ ط§ظ„ظ…ط°ط§ظƒط±ط©
+                    📚 المذاكرة
                 </button>
                 <button onclick="switchTab('review')" id="desktop-nav-review" class="px-3 py-1 text-xs font-bold text-slate-400 hover:text-amber-400 transition-all rounded-lg">
-                    ًںژ¯ ط§ظ„ظ…ط±ط§ط¬ط¹ط©
+                    🎯 المراجعة
                 </button>
                 <button onclick="switchTab('exam')" id="desktop-nav-exam" class="px-3 py-1 text-xs font-bold text-slate-400 hover:text-amber-400 transition-all rounded-lg">
-                    ًں“‌ ط§ظ„ط§ظ…طھط­ط§ظ†
+                    📝 الامتحان
                 </button>
                 <button onclick="switchTab('user')" id="desktop-nav-user" class="px-3 py-1 text-xs font-bold text-slate-400 hover:text-amber-400 transition-all rounded-lg">
-                    ًں”§ ط§ظ„ط¥ط¹ط¯ط§ط¯ط§طھ
+                    🔧 الإعدادات
                 </button>
             </nav>
 
@@ -241,15 +241,15 @@
             <div class="flex items-center gap-2 flex-shrink-0">
                 <!-- Font Size Controls -->
                 <div class="flex items-center bg-slate-950 border border-slate-800 rounded-xl overflow-hidden shadow-inner">
-                    <button onclick="changeFontSize('decrease')" class="px-2 py-1 text-[10px] text-slate-400 hover:text-amber-400 hover:bg-slate-900 border-l border-slate-800 transition font-bold" title="طھطµط؛ظٹط± ط§ظ„ط®ط·">A-</button>
-                    <button onclick="changeFontSize('increase')" class="px-2 py-1 text-[10px] text-slate-400 hover:text-amber-400 hover:bg-slate-900 transition font-bold" title="طھظƒط¨ظٹط± ط§ظ„ط®ط·">A+</button>
+                    <button onclick="changeFontSize('decrease')" class="px-2 py-1 text-[10px] text-slate-400 hover:text-amber-400 hover:bg-slate-900 border-l border-slate-800 transition font-bold" title="تصغير الخط">A-</button>
+                    <button onclick="changeFontSize('increase')" class="px-2 py-1 text-[10px] text-slate-400 hover:text-amber-400 hover:bg-slate-900 transition font-bold" title="تكبير الخط">A+</button>
                 </div>
                 
                 <button onclick="toggleInstallModal()" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-bold px-2 py-1 rounded-xl text-[9px] border border-amber-500/20 transition flex items-center gap-1">
-                    ًں“± طھط«ط¨ظٹطھ
+                    📱 تثبيت
                 </button>
                 <div class="text-[10px] bg-slate-950 px-2 py-1 rounded-lg border border-slate-800 font-bold" id="score-counter">
-                    ًںڈ† <span id="score-val">0</span> ظ†ظ‚ط·ط©
+                    🏆 <span id="score-val">0</span> نقطة
                 </div>
             </div>
         </div>
@@ -265,10 +265,10 @@
                 <!-- Fast Study/Test Trigger Shortcut -->
                 <div class="bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-600 hover:to-yellow-500 text-slate-950 p-4 rounded-2xl flex justify-between items-center cursor-pointer transition shadow-md" onclick="switchTab('exam')">
                     <div class="text-right">
-                        <span class="text-[10px] font-black uppercase tracking-wider block">ظ‡ظ„ ط£ظ†طھ ط¬ط§ظ‡ط² ظ„ط§ط®طھط¨ط§ط± ط­ظ‚ظٹظ‚ظٹطں</span>
-                        <h4 class="text-sm font-black mt-0.5">ط¨ط¯ط، ظ…ط­ط§ظƒط§ط© ط§ظ„ط§ظ…طھط­ط§ظ† ط§ظ„ظ†ظ‡ط§ط¦ظٹ ظ„ط¬ط§ظ…ط¹ط© ط¨ظ†ظٹ ط³ظˆظٹظپ ًں“‌</h4>
+                        <span class="text-[10px] font-black uppercase tracking-wider block">هل أنت جاهز لاختبار حقيقي؟</span>
+                        <h4 class="text-sm font-black mt-0.5">بدء محاكاة الامتحان النهائي لجامعة بني سويف 📝</h4>
                     </div>
-                    <span class="text-lg">â¬…</span>
+                    <span class="text-lg">⬅</span>
                 </div>
 
                 <!-- Combined Welcome & Progress Card -->
@@ -276,13 +276,13 @@
                     <div class="absolute -left-12 -top-12 w-28 h-24 bg-amber-500/5 rounded-full blur-xl"></div>
                     
                     <div class="flex-grow flex flex-col items-start text-right w-full">
-                        <h2 class="text-xl font-black text-slate-100" id="dash-greeting">ظ…ط±ط­ط¨ط§ظ‹ ط¨ظƒ ط¯ظƒطھظˆط±/ط©</h2>
-                        <p class="text-[11px] text-slate-400 mt-1">ط§ظ„ظ…ط¯ط±ط¨ ط§ظ„ظ‚ط§ظ†ظˆظ†ظٹ - ط¯ط±ط§ط³ط§طھ ط¹ظ„ظٹط§ 2026</p>
+                        <h2 class="text-xl font-black text-slate-100" id="dash-greeting">مرحباً بك دكتور/ة</h2>
+                        <p class="text-[11px] text-slate-400 mt-1">المدرب القانوني - دراسات عليا 2026</p>
                     </div>
 
                     <div class="flex flex-col items-center justify-center gap-1.5">
                         <!-- Compact Academic Progress Gauge -->
-                        <div class="flex-shrink-0 relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center bg-slate-900 rounded-full border border-slate-800 shadow-inner" title="ظٹظ…ط«ظ„ ظ‡ط°ط§ ط§ظ„ظ…ط¤ط´ط± ظ†ط³ط¨ط© ط§ظ„ظ…طµط·ظ„ط­ط§طھ ط§ظ„طھظٹ ظ‚ظ…طھ ط¨طھط­ط¯ظٹط¯ظ‡ط§ ظƒظ€ (ظ…ط­ظپظˆط¸ط©) ظپظٹ ظ‚ط§ط¦ظ…ط© ط§ظ„ظ…ط±ط§ط¬ط¹ط©">
+                        <div class="flex-shrink-0 relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center bg-slate-900 rounded-full border border-slate-800 shadow-inner" title="يمثل هذا المؤشر نسبة المصطلحات التي قمت بتحديدها كـ (محفوظة) في قائمة المراجعة">
                             <svg class="w-full h-full transform -rotate-90 absolute" viewBox="0 0 36 36">
                                 <path class="text-slate-850" stroke-width="3" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                                 <path id="progress-circle" class="text-amber-500 transition-all duration-500" stroke-width="3" stroke-dasharray="0, 100" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
@@ -291,7 +291,7 @@
                                 <span class="text-xs sm:text-sm font-black text-slate-100 block" id="progress-percentage-val">0%</span>
                             </div>
                         </div>
-                        <span class="text-[9px] text-amber-500 font-bold bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shadow-sm">ظ…ط¹ط¯ظ„ ط§ظ„ط¥ظ†ط¬ط§ط²</span>
+                        <span class="text-[9px] text-amber-500 font-bold bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shadow-sm">معدل الإنجاز</span>
                     </div>
                 </div>
 
@@ -299,14 +299,14 @@
                 <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl shadow-lg">
                     <div class="flex justify-between items-center mb-3">
                         <h3 class="text-xs font-black text-amber-400 flex items-center gap-1">
-                            <span>ًںژ¯</span>
-                            <span>ط£ط­ط¯ط« ط§ظ„ط£ط®ط·ط§ط، ظˆط§ظ„ظ…طµط·ظ„ط­ط§طھ ط§ظ„طµط¹ط¨ط©</span>
+                            <span>🎯</span>
+                            <span>أحدث الأخطاء والمصطلحات الصعبة</span>
                         </h3>
                     </div>
                     
                     <!-- List of mistakes -->
                     <div class="space-y-1.5 max-h-32 overflow-y-auto no-scrollbar pr-1" id="dash-mistakes-container">
-                        <p class="text-[10px] text-slate-500 text-center py-4">ظ„ط§ طھظˆط¬ط¯ ط£ط®ط·ط§ط، ط­ط§ظ„ظٹط§ظ‹. ط§ط³طھظ…ط± ط¨ط§ظ„ط¯ط±ط§ط³ط© ظˆط§ظ„طھظ…ظٹط²!</p>
+                        <p class="text-[10px] text-slate-500 text-center py-4">لا توجد أخطاء حالياً. استمر بالدراسة والتميز!</p>
                     </div>
                 </div>
 
@@ -314,13 +314,13 @@
                 <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl shadow-lg mt-4">
                     <div class="flex justify-between items-center mb-3">
                         <h3 class="text-xs font-black text-amber-400 flex items-center gap-1">
-                            <span>ًں“–</span>
-                            <span>ط£طµط¹ط¨ ط§ظ„ظ‚ط·ط¹ ط§ظ„طھظٹ طھط­طھط§ط¬ ظ„ظ…ط±ط§ط¬ط¹ط© ظ…ظƒط«ظپط©</span>
+                            <span>📖</span>
+                            <span>أصعب القطع التي تحتاج لمراجعة مكثفة</span>
                         </h3>
                     </div>
                     
                     <div class="space-y-1.5 max-h-32 overflow-y-auto no-scrollbar pr-1" id="dash-passages-mistakes-container">
-                        <p class="text-[10px] text-slate-500 text-center py-4">ط£ط¯ط§ط¤ظƒ ظ…ظ…طھط§ط²! ظ„ط§ طھظˆط¬ط¯ ظ‚ط·ط¹ طµط¹ط¨ط© ظ…ط³ط¬ظ„ط©.</p>
+                        <p class="text-[10px] text-slate-500 text-center py-4">أداؤك ممتاز! لا توجد قطع صعبة مسجلة.</p>
                     </div>
                 </div>
             </div>
@@ -330,27 +330,27 @@
                 <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-2xl">
                     <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-3">
                         <div>
-                            <h3 class="text-base font-black text-slate-100">ظ‚ط³ظ… ط§ظ„ظ…ط°ط§ظƒط±ط© ظˆط§ظ„طھط­ط¶ظٹط±</h3>
-                            <p class="text-[10px] text-slate-400">طھطµظپط­ ط§ظ„ظ…طµط·ظ„ط­ط§طھ ظˆط§ظ„ظ‚ط·ط¹ ط§ظ„ظ…ظ†ظ‡ط¬ظٹط© ط¨ط­ط±ظٹط© ظƒط§ظ…ظ„ط©.</p>
+                            <h3 class="text-base font-black text-slate-100">قسم المذاكرة والتحضير</h3>
+                            <p class="text-[10px] text-slate-400">تصفح المصطلحات والقطع المنهجية بحرية كاملة.</p>
                         </div>
                     </div>
 
                     <!-- Inner Sub-Tabs Header -->
                     <div class="grid grid-cols-2 gap-2 p-1 bg-slate-950 rounded-2xl border border-slate-850">
                         <button onclick="switchStudySubTab('words')" id="btn-study-sub-words" class="py-2.5 text-center text-xs font-black rounded-xl text-amber-400 bg-slate-900 border border-amber-500/10 transition shadow">
-                            ًں”¤ ط§ظ„ظƒظ„ظ…ط§طھ ظˆط§ظ„ظ…طµط·ظ„ط­ط§طھ
+                            🔤 الكلمات والمصطلحات
                         </button>
                         <button onclick="switchStudySubTab('passages')" id="btn-study-sub-passages" class="py-2.5 text-center text-xs font-black rounded-xl text-slate-400 hover:bg-slate-900/50 transition">
-                            ًں“– ط§ظ„ظپظ‚ط±ط§طھ ظˆط§ظ„ظ‚ط·ط¹ ط§ظ„ظƒط§ظ…ظ„ط©
+                            📖 الفقرات والقطع الكاملة
                         </button>
                     </div>
 
                     <!-- Filter / Hide columns inside WORDS ONLY -->
                     <div id="study-sub-words-header" class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2 mt-4">
-                        <input type="text" id="study-vocab-search" oninput="filterStudyVocabList()" placeholder="ًں”چ ط§ط¨ط­ط« ط¨ط§ظ„ظ„ط؛ط© ط§ظ„ط¹ط±ط¨ظٹط© ط£ظˆ ط§ظ„ط¥ظ†ط¬ظ„ظٹط²ظٹط©..." class="w-full sm:w-1/2 bg-slate-950 border border-slate-800 text-slate-200 text-xs rounded-xl px-3 py-2 focus:outline-none transition">
+                        <input type="text" id="study-vocab-search" oninput="filterStudyVocabList()" placeholder="🔍 ابحث باللغة العربية أو الإنجليزية..." class="w-full sm:w-1/2 bg-slate-950 border border-slate-800 text-slate-200 text-xs rounded-xl px-3 py-2 focus:outline-none transition">
                         <div class="flex gap-1">
-                            <button onclick="toggleStudyColumn('ar')" class="flex-1 text-[10px] bg-slate-850 text-slate-300 font-bold px-2.5 py-2 rounded-lg border border-slate-800">ط§ظ„ط¹ط±ط¨ظٹ ًں‘پ</button>
-                            <button onclick="toggleStudyColumn('en')" class="flex-1 text-[10px] bg-slate-850 text-slate-300 font-bold px-2.5 py-2 rounded-lg border border-slate-800">ط§ظ„ط¥ظ†ط¬ظ„ظٹط²ظٹ ًں‘پ</button>
+                            <button onclick="toggleStudyColumn('ar')" class="flex-1 text-[10px] bg-slate-850 text-slate-300 font-bold px-2.5 py-2 rounded-lg border border-slate-800">العربي 👁</button>
+                            <button onclick="toggleStudyColumn('en')" class="flex-1 text-[10px] bg-slate-850 text-slate-300 font-bold px-2.5 py-2 rounded-lg border border-slate-800">الإنجليزي 👁</button>
                         </div>
                     </div>
 
@@ -373,32 +373,32 @@
                     <!-- Game Selection View -->
                     <div id="games-selection-hub" class="space-y-4">
                         <div class="border-b border-slate-800 pb-3">
-                            <h3 class="text-base font-black text-slate-100">ًںژ¯ ط§ظ„ط£ظ„ط¹ط§ط¨ ظˆط§ظ„طھظ…ط§ط±ظٹظ† ط§ظ„ط°ظƒظٹط©</h3>
+                            <h3 class="text-base font-black text-slate-100">🎯 الألعاب والتمارين الذكية</h3>
                             <!-- Review Filter Selection -->
                             <div class="mt-3 bg-slate-900 border border-slate-800 p-2.5 rounded-xl flex items-center justify-between transition-all">
                                 <div class="flex items-center gap-2">
-                                    <span class="text-lg">ًںژ¯</span>
+                                    <span class="text-lg">🎯</span>
                                     <div>
-                                        <h4 class="text-xs font-bold text-slate-300">ظ†ط·ط§ظ‚ ط§ظ„ظ…ط±ط§ط¬ط¹ط©</h4>
-                                        <p class="text-[9px] text-slate-500">طھطµظپظٹط© ط§ظ„ظƒظ„ظ…ط§طھ ط­ط³ط¨ ط§ظ„ظپط¦ط© ط§ظ„ظ…ط·ظ„ظˆط¨ط©</p>
+                                        <h4 class="text-xs font-bold text-slate-300">نطاق المراجعة</h4>
+                                        <p class="text-[9px] text-slate-500">تصفية الكلمات حسب الفئة المطلوبة</p>
                                     </div>
                                 </div>
                                 <select id="review-filter-select" onchange="changeReviewFilter()" class="bg-slate-950 border border-slate-800 text-amber-400 text-xs font-bold rounded-xl py-1.5 px-2 focus:outline-none focus:border-amber-500">
-                                    <option value="all">ط§ظ„طھط¯ط±ظٹط¨ ط§ظ„ط´ط§ظ…ظ„</option>
-                                    <option value="failures">ط§ظ„ط£ط®ط·ط§ط، ظˆط§ظ„طµط¹ط¨ط©</option>
-                                    <option value="custom">ط§ظ„ظƒظ„ظ…ط§طھ ط§ظ„ظ…ط¶ط§ظپط© ظٹط¯ظˆظٹط§ظ‹</option>
-                                    <option value="passage-mistakes">ط£ط®ط·ط§ط، ط§ظ„ظ‚ط·ط¹ ط§ظ„ط·ظˆظٹظ„ط©</option>
+                                    <option value="all">التدريب الشامل</option>
+                                    <option value="failures">الأخطاء والصعبة</option>
+                                    <option value="custom">الكلمات المضافة يدوياً</option>
+                                    <option value="passage-mistakes">أخطاء القطع الطويلة</option>
                                 </select>
                             </div>
-                            <p class="text-[10px] text-slate-400 mt-3">طھظڈط³طھط¨ط¹ط¯ ظ…ظ† ظ‡ظ†ط§ ط£ظٹ ظƒظ„ظ…ط© طھط­ط¯ط¯ظ‡ط§ ظƒظƒظ„ظ…ط© "ط³ظ‡ظ„ط© ظˆظ…ط­ظپظˆط¸ط©" ظ„طھظˆظپط± ظˆظ‚طھظƒ.</p>
+                            <p class="text-[10px] text-slate-400 mt-3">تُستبعد من هنا أي كلمة تحددها ككلمة "سهلة ومحفوظة" لتوفر وقتك.</p>
                             
                             <!-- Random Sort toggle -->
                             <div class="mt-2 bg-slate-900 border border-slate-800 p-2.5 rounded-xl flex items-center justify-between cursor-pointer transition-all" id="random-sort-container" onclick="toggleRandomSortMode()">
                                 <div class="flex items-center gap-2">
-                                    <span class="text-lg">ًں”€</span>
+                                    <span class="text-lg">🔀</span>
                                     <div>
-                                        <h4 class="text-xs font-bold text-amber-400" id="random-sort-title">طھط±طھظٹط¨ ط¹ط´ظˆط§ط¦ظٹ</h4>
-                                        <p class="text-[9px] text-slate-500" id="random-sort-desc">طھط؛ظٹظٹط± طھط±طھظٹط¨ ط§ظ„ط£ط³ط¦ظ„ط© ظپظٹ ظƒظ„ ظ…ط±ط© ط¨ط¯ظ„ط§ظ‹ ظ…ظ† ط§ظ„طھط±طھظٹط¨ ط§ظ„ظ…طھط³ظ„ط³ظ„.</p>
+                                        <h4 class="text-xs font-bold text-amber-400" id="random-sort-title">ترتيب عشوائي</h4>
+                                        <p class="text-[9px] text-slate-500" id="random-sort-desc">تغيير ترتيب الأسئلة في كل مرة بدلاً من الترتيب المتسلسل.</p>
                                     </div>
                                 </div>
                                 <div id="random-sort-toggle" class="w-10 h-6 bg-amber-500 rounded-full flex items-center p-1 transition-all">
@@ -410,8 +410,8 @@
                         <!-- Games Grid -->
                         <!-- Sub-Tabs for Games -->
                         <div class="flex bg-slate-950 rounded-xl p-1 mb-4 border border-slate-800">
-                            <button onclick="switchGameSubTab('words')" id="games-tab-words" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-amber-500 text-slate-900 shadow-sm">ًں”¤ طھظ…ط§ط±ظٹظ† ط§ظ„ظƒظ„ظ…ط§طھ</button>
-                            <button onclick="switchGameSubTab('passages')" id="games-tab-passages" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-900">ًں“– طھظ…ط§ط±ظٹظ† ط§ظ„ظ‚ط·ط¹</button>
+                            <button onclick="switchGameSubTab('words')" id="games-tab-words" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-amber-500 text-slate-900 shadow-sm">🔤 تمارين الكلمات</button>
+                            <button onclick="switchGameSubTab('passages')" id="games-tab-passages" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-900">📖 تمارين القطع</button>
                         </div>
                         
                         <!-- Word Games Section -->
@@ -420,48 +420,48 @@
                             <button onclick="launchReviewGame('flashcards')" class="p-4 bg-slate-950 border border-slate-800 rounded-2xl text-right hover:border-amber-400/40 transition-all flex items-center justify-between group">
                                 <div>
                                     <h4 class="font-black text-sm text-slate-100 group-hover:text-amber-400 transition flex items-center gap-2">
-                                        ًں—‚ï¸ڈ ط¨ط·ط§ظ‚ط§طھ ط§ظ„ط§ط³طھط°ظƒط§ط±
-                                        <span class="bg-blue-900/40 text-blue-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">ًں”¤ ظƒظ„ظ…ط§طھ</span>
+                                        🗂️ بطاقات الاستذكار
+                                        <span class="bg-blue-900/40 text-blue-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">🔤 كلمات</span>
                                     </h4>
-                                    <p class="text-[9px] text-slate-400 mt-1">طھط³ظ…ظٹط¹ طھظپط§ط¹ظ„ظٹ ط¨ط§ظ„ظ‚ظ„ط¨ ط«ظ„ط§ط«ظٹ ط§ظ„ط£ط¨ط¹ط§ط¯ ظ…ط¹ ط§ظ„ظ†ط·ظ‚ ط§ظ„طµظˆطھظٹ.</p>
+                                    <p class="text-[9px] text-slate-400 mt-1">تسميع تفاعلي بالقلب ثلاثي الأبعاد مع النطق الصوتي.</p>
                                 </div>
-                                <span class="text-lg">â‍،ï¸ڈ</span>
+                                <span class="text-lg">➡️</span>
                             </button>
 
                             <!-- Match Game -->
                             <button onclick="launchReviewGame('match')" class="p-4 bg-slate-950 border border-slate-800 rounded-2xl text-right hover:border-amber-400/40 transition-all flex items-center justify-between group">
                                 <div>
                                     <h4 class="font-black text-sm text-slate-100 group-hover:text-amber-400 transition flex items-center gap-2">
-                                        ًں§© ظ„ط¹ط¨ط© ط§ظ„ظ…ط·ط§ط¨ظ‚ط©
-                                        <span class="bg-blue-900/40 text-blue-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">ًں”¤ ظƒظ„ظ…ط§طھ</span>
+                                        🧩 لعبة المطابقة
+                                        <span class="bg-blue-900/40 text-blue-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">🔤 كلمات</span>
                                     </h4>
-                                    <p class="text-[9px] text-slate-400 mt-1">طھظˆطµظٹظ„ ط§ظ„ظ…طµط·ظ„ط­ ط¨ط§ظ„ط¹ط±ط¨ظٹط© ظˆط§ظ„ط¥ظ†ط¬ظ„ظٹط²ظٹط© ظ…ط¹ ظ…ط¤ط´ط± ظˆظ‚طھ ظ…ط«ظٹط±.</p>
+                                    <p class="text-[9px] text-slate-400 mt-1">توصيل المصطلح بالعربية والإنجليزية مع مؤشر وقت مثير.</p>
                                 </div>
-                                <span class="text-lg">â‍،ï¸ڈ</span>
+                                <span class="text-lg">➡️</span>
                             </button>
 
                             <!-- MCQ Quiz -->
                             <button onclick="launchReviewGame('quiz')" class="p-4 bg-slate-950 border border-slate-800 rounded-2xl text-right hover:border-amber-400/40 transition-all flex items-center justify-between group">
                                 <div>
                                     <h4 class="font-black text-sm text-slate-100 group-hover:text-amber-400 transition flex items-center gap-2">
-                                        ًں“‌ ط£ط³ط¦ظ„ط© ط®ظٹط§ط±ط§طھ
-                                        <span class="bg-blue-900/40 text-blue-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">ًں”¤ ظƒظ„ظ…ط§طھ</span>
+                                        📝 أسئلة خيارات
+                                        <span class="bg-blue-900/40 text-blue-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">🔤 كلمات</span>
                                     </h4>
-                                    <p class="text-[9px] text-slate-400 mt-1">ط§ط®طھط¨ط§ط± ط¹ط´ظˆط§ط¦ظٹ ط°ظƒظٹ ظ…ط¹ طھط¹ظ„ظٹظ‚ ظˆط¥ط¬ط§ط¨ط© ظپظˆط±ظٹط© ط¹ظ†ط¯ ط§ظ„ط®ط·ط£.</p>
+                                    <p class="text-[9px] text-slate-400 mt-1">اختبار عشوائي ذكي مع تعليق وإجابة فورية عند الخطأ.</p>
                                 </div>
-                                <span class="text-lg">â‍،ï¸ڈ</span>
+                                <span class="text-lg">➡️</span>
                             </button>
 
                             <!-- Spell / Write -->
                             <button onclick="launchReviewGame('spelling')" class="p-4 bg-slate-950 border border-slate-800 rounded-2xl text-right hover:border-amber-400/40 transition-all flex items-center justify-between group">
                                 <div>
                                     <h4 class="font-black text-sm text-slate-100 group-hover:text-amber-400 transition flex items-center gap-2">
-                                        âŒ¨ï¸ڈ طھط­ط¯ظٹ ط§ظ„ط¥ظ…ظ„ط§ط،
-                                        <span class="bg-blue-900/40 text-blue-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">ًں”¤ ظƒظ„ظ…ط§طھ</span>
+                                        ⌨️ تحدي الإملاء
+                                        <span class="bg-blue-900/40 text-blue-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">🔤 كلمات</span>
                                     </h4>
-                                    <p class="text-[9px] text-slate-400 mt-1">ط£ظ‚ظˆظ‰ طھط­ط¯ظچ ظ„طھظ‡ط¬ط¦ط© ط§ظ„ظƒظ„ظ…ط§طھ ظ…ظ† ط°ط§ظƒط±طھظƒ ط§ظ„ظ‚ط§ظ†ظˆظ†ظٹط© ط¨ط¯ظ‚ط©.</p>
+                                    <p class="text-[9px] text-slate-400 mt-1">أقوى تحدٍ لتهجئة الكلمات من ذاكرتك القانونية بدقة.</p>
                                 </div>
-                                <span class="text-lg">â‍،ï¸ڈ</span>
+                                <span class="text-lg">➡️</span>
                             </button>
                         </div>
 
@@ -471,72 +471,72 @@
                             <button onclick="launchReviewGame('cloze')" class="p-4 bg-slate-950 border border-slate-800 rounded-2xl text-right hover:border-amber-400/40 transition-all flex items-center justify-between group">
                                 <div>
                                     <h4 class="font-black text-sm text-slate-100 group-hover:text-amber-400 transition flex items-center gap-2">
-                                        ًں§© ط¥ظƒظ…ط§ظ„ ط§ظ„ظپط±ط§ط؛ط§طھ
-                                        <span class="bg-emerald-900/40 text-emerald-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">ًں“– ظ‚ط·ط¹</span>
+                                        🧩 إكمال الفراغات
+                                        <span class="bg-emerald-900/40 text-emerald-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">📖 قطع</span>
                                     </h4>
-                                    <p class="text-[9px] text-slate-400 mt-1">طھط³ظ…ظٹط¹ ط§ظ„ظ‚ط·ط¹ ط§ظ„ظ‚ط§ظ†ظˆظ†ظٹط© ط¹ظ† ط·ط±ظٹظ‚ ظ…ظ„ط، ط§ظ„ظƒظ„ظ…ط§طھ ط§ظ„ظ…ط­ط°ظˆظپط©.</p>
+                                    <p class="text-[9px] text-slate-400 mt-1">تسميع القطع القانونية عن طريق ملء الكلمات المحذوفة.</p>
                                 </div>
-                                <span class="text-lg">â‍،ï¸ڈ</span>
+                                <span class="text-lg">➡️</span>
                             </button>
 
                             <!-- Sentence Reordering test -->
                             <button onclick="launchReviewGame('reorder')" class="p-4 bg-slate-950 border border-slate-800 rounded-2xl text-right hover:border-amber-400/40 transition-all flex items-center justify-between group">
                                 <div>
                                     <h4 class="font-black text-sm text-slate-100 group-hover:text-amber-400 transition flex items-center gap-2">
-                                        ًں”„ طھط±طھظٹط¨ ط¬ظ…ظ„ ط§ظ„ظ‚ط·ط¹ط©
-                                        <span class="bg-emerald-900/40 text-emerald-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">ًں“– ظ‚ط·ط¹</span>
+                                        🔄 ترتيب جمل القطعة
+                                        <span class="bg-emerald-900/40 text-emerald-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">📖 قطع</span>
                                     </h4>
-                                    <p class="text-[9px] text-slate-400 mt-1">طھط­ط¯ظٹ ط¨ظ†ط§ط، ط§ظ„ظ‚ط·ط¹ط© ط§ظ„ظ‚ط§ظ†ظˆظ†ظٹط© ط¨طھط±طھظٹط¨ ظƒظ„ظ…ط§طھظ‡ط§ ظˆط¬ظ…ظ„ظ‡ط§ ط¨ط´ظƒظ„ طµط­ظٹط­.</p>
+                                    <p class="text-[9px] text-slate-400 mt-1">تحدي بناء القطعة القانونية بترتيب كلماتها وجملها بشكل صحيح.</p>
                                 </div>
-                                <span class="text-lg">â‍،ï¸ڈ</span>
+                                <span class="text-lg">➡️</span>
                             </button>
 
                             <!-- Passage Spelling test -->
                             <button onclick="launchReviewGame('passage_spelling')" class="p-4 bg-slate-950 border border-slate-800 rounded-2xl text-right hover:border-amber-400/40 transition-all flex items-center justify-between group">
                                 <div>
                                     <h4 class="font-black text-sm text-slate-100 group-hover:text-amber-400 transition flex items-center gap-2">
-                                        âœچï¸ڈ ط¥ظ…ظ„ط§ط، ط§ظ„ظ‚ط·ط¹
-                                        <span class="bg-emerald-900/40 text-emerald-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">ًں“– ظ‚ط·ط¹</span>
+                                        ✍️ إملاء القطع
+                                        <span class="bg-emerald-900/40 text-emerald-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">📖 قطع</span>
                                     </h4>
-                                    <p class="text-[9px] text-slate-400 mt-1">طھط­ط¯ظٹ طھط±ط¬ظ…ط© ظˆظƒطھط§ط¨ط© ط§ظ„ظ‚ط·ط¹ط© ط§ظ„ظ‚ط§ظ†ظˆظ†ظٹط© ط¨ط§ظ„ظƒط§ظ…ظ„ ظ„ط§ط®طھط¨ط§ط± ط§ظ„ط¥ظ…ظ„ط§ط،.</p>
+                                    <p class="text-[9px] text-slate-400 mt-1">تحدي ترجمة وكتابة القطعة القانونية بالكامل لاختبار الإملاء.</p>
                                 </div>
-                                <span class="text-lg">â‍،ï¸ڈ</span>
+                                <span class="text-lg">➡️</span>
                             </button>
 
                             <!-- Vanishing Text -->
                             <button onclick="launchReviewGame('vanishing')" class="p-4 bg-slate-950 border border-slate-800 rounded-2xl text-right hover:border-amber-400/40 transition-all flex items-center justify-between group">
                                 <div>
                                     <h4 class="font-black text-sm text-slate-100 group-hover:text-amber-400 transition flex items-center gap-2">
-                                        ًںŒ«ï¸ڈ ط§ظ„ظ†طµ ط§ظ„ظ…طھظ„ط§ط´ظٹ
-                                        <span class="bg-emerald-900/40 text-emerald-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">ًں“– ظ‚ط·ط¹</span>
+                                        🌫️ النص المتلاشي
+                                        <span class="bg-emerald-900/40 text-emerald-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">📖 قطع</span>
                                     </h4>
-                                    <p class="text-[9px] text-slate-400 mt-1">ط¥ط®ظپط§ط، طھط¯ط±ظٹط¬ظٹ ظ„ظƒظ„ظ…ط§طھ ط§ظ„ظ‚ط·ط¹ط© ظ„ط§ط®طھط¨ط§ط± ظ‚ظˆط© ط§ظ„ط°ط§ظƒط±ط© ظˆطھط«ط¨ظٹطھظ‡ط§.</p>
+                                    <p class="text-[9px] text-slate-400 mt-1">إخفاء تدريجي لكلمات القطعة لاختبار قوة الذاكرة وتثبيتها.</p>
                                 </div>
-                                <span class="text-lg">â‍،ï¸ڈ</span>
+                                <span class="text-lg">➡️</span>
                             </button>
 
                             <!-- Muscle Memory -->
                             <button onclick="launchReviewGame('muscle')" class="p-4 bg-slate-950 border border-slate-800 rounded-2xl text-right hover:border-amber-400/40 transition-all flex items-center justify-between group">
                                 <div>
                                     <h4 class="font-black text-sm text-slate-100 group-hover:text-amber-400 transition flex items-center gap-2">
-                                        âŒ¨ï¸ڈ ط§ظ„ط°ط§ظƒط±ط© ط§ظ„ط¹ط¶ظ„ظٹط©
-                                        <span class="bg-emerald-900/40 text-emerald-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">ًں“– ظ‚ط·ط¹</span>
+                                        ⌨️ الذاكرة العضلية
+                                        <span class="bg-emerald-900/40 text-emerald-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">📖 قطع</span>
                                     </h4>
-                                    <p class="text-[9px] text-slate-400 mt-1">ط³ط±ط¹ط© ط·ط¨ط§ط¹ط© ط§ظ„ظ‚ط·ط¹ط© ظپظˆظ‚ ظ†طµ ط¨ط§ظ‡طھ ظ„ظ†ظ‚ظ„ ط§ظ„ط­ظپط¸ ظ„ط£طµط§ط¨ط¹ظƒ.</p>
+                                    <p class="text-[9px] text-slate-400 mt-1">سرعة طباعة القطعة فوق نص باهت لنقل الحفظ لأصابعك.</p>
                                 </div>
-                                <span class="text-lg">â‍،ï¸ڈ</span>
+                                <span class="text-lg">➡️</span>
                             </button>
 
                             <!-- Blind Dictation -->
                             <button onclick="launchReviewGame('dictation')" class="p-4 bg-slate-950 border border-slate-800 rounded-2xl text-right hover:border-amber-400/40 transition-all flex items-center justify-between group">
                                 <div>
                                     <h4 class="font-black text-sm text-slate-100 group-hover:text-amber-400 transition flex items-center gap-2">
-                                        ًںژ§ ط§ظ„ط¥ظ…ظ„ط§ط، ط§ظ„طµظˆطھظٹ
-                                        <span class="bg-emerald-900/40 text-emerald-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">ًں“– ظ‚ط·ط¹</span>
+                                        🎧 الإملاء الصوتي
+                                        <span class="bg-emerald-900/40 text-emerald-400 text-[9px] px-1.5 py-0.5 rounded-md font-bold shrink-0">📖 قطع</span>
                                     </h4>
-                                    <p class="text-[9px] text-slate-400 mt-1">ط§ط³طھظ…ط¹ ظ„ظ„ظ†ط·ظ‚ ط§ظ„ط¥ظ†ط¬ظ„ظٹط²ظٹ ط§ظ„طµط­ظٹط­ ظ„ظ„ظ‚ط·ط¹ط© ظˆط§ظƒطھط¨ ظ…ط§ طھط³ظ…ط¹ظ‡.</p>
+                                    <p class="text-[9px] text-slate-400 mt-1">استمع للنطق الإنجليزي الصحيح للقطعة واكتب ما تسمعه.</p>
                                 </div>
-                                <span class="text-lg">â‍،ï¸ڈ</span>
+                                <span class="text-lg">➡️</span>
                             </button>
                         </div>
                     </div>
@@ -546,9 +546,9 @@
                         <!-- Header with back button -->
                         <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-800">
                             <button onclick="closeCurrentGame()" class="bg-slate-850 hover:bg-slate-800 text-amber-400 font-black text-xs px-3 py-1.5 rounded-xl transition">
-                                â¬… ط§ظ„ط¹ظˆط¯ط© ظ„ظ‚ط§ط¦ظ…ط© ط§ظ„ط£ظ„ط¹ط§ط¨
+                                ⬅ العودة لقائمة الألعاب
                             </button>
-                            <span id="game-title-header" class="text-xs font-bold text-slate-400">ط§ط³ظ… ط§ظ„ظ„ط¹ط¨ط©</span>
+                            <span id="game-title-header" class="text-xs font-bold text-slate-400">اسم اللعبة</span>
                         </div>
 
                         <!-- Dynamic Game Content Mount Area -->
@@ -565,23 +565,23 @@
                     <!-- Paper Design Header simulating actual Bani Suef University Postgrad Exam -->
                     <div class="border-4 border-double border-slate-700 p-4 text-center space-y-1 bg-slate-950/80 rounded-2xl">
                         <div class="flex justify-between items-center text-[9px] sm:text-xs text-slate-400 font-bold border-b border-slate-800 pb-2">
-                            <span>ظƒظ„ظٹط© ط§ظ„ط­ظ‚ظˆظ‚ - ط¬ط§ظ…ط¹ط© ط¨ظ†ظٹ ط³ظˆظٹظپ</span>
-                            <span>ط§ظ…طھط­ط§ظ† طھظ…ظ‡ظٹط¯ظٹ ط§ظ„ط¯ظƒطھظˆط±ط§ظ‡ - ط§ظ„ط¹ط§ظ… 2026ظ…</span>
+                            <span>كلية الحقوق - جامعة بني سويف</span>
+                            <span>امتحان تمهيدي الدكتوراه - العام 2026م</span>
                         </div>
-                        <h2 class="text-sm sm:text-base font-black text-amber-400">ظ…ظ‚ط±ط± ظ…ط§ط¯ط©: ظ…طµط·ظ„ط­ط§طھ ظ‚ط§ظ†ظˆظ†ظٹط© ط¨ظ„ط؛ط© ط£ط¬ظ†ط¨ظٹط©</h2>
-                        <p class="text-[10px] text-slate-300">ط§ظ„ظ†ظ…ظˆط°ط¬ ط§ظ„ط±ط³ظ…ظٹ ظ…ظ† ظˆط§ظ‚ط¹ طµظˆط± ط§ظ„ط§ظ…طھط­ط§ظ† ط§ظ„ظ…ظ†ظ‡ط¬ظٹ ط§ظ„ظ…ط±ظپظ‚</p>
-                        <p class="text-[9px] text-slate-500">ط²ظ…ظ† ط§ظ„ط§ظ…طھط­ط§ظ†: ط³ط§ط¹طھط§ظ† | ط§ظ„ط¯ط±ط¬ط© ط§ظ„ط¥ط¬ظ…ط§ظ„ظٹط©: 15 ط¯ط±ط¬ط©</p>
+                        <h2 class="text-sm sm:text-base font-black text-amber-400">مقرر مادة: مصطلحات قانونية بلغة أجنبية</h2>
+                        <p class="text-[10px] text-slate-300">النموذج الرسمي من واقع صور الامتحان المنهجي المرفق</p>
+                        <p class="text-[9px] text-slate-500">زمن الامتحان: ساعتان | الدرجة الإجمالية: 15 درجة</p>
                     </div>
 
                     <!-- Pre-Exam Cover Screen -->
                     <div id="exam-start-gate" class="text-center py-8 space-y-4">
-                        <span class="text-5xl block animate-pulse">ًں“‌</span>
-                        <h3 class="text-base font-black text-slate-100">ظ…ط­ط§ظƒط§ط© ط§ظ„ط§ط®طھط¨ط§ط± ط§ظ„ط­ظ‚ظٹظ‚ظٹ ط§ظ„طھظپط§ط¹ظ„ظٹ</h3>
+                        <span class="text-5xl block animate-pulse">📝</span>
+                        <h3 class="text-base font-black text-slate-100">محاكاة الاختبار الحقيقي التفاعلي</h3>
                         <p class="text-xs text-slate-300 max-w-sm mx-auto leading-relaxed">
-                            ظٹطھظƒظˆظ† ظ‡ط°ط§ ط§ظ„ط§ظ…طھط­ط§ظ† ظ…ظ† 3 ط£ط³ط¦ظ„ط© ط±ط¦ظٹط³ظٹط© (طھط±ط¬ظ…ط© ظ…طµط·ظ„ط­ط§طھطŒ طھط±ط¬ظ…ط© ط§ظ„ظ‚ط·ط¹ط© ط§ظ„ط£ظˆظ„ظ‰طŒ طھط±ط¬ظ…ط© ط§ظ„ظ‚ط·ط¹ط© ط§ظ„ط«ط§ظ†ظٹط©) ظˆط³ظٹطھظ… ط§ط­طھط³ط§ط¨ ط¯ط±ط¬طھظƒ ط§ظ„ط¥ط¬ظ…ط§ظ„ظٹط© ط¨ط¯ظ‚ط© ط¨ط¹ط¯ ط§ظ„ط§ظ†طھظ‡ط§ط،.
+                            يتكون هذا الامتحان من 3 أسئلة رئيسية (ترجمة مصطلحات، ترجمة القطعة الأولى، ترجمة القطعة الثانية) وسيتم احتساب درجتك الإجمالية بدقة بعد الانتهاء.
                         </p>
                         <button onclick="startOfficialExam()" class="bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black px-8 py-3 rounded-2xl text-xs transition transform hover:scale-105">
-                            ط§ط¨ط¯ط£ ط§ظ„ط§ظ…طھط­ط§ظ† ط§ظ„ط¢ظ† (ط¨ط¯ط، ط§ظ„ظ…ط¤ظ‚طھ) âڈ±ï¸ڈ
+                            ابدأ الامتحان الآن (بدء المؤقت) ⏱️
                         </button>
                     </div>
 
@@ -589,14 +589,14 @@
                     <div id="exam-live-paper" class="hidden space-y-6">
                         <!-- Countdown Timer Display -->
                         <div class="sticky top-12 z-20 bg-amber-500/10 border border-amber-500/30 text-amber-400 px-3 py-2 rounded-xl flex justify-between items-center text-xs font-mono font-bold backdrop-blur-sm">
-                            <span>âڈ±ï¸ڈ ط§ظ„ظˆظ‚طھ ط§ظ„ظ…طھط¨ظ‚ظٹ:</span>
+                            <span>⏱️ الوقت المتبقي:</span>
                             <span id="exam-timer-display">02:00:00</span>
                         </div>
 
                         <!-- FIRST QUESTION -->
                         <div class="space-y-3">
                             <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-right">
-                                <h4 class="font-black text-xs sm:text-sm text-slate-200">ط£ظˆظ„ط§ظ‹: طھط±ط¬ظ… ظ…ط§ ظٹظ„ظٹ ط¥ظ„ظ‰ ط§ظ„ظ„ط؛ط© ط§ظ„ط¥ظ†ط¬ظ„ظٹط²ظٹط© (ظ…ظ‚ط±ط± ظ„ظ‡ 5 ط¯ط±ط¬ط§طھ):</h4>
+                                <h4 class="font-black text-xs sm:text-sm text-slate-200">أولاً: ترجم ما يلي إلى اللغة الإنجليزية (مقرر له 5 درجات):</h4>
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="exam-q1-container">
                                 <!-- Dynamic 10 terms inputs -->
@@ -606,65 +606,65 @@
                         <!-- SECOND QUESTION -->
                         <div class="space-y-3">
                             <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-right">
-                                <h4 class="font-black text-xs sm:text-sm text-slate-200">ط«ط§ظ†ظٹط§ظ‹: طھط±ط¬ظ… ظ…ط§ ظٹظ„ظٹ ط¥ظ„ظ‰ ط§ظ„ظ„ط؛ط© ط§ظ„ط¹ط±ط¨ظٹط© (ظ…ظ‚ط±ط± ظ„ظ‡ 5 ط¯ط±ط¬ط§طھ):</h4>
+                                <h4 class="font-black text-xs sm:text-sm text-slate-200">ثانياً: ترجم ما يلي إلى اللغة العربية (مقرر له 5 درجات):</h4>
                             </div>
                             <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-850 font-serif leading-relaxed text-xs sm:text-sm text-left text-slate-100" dir="ltr">
                                 "Law is a set of general abstract, and binding rules that states enact or order their application accompanied by a present and material penalty imposed by the public authority when these rules are violated."
                             </div>
                             <div>
-                                <label class="block text-[10px] text-slate-400 mb-1">ط§ظƒطھط¨ طھط±ط¬ظ…طھظƒ ط¨ط§ظ„ظ„ط؛ط© ط§ظ„ط¹ط±ط¨ظٹط© ط¨ط¯ظ‚ط© ظˆظ…ط·ط§ط¨ظ‚ط© ظ„ظƒطھط§ط¨ ط§ظ„ظƒظ„ظٹط©:</label>
-                                <textarea id="exam-q2-input" rows="3" placeholder="طھط±ط¬ظ… ظ‡ظ†ط§..." class="w-full bg-slate-950 border border-slate-800 text-slate-200 rounded-xl p-3 text-xs sm:text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 leading-relaxed"></textarea>
+                                <label class="block text-[10px] text-slate-400 mb-1">اكتب ترجمتك باللغة العربية بدقة ومطابقة لكتاب الكلية:</label>
+                                <textarea id="exam-q2-input" rows="3" placeholder="ترجم هنا..." class="w-full bg-slate-950 border border-slate-800 text-slate-200 rounded-xl p-3 text-xs sm:text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 leading-relaxed"></textarea>
                             </div>
                         </div>
 
                         <!-- THIRD QUESTION -->
                         <div class="space-y-3">
                             <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-right">
-                                <h4 class="font-black text-xs sm:text-sm text-slate-200">ط«ط§ظ„ط«ط§ظ‹: طھط±ط¬ظ… ظ…ط§ ظٹظ„ظٹ ط¥ظ„ظ‰ ط§ظ„ظ„ط؛ط© ط§ظ„ط¥ظ†ط¬ظ„ظٹط²ظٹط© (ظ…ظ‚ط±ط± ظ„ظ‡ 5 ط¯ط±ط¬ط§طھ):</h4>
+                                <h4 class="font-black text-xs sm:text-sm text-slate-200">ثالثاً: ترجم ما يلي إلى اللغة الإنجليزية (مقرر له 5 درجات):</h4>
                             </div>
                             <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-850 leading-relaxed text-xs sm:text-sm text-slate-200">
-                                "ط§ظ„ظ‚ط§ط¹ط¯ط© ط§ظ„ط¢ظ…ط±ط©: ظ‡ظٹ ط§ظ„ظ‚ط§ط¹ط¯ط© ط§ظ„طھظٹ ظ„ط§ ظٹط¬ظˆط² ظ„ظ„ط£ظپط±ط§ط¯ ط§ظ„ط§طھظپط§ظ‚ ط¹ظ„ظ‰ ط­ظƒظ… ظ…ط؛ط§ظٹط± ظ„ظ„ط­ظƒظ… ط§ظ„ط°ظٹ طھظ‚ط±ط±ظ‡ ظˆط£ظٹ ط§طھظپط§ظ‚ ط¹ظ„ظ‰ ط­ظƒظ… ظ…ط؛ط§ظٹط± ظ„ط­ظƒظ…ظ‡ط§ ظٹظ‚ط¹ ط¨ط§ط·ظ„ط§ظ‹ ط£ظٹ ظ…ط¹ط¯ظˆظ… ط§ظ„ط£ط«ط± ظˆظٹط¬ط¨ ط§ط³طھط¨ط¹ط§ط¯ظ‡. ظˆظ…ط«ط§ظ„ ط°ظ„ظƒ ط§ظ„ظ‚ط§ط¹ط¯ط© ط§ظ„طھظٹ طھط¬ط±ظ… ط§ظ„ظ‚طھظ„."
+                                "القاعدة الآمرة: هي القاعدة التي لا يجوز للأفراد الاتفاق على حكم مغاير للحكم الذي تقرره وأي اتفاق على حكم مغاير لحكمها يقع باطلاً أي معدوم الأثر ويجب استبعاده. ومثال ذلك القاعدة التي تجرم القتل."
                             </div>
                             <div>
-                                <label class="block text-[10px] text-slate-400 mb-1">ط§ظƒطھط¨ ط§ظ„طھط±ط¬ظ…ط© ط§ظ„ط­ط±ظپظٹط© ط¨ط§ظ„ط¥ظ†ط¬ظ„ظٹط²ظٹط© ط¨ط¯ظ‚ط© ظƒظ…ط§ ظˆط±ط¯ ط¨ظƒطھط§ط¨ ط§ظ„ط¯ظƒطھظˆط± ظ…ط­ظ…ظˆط¯ ط§ظ„ط´ط±ظ‚ط§ظˆظٹ:</label>
+                                <label class="block text-[10px] text-slate-400 mb-1">اكتب الترجمة الحرفية بالإنجليزية بدقة كما ورد بكتاب الدكتور محمود الشرقاوي:</label>
                                 <textarea id="exam-q3-input" rows="4" dir="ltr" placeholder="Translate here in English..." class="w-full bg-slate-950 border border-slate-800 text-slate-200 rounded-xl p-3 text-xs sm:text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 leading-relaxed english-text font-semibold"></textarea>
                             </div>
                         </div>
 
                         <!-- Submit button -->
                         <button onclick="submitOfficialExam()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-4 rounded-2xl text-xs sm:text-sm transition">
-                            âœ“ ط¥ظ†ظ‡ط§ط، ظˆطھط³ظ„ظٹظ… ط£ظˆط±ط§ظ‚ ط§ظ„ط¥ط¬ط§ط¨ط© ط§ظ„ط¢ظ† ظ„ظ„طھطµط­ظٹط­ ظˆط±طµط¯ ط§ظ„ظ†طھظٹط¬ط©
+                            ✓ إنهاء وتسليم أوراق الإجابة الآن للتصحيح ورصد النتيجة
                         </button>
                     </div>
 
                     <!-- Post-Exam Results Screen and signed certificate -->
                     <div id="exam-result-gate" class="hidden text-center py-6 space-y-6">
-                        <span class="text-5xl block" id="exam-result-emoji">ًںژ“</span>
-                        <h3 class="text-xl font-black text-slate-100">طھظ… ط§ظ„ط§ظ†طھظ‡ط§ط، ظˆط±طµط¯ ط¯ط±ط¬ط§طھ ط§ظ„ط§ظ…طھط­ط§ظ†!</h3>
+                        <span class="text-5xl block" id="exam-result-emoji">🎓</span>
+                        <h3 class="text-xl font-black text-slate-100">تم الانتهاء ورصد درجات الامتحان!</h3>
                         
                         <div class="max-w-md mx-auto bg-slate-950 border border-slate-800 p-6 rounded-3xl space-y-4">
-                            <p class="text-xs text-slate-400">ظ…ط¬ظ…ظˆط¹ ط¯ط±ط¬ط§طھظƒ ظپظٹ ط§ظ„ط§ظ…طھط­ط§ظ† ط§ظ„ط£ظƒط§ط¯ظٹظ…ظٹ ط§ظ„ظ…ظ‚ظٹط¯:</p>
+                            <p class="text-xs text-slate-400">مجموع درجاتك في الامتحان الأكاديمي المقيد:</p>
                             <p class="text-4xl font-mono font-black text-amber-500" id="exam-final-score">15 / 15</p>
-                            <p class="text-xs font-bold text-slate-300" id="exam-grade-text">ط§ظ„طھظ‚ط¯ظٹط±: ظ…ظ…طھط§ط² ظ…ط±طھظپط¹</p>
+                            <p class="text-xs font-bold text-slate-300" id="exam-grade-text">التقدير: ممتاز مرتفع</p>
                         </div>
 
                         <!-- Beautiful Signed Certificate of passing -->
                         <div id="exam-certificate" class="max-w-lg mx-auto bg-gradient-to-br from-slate-900 to-slate-950 border-4 border-double border-amber-500/30 p-6 rounded-3xl relative text-center space-y-4 hidden">
-                            <span class="absolute right-4 top-4 text-xs font-bold text-amber-500/30">ط¬ط§ظ…ط¹ط© ط¨ظ†ظٹ ط³ظˆظٹظپ</span>
-                            <span class="absolute left-4 top-4 text-xs font-bold text-amber-500/30">ظƒظˆط¯ ط§ظ„ظ…ط§ط¯ط© 2026</span>
-                            <h4 class="text-lg font-black text-amber-400">ط´ظ‡ط§ط¯ط© طھظ…ظٹط² ط£ظƒط§ط¯ظٹظ…ظٹ ظˆط§ط¬طھظٹط§ط² طھظپط§ط¹ظ„ظٹ</h4>
-                            <p class="text-xs text-slate-300">ظٹظڈظ‚ط± ظˆظٹط´ظ‡ط¯ ط§ظ„ظ…ط³ط§ط¹ط¯ ط§ظ„ط£ظƒط§ط¯ظٹظ…ظٹ ط§ظ„ط°ظƒظٹ ط¨ط£ظ†:</p>
-                            <p class="text-lg font-black text-slate-100" id="certificate-user-name">ط¯ظƒطھظˆط± / ط¨ط§ط­ط«</p>
+                            <span class="absolute right-4 top-4 text-xs font-bold text-amber-500/30">جامعة بني سويف</span>
+                            <span class="absolute left-4 top-4 text-xs font-bold text-amber-500/30">كود المادة 2026</span>
+                            <h4 class="text-lg font-black text-amber-400">شهادة تميز أكاديمي واجتياز تفاعلي</h4>
+                            <p class="text-xs text-slate-300">يُقر ويشهد المساعد الأكاديمي الذكي بأن:</p>
+                            <p class="text-lg font-black text-slate-100" id="certificate-user-name">دكتور / باحث</p>
                             <p class="text-xs text-slate-300 max-w-sm mx-auto leading-relaxed">
-                                ظ‚ط¯ ط§ط¬طھط§ط² ط¨ظ†ط¬ط§ط­ ظˆطھظپظˆظ‚ طھط§ظ… ظƒط§ظپط© ط§ظ„ط£ط³ط¦ظ„ط© ظˆط§ظ„ظ…ط·ط§ط¨ظ‚ط§طھ ط§ظ„ط­ط±ظپظٹط© ظ„ط§ظ…طھط­ط§ظ† ظ…ط§ط¯ط© ط§ظ„ظ…طµط·ظ„ط­ط§طھ ط§ظ„ظ‚ط§ظ†ظˆظ†ظٹط© ط¨ظ„ط؛ط© ط£ط¬ظ†ط¨ظٹط© ط§ظ„ظ…ظ‚ط±ط±ط© ط¨ظ†ظ…ظˆط°ط¬ ط§ظ„ط¯ظƒطھظˆط± ظ…ط­ظ…ظˆط¯ ط§ظ„ط´ط±ظ‚ط§ظˆظٹ.
+                                قد اجتاز بنجاح وتفوق تام كافة الأسئلة والمطابقات الحرفية لامتحان مادة المصطلحات القانونية بلغة أجنبية المقررة بنموذج الدكتور محمود الشرقاوي.
                             </p>
                             <div class="pt-4 border-t border-slate-800/80 flex justify-between items-center text-[10px] text-slate-400">
                                 <div class="text-right">
-                                    <p>ط§ظ„طھظˆظ‚ظٹط¹ ظˆط§ظ„ط¥ط´ط±ط§ظپ:</p>
-                                    <p class="font-extrabold text-amber-500 text-xs mt-0.5">ط§ظ„ظ…ط³طھط´ط§ط± ط£ط­ظ…ط¯ ظˆط¬ظٹظ‡</p>
+                                    <p>التوقيع والإشراف:</p>
+                                    <p class="font-extrabold text-amber-500 text-xs mt-0.5">المستشار أحمد وجيه</p>
                                 </div>
                                 <div class="text-left font-mono">
-                                    <p>ظƒظˆط¯ ط´ظ‡ط§ط¯ط© ظ…ظ…طھط¯:</p>
+                                    <p>كود شهادة ممتد:</p>
                                     <p class="text-[9px]">LGT-2026-BNS</p>
                                 </div>
                             </div>
@@ -673,7 +673,7 @@
                         <!-- Controls -->
                         <div class="flex justify-center gap-3">
                             <button onclick="resetOfficialExam()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition">
-                                ًں”„ ط¥ط¹ط§ط¯ط© ط¥ط¬ط±ط§ط، ط§ظ„ط§ظ…طھط­ط§ظ† ط¨ط§ظ„ظƒط§ظ…ظ„
+                                🔄 إعادة إجراء الامتحان بالكامل
                             </button>
                         </div>
                     </div>
@@ -685,57 +685,57 @@
             <div id="tab-user" class="tab-pane hidden space-y-4">
                 <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-2xl">
                     <div class="border-b border-slate-800 pb-3 mb-4">
-                        <h3 class="text-base font-black text-slate-100">ًں”§ ط¥ط¹ط¯ط§ط¯ط§طھ ط§ظ„ظ…ط³طھط®ط¯ظ… ظˆط¥ط¯ط§ط±ط© ط§ظ„ظ…ط³ط±ط¯</h3>
-                        <p class="text-[10px] text-slate-400">ط¹ط¯ظ„ طھظپط§طµظٹظ„ ظ…ظ„ظپظƒ ط§ظ„ط´ط®طµظٹ ط£ظˆ ط£ط¶ظپ ظ…ظپط±ط¯ط§طھ ط¬ط¯ظٹط¯ط© ظ„ظ„ظ…ظ†ظ‡ط¬.</p>
+                        <h3 class="text-base font-black text-slate-100">🔧 إعدادات المستخدم وإدارة المسرد</h3>
+                        <p class="text-[10px] text-slate-400">عدل تفاصيل ملفك الشخصي أو أضف مفردات جديدة للمنهج.</p>
                     </div>
 
                     <!-- Inner Sub-Tabs Header -->
                     <div class="grid grid-cols-3 gap-2 p-1 bg-slate-950 rounded-2xl border border-slate-850 mb-4">
                         <button onclick="switchSettingsSubTab('profile')" id="btn-settings-sub-profile" class="py-2 text-center text-[10px] font-black rounded-xl text-amber-400 bg-slate-900 border border-amber-500/10 transition shadow">
-                            ط§ظ„ظ…ظ„ظپ ط§ظ„ط´ط®طµظٹ
+                            الملف الشخصي
                         </button>
                         <button onclick="switchSettingsSubTab('add-term')" id="btn-settings-sub-add-term" class="py-2 text-center text-[10px] font-black rounded-xl text-slate-400 hover:bg-slate-900/50 transition">
-                            ط¥ط¶ط§ظپط© ظ…طµط·ظ„ط­
+                            إضافة مصطلح
                         </button>
                         <button onclick="switchSettingsSubTab('manage-terms')" id="btn-settings-sub-manage-terms" class="py-2 text-center text-[10px] font-black rounded-xl text-slate-400 hover:bg-slate-900/50 transition">
-                            ط¥ط¯ط§ط±ط© ط§ظ„ظ…ط³ط±ط¯
+                            إدارة المسرد
                         </button>
                     </div>
 
                     <!-- Profile Settings Card -->
                     <div id="settings-subtab-profile" class="block space-y-4">
                         <div class="bg-slate-950 p-4 rounded-2xl border border-slate-850 space-y-3 text-xs">
-                            <h4 class="font-bold text-amber-500">ًں‘¨â€چâڑ–ï¸ڈ ط¥ط¹ط¯ط§ط¯ط§طھ ط§ظ„ظ„ظ‚ط¨ ظˆط§ظ„ط§ط³ظ…:</h4>
+                            <h4 class="font-bold text-amber-500">👨‍⚖️ إعدادات اللقب والاسم:</h4>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
-                                    <label class="block text-slate-400 mb-1">ط§ظ„ط§ط³ظ…:</label>
+                                    <label class="block text-slate-400 mb-1">الاسم:</label>
                                     <input type="text" id="settings-username" onkeydown="if(event.key === 'Enter') saveSettingsProfile()" class="w-full bg-slate-900 border border-slate-800 text-white rounded-xl px-3 py-2 focus:outline-none">
                                 </div>
                                 <div>
-                                    <label class="block text-slate-400 mb-1">ط§ظ„ظ„ظ‚ط¨:</label>
+                                    <label class="block text-slate-400 mb-1">اللقب:</label>
                                     <select id="settings-title" class="w-full bg-slate-900 border border-slate-800 text-white rounded-xl px-3 py-2 focus:outline-none">
-                                        <option value="ط¯ظƒطھظˆط±">ط¯ظƒطھظˆط± (ط¨ط§ط­ط«)</option>
-                                        <option value="ط¯ظƒطھظˆط±ط©">ط¯ظƒطھظˆط±ط© (ط¨ط§ط­ط«ط©)</option>
+                                        <option value="دكتور">دكتور (باحث)</option>
+                                        <option value="دكتورة">دكتورة (باحثة)</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 gap-3 mt-3">
                                 <div>
-                                    <label class="block text-slate-400 mb-1">طھط؛ظٹظٹط± ط±ظ‚ظ… ط§ظ„ظ‡ط§طھظپ (ط§ظ„ط®ط§طµ ط¨ط­ط³ط§ط¨ظƒ ظˆط§ط³طھط±ط¬ط§ط¹ ط¨ظٹط§ظ†ط§طھظƒ):</label>
+                                    <label class="block text-slate-400 mb-1">تغيير رقم الهاتف (الخاص بحسابك واسترجاع بياناتك):</label>
                                     <div class="flex gap-2">
-                                        <input type="text" id="settings-passcode" class="flex-grow bg-slate-900 border border-slate-800 text-amber-400 font-bold rounded-xl px-3 py-2 focus:outline-none" dir="ltr" placeholder="ط§ظƒطھط¨ ط±ظ‚ظ… ط§ظ„ظ‡ط§طھظپ ط§ظ„ط¬ط¯ظٹط¯...">
+                                        <input type="text" id="settings-passcode" class="flex-grow bg-slate-900 border border-slate-800 text-amber-400 font-bold rounded-xl px-3 py-2 focus:outline-none" dir="ltr" placeholder="اكتب رقم الهاتف الجديد...">
                                         <button onclick="changeUserPasscode()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition whitespace-nowrap">
-                                            ظ†ظ‚ظ„ ط§ظ„ط¨ظٹط§ظ†ط§طھ ظ„ظ„ط±ظ‚ظ… ط§ظ„ط¬ط¯ظٹط¯
+                                            نقل البيانات للرقم الجديد
                                         </button>
                                     </div>
                                 </div>
                             </div>
                             <div class="flex gap-2 mt-4">
                                 <button onclick="saveSettingsProfile()" class="flex-grow bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-2 rounded-xl text-xs transition">
-                                    ط­ظپط¸ ط§ظ„ظ…ظ„ظپ ط§ظ„ط´ط®طµظٹ ط§ظ„ظ…ط¹ط¯ظ„
+                                    حفظ الملف الشخصي المعدل
                                 </button>
                                 <button onclick="logoutUser()" class="bg-red-950 hover:bg-red-900 text-red-200 font-bold px-4 py-2 rounded-xl text-xs transition">
-                                    طھط³ط¬ظٹظ„ ط§ظ„ط®ط±ظˆط¬ ًںڑھ
+                                    تسجيل الخروج 🚪
                                 </button>
                             </div>
                         </div>
@@ -745,35 +745,35 @@
                     <div id="settings-subtab-add-term" class="hidden space-y-4">
                         <div class="bg-slate-950 border border-slate-850 p-4 rounded-2xl space-y-3">
                             <h4 class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                                <span>â‍• ط¥ط¶ط§ظپط© ظ…طµط·ظ„ط­ ظ…ط®طµطµ ط¬ط¯ظٹط¯ ظ„ظ„ظ…ط³ط±ط¯</span>
+                                <span>➕ إضافة مصطلح مخصص جديد للمسرد</span>
                             </h4>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                                 <div>
-                                    <label class="block text-slate-400 mb-1">ط§ظ„ظ…طµط·ظ„ط­ ط¨ط§ظ„ظ„ط؛ط© ط§ظ„ط¹ط±ط¨ظٹط©:</label>
-                                    <input type="text" id="add-term-ar" onkeydown="if(event.key === 'Enter') addNewCustomTerm()" placeholder="ظ…ط«ط§ظ„: ظ…ط¨ط¯ط£ ط³ظٹط§ط¯ط© ط§ظ„ظ‚ط§ظ†ظˆظ†" class="w-full bg-slate-900 text-white p-2.5 rounded-xl border border-slate-800 focus:outline-none focus:border-amber-400">
+                                    <label class="block text-slate-400 mb-1">المصطلح باللغة العربية:</label>
+                                    <input type="text" id="add-term-ar" onkeydown="if(event.key === 'Enter') addNewCustomTerm()" placeholder="مثال: مبدأ سيادة القانون" class="w-full bg-slate-900 text-white p-2.5 rounded-xl border border-slate-800 focus:outline-none focus:border-amber-400">
                                 </div>
                                 <div>
-                                    <label class="block text-slate-400 mb-1">ط§ظ„ظ…ظ‚ط§ط¨ظ„ ط¨ط§ظ„ظ„ط؛ط© ط§ظ„ط¥ظ†ط¬ظ„ظٹط²ظٹط©:</label>
+                                    <label class="block text-slate-400 mb-1">المقابل باللغة الإنجليزية:</label>
                                     <input type="text" id="add-term-en" onkeydown="if(event.key === 'Enter') addNewCustomTerm()" placeholder="Example: Rule of law" class="w-full bg-slate-900 text-white p-2.5 rounded-xl border border-slate-800 focus:outline-none focus:border-amber-400">
                                 </div>
                                 <div>
-                                    <label class="block text-slate-400 mb-1">ط§ظ„طھطµظ†ظٹظپ ط£ظˆ ط§ظ„ظپط¦ط©:</label>
-                                    <input type="text" id="add-term-cat" onkeydown="if(event.key === 'Enter') addNewCustomTerm()" placeholder="ظ…ط«ط§ظ„: ظ…ط¨ط§ط¯ط¦ ط¯ط³طھظˆط±ظٹط©" class="w-full bg-slate-900 text-white p-2.5 rounded-xl border border-slate-800 focus:outline-none focus:border-amber-400">
+                                    <label class="block text-slate-400 mb-1">التصنيف أو الفئة:</label>
+                                    <input type="text" id="add-term-cat" onkeydown="if(event.key === 'Enter') addNewCustomTerm()" placeholder="مثال: مبادئ دستورية" class="w-full bg-slate-900 text-white p-2.5 rounded-xl border border-slate-800 focus:outline-none focus:border-amber-400">
                                 </div>
                                 <div>
-                                    <label class="block text-slate-400 mb-1">ط±ظ‚ظ… ط§ظ„طµظپط­ط© ظپظٹ ط§ظ„ظƒطھط§ط¨:</label>
-                                    <input type="number" id="add-term-page" onkeydown="if(event.key === 'Enter') addNewCustomTerm()" placeholder="ظ…ط«ط§ظ„: 5" class="w-full bg-slate-900 text-white p-2.5 rounded-xl border border-slate-800 focus:outline-none focus:border-amber-400">
+                                    <label class="block text-slate-400 mb-1">رقم الصفحة في الكتاب:</label>
+                                    <input type="number" id="add-term-page" onkeydown="if(event.key === 'Enter') addNewCustomTerm()" placeholder="مثال: 5" class="w-full bg-slate-900 text-white p-2.5 rounded-xl border border-slate-800 focus:outline-none focus:border-amber-400">
                                 </div>
                             </div>
                             <button onclick="addNewCustomTerm()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-2.5 rounded-xl text-xs transition mt-2">
-                                ط¥ط¯ط±ط§ط¬ ط§ظ„ظ…طµط·ظ„ط­ ط§ظ„ظ…ط®طµطµ
+                                إدراج المصطلح المخصص
                             </button>
                             <div class="flex gap-2 mt-4 pt-4 border-t border-slate-800">
                                 <button onclick="exportCustomTerms()" class="flex-grow bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2 rounded-xl text-[10px] transition">
-                                    ًں“¥ طھطµط¯ظٹط± ط§ظ„ظƒظ„ظ…ط§طھ
+                                    📥 تصدير الكلمات
                                 </button>
                                 <label for="import-terms-file" class="flex-grow bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2 rounded-xl text-[10px] transition text-center cursor-pointer">
-                                    ًں“¤ ط§ط³طھظٹط±ط§ط¯ ظ…ظ„ظپ
+                                    📤 استيراد ملف
                                 </label>
                                 <input type="file" id="import-terms-file" accept=".json" class="hidden" onchange="importCustomTerms(event)">
                             </div>
@@ -783,7 +783,7 @@
                     <!-- Manage ignore / delete stack -->
                     <div id="settings-subtab-manage-terms" class="hidden space-y-4">
                         <div class="bg-slate-950 border border-slate-850 p-4 rounded-2xl space-y-3">
-                            <h4 class="text-xs font-bold text-slate-300">ًں“‹ ط¥ط¯ط§ط±ط© ظˆط¥ظ„ط؛ط§ط، ظˆط¥ط®ظپط§ط، ط§ظ„ظ…ظپط±ط¯ط§طھ:</h4>
+                            <h4 class="text-xs font-bold text-slate-300">📋 إدارة وإلغاء وإخفاء المفردات:</h4>
                             <div id="vocab-settings-list" class="space-y-2 max-h-[350px] overflow-y-auto no-scrollbar pr-1">
                                 <!-- Filled dynamically -->
                             </div>
@@ -800,28 +800,28 @@
     <div class="mobile-nav sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 border-t border-slate-850 py-3 px-2 backdrop-blur-md flex justify-around items-center">
         <!-- Dashboard / Home -->
         <button onclick="switchTab('dashboard')" id="mobile-nav-dashboard" class="flex flex-col items-center gap-1 text-slate-400 transition-all duration-200 active-tab-nav">
-            <span class="text-xl">ًںڈ،</span>
-            <span class="text-[10px] font-bold">ط§ظ„ط±ط¦ظٹط³ظٹط©</span>
+            <span class="text-xl">🏡</span>
+            <span class="text-[10px] font-bold">الرئيسية</span>
         </button>
         <!-- Study -->
         <button onclick="switchTab('study')" id="mobile-nav-study" class="flex flex-col items-center gap-1 text-slate-400 transition-all duration-200">
-            <span class="text-xl">ًں“ڑ</span>
-            <span class="text-[10px] font-bold">ط§ظ„ظ…ط°ط§ظƒط±ط©</span>
+            <span class="text-xl">📚</span>
+            <span class="text-[10px] font-bold">المذاكرة</span>
         </button>
         <!-- Review -->
         <button onclick="switchTab('review')" id="mobile-nav-review" class="flex flex-col items-center gap-1 text-slate-400 transition-all duration-200">
-            <span class="text-xl">ًںژ¯</span>
-            <span class="text-[10px] font-bold">ط§ظ„ظ…ط±ط§ط¬ط¹ط©</span>
+            <span class="text-xl">🎯</span>
+            <span class="text-[10px] font-bold">المراجعة</span>
         </button>
         <!-- Exam -->
         <button onclick="switchTab('exam')" id="mobile-nav-exam" class="flex flex-col items-center gap-1 text-slate-400 transition-all duration-200">
-            <span class="text-xl">ًں“‌</span>
-            <span class="text-[10px] font-bold">ط§ظ„ط§ظ…طھط­ط§ظ†</span>
+            <span class="text-xl">📝</span>
+            <span class="text-[10px] font-bold">الامتحان</span>
         </button>
         <!-- User Settings -->
         <button onclick="switchTab('user')" id="mobile-nav-user" class="flex flex-col items-center gap-1 text-slate-400 transition-all duration-200">
-            <span class="text-xl">ًں”§</span>
-            <span class="text-[10px] font-bold">ط§ظ„ظ…ظ„ظپ</span>
+            <span class="text-xl">🔧</span>
+            <span class="text-[10px] font-bold">الملف</span>
         </button>
     </div>
 
@@ -830,94 +830,94 @@
         // MASTER DATABASE: Preloading and matching exact image content terms
         let glossaryData = [
             // Exams & images critical terms
-            { id: 1, arabic: "ظ‚ظˆط§ط¹ط¯ ظ…ط¬ط±ط¯ط©", english: "Abstract rules", type: "word", page: "19", category: "ظ‚ظˆط§ط¹ط¯ ظˆظ…ط¨ط§ط¯ط¦", ignored: false },
-            { id: 2, arabic: "ظ‡ظٹط¦ط© ط§ظ„ظ†ظٹط§ط¨ط© ط§ظ„ط¥ط¯ط§ط±ظٹط©", english: "Administrative Prosecution Authority", type: "word", page: "19", category: "ط¬ظ‡ط§طھ ظ‚ط¶ط§ط¦ظٹط©", ignored: false },
-            { id: 3, arabic: "ظ…ط´ط±ظˆط¹ ط§ظ„ظ‚ط§ظ†ظˆظ†", english: "Bill", type: "word", page: "19", category: "طھط´ط±ظٹط¹ط§طھ", ignored: false },
-            { id: 4, arabic: "ظ‚ظˆط§ط¹ط¯ ظ…ظƒظ…ظ„ط©", english: "Supplementary rules", type: "word", page: "20", category: "ظ‚ظˆط§ط¹ط¯ ظˆظ…ط¨ط§ط¯ط¦", ignored: false },
-            { id: 5, arabic: "ط§ظ„ط¹ط±ظپ", english: "Custom", type: "word", page: "20", category: "طھط´ط±ظٹط¹ط§طھ", ignored: false },
-            { id: 6, arabic: "ط¹ظ‚ظˆط¨ط© ط¥ط¯ط§ط±ظٹط©", english: "Administrative penalty", type: "word", page: "19", category: "ط¬ط²ط§ط،ط§طھ", ignored: false },
-            { id: 7, arabic: "ط³ظ„ط·ط©", english: "Authority", type: "word", page: "20", category: "ط³ظ„ط·ط§طھ ط¹ط§ظ…ط©", ignored: false },
-            { id: 8, arabic: "ط§ظ„ظ…ظˆط§ط·ظ†", english: "Citizen", type: "word", page: "20", category: "ط¹ط§ظ…", ignored: false },
-            { id: 9, arabic: "ط­ط§ظ„ط© ط§ظ„ط·ظˆط§ط±ط¦", english: "State of emergency", type: "word", page: "22", category: "ط³ظ„ط·ط§طھ ط¹ط§ظ…ط©", ignored: false },
-            { id: 10, arabic: "ط§ظ†طھط®ط§ط¨ط§طھ", english: "Elections", type: "word", page: "21", category: "ط¹ط§ظ…", ignored: false },
+            { id: 1, arabic: "قواعد مجردة", english: "Abstract rules", type: "word", page: "19", category: "قواعد ومبادئ", ignored: false },
+            { id: 2, arabic: "هيئة النيابة الإدارية", english: "Administrative Prosecution Authority", type: "word", page: "19", category: "جهات قضائية", ignored: false },
+            { id: 3, arabic: "مشروع القانون", english: "Bill", type: "word", page: "19", category: "تشريعات", ignored: false },
+            { id: 4, arabic: "قواعد مكملة", english: "Supplementary rules", type: "word", page: "20", category: "قواعد ومبادئ", ignored: false },
+            { id: 5, arabic: "العرف", english: "Custom", type: "word", page: "20", category: "تشريعات", ignored: false },
+            { id: 6, arabic: "عقوبة إدارية", english: "Administrative penalty", type: "word", page: "19", category: "جزاءات", ignored: false },
+            { id: 7, arabic: "سلطة", english: "Authority", type: "word", page: "20", category: "سلطات عامة", ignored: false },
+            { id: 8, arabic: "المواطن", english: "Citizen", type: "word", page: "20", category: "عام", ignored: false },
+            { id: 9, arabic: "حالة الطوارئ", english: "State of emergency", type: "word", page: "22", category: "سلطات عامة", ignored: false },
+            { id: 10, arabic: "انتخابات", english: "Elections", type: "word", page: "21", category: "عام", ignored: false },
             
             // Standard Book Glossary terms
-            { id: 11, arabic: "طھطµط±ظپ / ظپط¹ظ„ / ظ‚ط§ظ†ظˆظ†", english: "Act", type: "word", page: "19", category: "طھطµط±ظپط§طھ ظ‚ط§ظ†ظˆظ†ظٹط©", ignored: false },
-            { id: 12, arabic: "ط§ظ„ظ…ط­ط§ظƒظ… ط§ظ„ط¥ط¯ط§ط±ظٹط©", english: "Administrative courts", type: "word", page: "19", category: "ط¬ظ‡ط§طھ ظ‚ط¶ط§ط¦ظٹط©", ignored: false },
-            { id: 13, arabic: "ظ…ط¬ظ„ط³ ط§ظ„ظˆط²ط±ط§ط،", english: "Council of Ministers", type: "word", page: "20", category: "ط³ظ„ط·ط§طھ ط¹ط§ظ…ط©", ignored: false },
-            { id: 14, arabic: "ط§ظ„ط³ظ„ط·ط© ط§ظ„طھظ†ظپظٹط°ظٹط©", english: "Executive authority", type: "word", page: "20", category: "ط³ظ„ط·ط§طھ ط¹ط§ظ…ط©", ignored: false },
-            { id: 15, arabic: "ظ‚ظˆط§ط¹ط¯ ط¢ظ…ط±ط©", english: "Imperative rules", type: "word", page: "20", category: "ظ‚ظˆط§ط¹ط¯ ظˆظ…ط¨ط§ط¯ط¦", ignored: false },
-            { id: 16, arabic: "ط§ظ„ط¹ط¯ط§ظ„ط©", english: "Justice / Equity", type: "word", page: "20", category: "ظ‚ظˆط§ط¹ط¯ ظˆظ…ط¨ط§ط¯ط¦", ignored: false },
-            { id: 17, arabic: "ظ‚ظˆط§ط¹ط¯ ظ‚ط§ظ†ظˆظ†ظٹط©", english: "Legal rules", type: "word", page: "21", category: "ظ‚ظˆط§ط¹ط¯ ظˆظ…ط¨ط§ط¯ط¦", ignored: false },
-            { id: 18, arabic: "ط§ظ„ظ…ط´ط±ط¹", english: "Legislator", type: "word", page: "21", category: "طھط´ط±ظٹط¹ط§طھ", ignored: false },
-            { id: 19, arabic: "ط§ظ„ط¨ط±ظ„ظ…ط§ظ† (ظ…ط¬ظ„ط³ ط§ظ„ظ†ظˆط§ط¨)", english: "Parliament", type: "word", page: "22", category: "ط³ظ„ط·ط§طھ ط¹ط§ظ…ط©", ignored: false },
-            { id: 20, arabic: "ط±ط¦ظٹط³ ط§ظ„ط¬ظ…ظ‡ظˆط±ظٹط©", english: "President of the republic", type: "word", page: "22", category: "ط³ظ„ط·ط§طھ ط¹ط§ظ…ط©", ignored: false },
-            { id: 21, arabic: "ط§ظ„ظ†ظٹط§ط¨ط© ط§ظ„ط¹ط§ظ…ط©", english: "Public Prosecution", type: "word", page: "22", category: "ط¬ظ‡ط§طھ ظ‚ط¶ط§ط¦ظٹط©", ignored: false },
-            { id: 22, arabic: "ظ‡ظٹط¦ط© ظ‚ط¶ط§ظٹط§ ط§ظ„ط¯ظˆظ„ط©", english: "State Lawsuit Authority", type: "word", page: "23", category: "ط¬ظ‡ط§طھ ظ‚ط¶ط§ط¦ظٹط©", ignored: false },
-            { id: 23, arabic: "ظ…ط¬ظ„ط³ ط§ظ„ط¯ظˆظ„ط©", english: "State Council", type: "word", page: "23", category: "ط¬ظ‡ط§طھ ظ‚ط¶ط§ط¦ظٹط©", ignored: false },
-            { id: 24, arabic: "ظ‚ط§ظ†ظˆظ†", english: "Law", type: "word", page: "3", category: "ظ‚ظˆط§ط¹ط¯ ظˆظ…ط¨ط§ط¯ط¦", ignored: false },
-            { id: 25, arabic: "ط¹ظ‚ط¯", english: "Contract", type: "word", page: "16", category: "طھطµط±ظپط§طھ ظ‚ط§ظ†ظˆظ†ظٹط©", ignored: false },
-            { id: 26, arabic: "ط¥ظٹط¬ط§ط¨", english: "Offer", type: "word", page: "16", category: "طھطµط±ظپط§طھ ظ‚ط§ظ†ظˆظ†ظٹط©", ignored: false },
-            { id: 27, arabic: "ظ‚ط¨ظˆظ„", english: "Acceptance", type: "word", page: "16", category: "طھطµط±ظپط§طھ ظ‚ط§ظ†ظˆظ†ظٹط©", ignored: false },
-            { id: 28, arabic: "ط§ظ„طھط­ظƒظٹظ…", english: "Arbitration", type: "word", page: "19", category: "ظ‚ط¶ط§ط، ط¨ط¯ظٹظ„", ignored: false },
-            { id: 29, arabic: "ط§ظ„ط¹ظ‚ظˆط¯ ط§ظ„ظ…ط¯ظ†ظٹط©", english: "Civil Contracts", type: "word", page: "17", category: "ط¹ظ‚ظˆط¯", ignored: false },
-            { id: 30, arabic: "ط§ظ„ط¹ظ‚ظˆط¯ ط§ظ„طھط¬ط§ط±ظٹط©", english: "Commercial Contracts", type: "word", page: "17", category: "ط¹ظ‚ظˆط¯", ignored: false },
-            { id: 31, arabic: "ط§ظ„ط¹ظ‚ظˆط¯ ط§ظ„ظ…ط³ظ…ط§ط©", english: "Nominal Contracts", type: "word", page: "17", category: "ط¹ظ‚ظˆط¯", ignored: false },
-            { id: 32, arabic: "ط§ظ„ط¹ظ‚ظˆط¯ ط؛ظٹط± ط§ظ„ظ…ط³ظ…ط§ط©", english: "Non-nominal contracts", type: "word", page: "17", category: "ط¹ظ‚ظˆط¯", ignored: false },
-            { id: 33, arabic: "ط§ظ„ط¹ظ‚ظˆط¯ ط§ظ„ظپظˆط±ظٹط©", english: "Instant contracts", type: "word", page: "18", category: "ط¹ظ‚ظˆط¯", ignored: false },
-            { id: 34, arabic: "ط§ظ„ط¹ظ‚ظˆط¯ ط§ظ„ظ…ط³طھظ…ط±ط©", english: "Continuous Contracts", type: "word", page: "18", category: "ط¹ظ‚ظˆط¯", ignored: false },
-            { id: 35, arabic: "ط§ظ„ط¹ظ‚ظˆط¯ ط§ظ„ط´ظƒظ„ظٹط©", english: "Formal Contracts", type: "word", page: "18", category: "ط¹ظ‚ظˆط¯", ignored: false }
+            { id: 11, arabic: "تصرف / فعل / قانون", english: "Act", type: "word", page: "19", category: "تصرفات قانونية", ignored: false },
+            { id: 12, arabic: "المحاكم الإدارية", english: "Administrative courts", type: "word", page: "19", category: "جهات قضائية", ignored: false },
+            { id: 13, arabic: "مجلس الوزراء", english: "Council of Ministers", type: "word", page: "20", category: "سلطات عامة", ignored: false },
+            { id: 14, arabic: "السلطة التنفيذية", english: "Executive authority", type: "word", page: "20", category: "سلطات عامة", ignored: false },
+            { id: 15, arabic: "قواعد آمرة", english: "Imperative rules", type: "word", page: "20", category: "قواعد ومبادئ", ignored: false },
+            { id: 16, arabic: "العدالة", english: "Justice / Equity", type: "word", page: "20", category: "قواعد ومبادئ", ignored: false },
+            { id: 17, arabic: "قواعد قانونية", english: "Legal rules", type: "word", page: "21", category: "قواعد ومبادئ", ignored: false },
+            { id: 18, arabic: "المشرع", english: "Legislator", type: "word", page: "21", category: "تشريعات", ignored: false },
+            { id: 19, arabic: "البرلمان (مجلس النواب)", english: "Parliament", type: "word", page: "22", category: "سلطات عامة", ignored: false },
+            { id: 20, arabic: "رئيس الجمهورية", english: "President of the republic", type: "word", page: "22", category: "سلطات عامة", ignored: false },
+            { id: 21, arabic: "النيابة العامة", english: "Public Prosecution", type: "word", page: "22", category: "جهات قضائية", ignored: false },
+            { id: 22, arabic: "هيئة قضايا الدولة", english: "State Lawsuit Authority", type: "word", page: "23", category: "جهات قضائية", ignored: false },
+            { id: 23, arabic: "مجلس الدولة", english: "State Council", type: "word", page: "23", category: "جهات قضائية", ignored: false },
+            { id: 24, arabic: "قانون", english: "Law", type: "word", page: "3", category: "قواعد ومبادئ", ignored: false },
+            { id: 25, arabic: "عقد", english: "Contract", type: "word", page: "16", category: "تصرفات قانونية", ignored: false },
+            { id: 26, arabic: "إيجاب", english: "Offer", type: "word", page: "16", category: "تصرفات قانونية", ignored: false },
+            { id: 27, arabic: "قبول", english: "Acceptance", type: "word", page: "16", category: "تصرفات قانونية", ignored: false },
+            { id: 28, arabic: "التحكيم", english: "Arbitration", type: "word", page: "19", category: "قضاء بديل", ignored: false },
+            { id: 29, arabic: "العقود المدنية", english: "Civil Contracts", type: "word", page: "17", category: "عقود", ignored: false },
+            { id: 30, arabic: "العقود التجارية", english: "Commercial Contracts", type: "word", page: "17", category: "عقود", ignored: false },
+            { id: 31, arabic: "العقود المسماة", english: "Nominal Contracts", type: "word", page: "17", category: "عقود", ignored: false },
+            { id: 32, arabic: "العقود غير المسماة", english: "Non-nominal contracts", type: "word", page: "17", category: "عقود", ignored: false },
+            { id: 33, arabic: "العقود الفورية", english: "Instant contracts", type: "word", page: "18", category: "عقود", ignored: false },
+            { id: 34, arabic: "العقود المستمرة", english: "Continuous Contracts", type: "word", page: "18", category: "عقود", ignored: false },
+            { id: 35, arabic: "العقود الشكلية", english: "Formal Contracts", type: "word", page: "18", category: "عقود", ignored: false }
         ];
 
         // Complex Paragraphs mapping for both Arabic/English Study & Cloze
         const passagesData = [
             {
                 key: "law",
-                title: "طھط¹ط±ظٹظپ ط§ظ„ظ‚ط§ظ†ظˆظ† (Law)",
+                title: "تعريف القانون (Law)",
                 page: "3",
-                arabic: "ط§ظ„ظ‚ط§ظ†ظˆظ† ظ‡ظˆ ط¹ط¨ط§ط±ط© ط¹ظ† ظ…ط¬ظ…ظˆط¹ط© ظ…ظ† ط§ظ„ظ‚ظˆط§ط¹ط¯ ط§ظ„ط¹ط§ظ…ط© ظˆط§ظ„ظ…ط¬ط±ط¯ط© ظˆط§ظ„ظ…ظ„ط²ظ…ط© ط§ظ„طھظٹ طھظ†طµ ط§ظ„ط¯ظˆظ„ط© ط¹ظ„ظ‰ ط³ظ†ظ‡ط§ ط£ظˆ طھط£ظ…ط± ط¨طھط·ط¨ظٹظ‚ظ‡ط§طŒ ظ…طµط­ظˆط¨ط© ط¨ط¹ظ‚ظˆط¨ط© ط­ط§ظ„ظٹط© ظˆظ…ط§ط¯ظٹط© طھظپط±ط¶ظ‡ط§ ط§ظ„ط³ظ„ط·ط© ط§ظ„ط¹ط§ظ…ط© ط¹ظ†ط¯ ط§ظ†طھظ‡ط§ظƒ ظ‡ط°ظ‡ ط§ظ„ظ‚ظˆط§ط¹ط¯.",
+                arabic: "القانون هو عبارة عن مجموعة من القواعد العامة والمجردة والملزمة التي تنص الدولة على سنها أو تأمر بتطبيقها، مصحوبة بعقوبة حالية ومادية تفرضها السلطة العامة عند انتهاك هذه القواعد.",
                 english: "Law is a set of general, abstract, and binding rules that states enact or order their application, accompanied by a present and material penalty imposed by the public authority when these rules are violated."
             },
             {
                 key: "characteristics",
-                title: "ط®طµط§ط¦طµ ط§ظ„ظ‚ط§ظ†ظˆظ† (Characteristics)",
+                title: "خصائص القانون (Characteristics)",
                 page: "3",
-                arabic: "ط®طµط§ط¦طµ ط§ظ„ظ‚ط§ظ†ظˆظ†: ط£ظˆظ„ط§ظ‹: ظ‚ط§ط¹ط¯ط© ط¹ط§ظ…ط© ظˆظ…ط¬ط±ط¯ط©. ط«ط§ظ†ظٹط§ظ‹: ط§ظ„ظ‚ظˆط§ظ†ظٹظ† ظ‡ظٹ ط´ظƒظ„ ظ…ظ† ط£ط´ظƒط§ظ„ ط§ظ„ط±ظ‚ط§ط¨ط© ط§ظ„ط§ط¬طھظ…ط§ط¹ظٹط© ط§ظ„طھظٹ طھط­ط¯ط¯ ط§ظ„ظ‚ظˆط§ط¹ط¯ ظˆط§ظ„ظ†ظ‡ط¬ ط§ظ„طھظٹ ظٹظپط±ط¶ ط¨ظ‡ط§ ط§ظ„ظ…ط¬طھظ…ط¹ ط§ظ„ط§ظ…طھط«ط§ظ„ ظ„ط£ط¹ط±ط§ظپظ‡. ط«ط§ظ„ط«ط§ظ‹: ظ‚ط§ط¹ط¯ط© ظ…ظ„ط²ظ…ط©.",
+                arabic: "خصائص القانون: أولاً: قاعدة عامة ومجردة. ثانياً: القوانين هي شكل من أشكال الرقابة الاجتماعية التي تحدد القواعد والنهج التي يفرض بها المجتمع الامتثال لأعرافه. ثالثاً: قاعدة ملزمة.",
                 english: "Characteristics of law are first: a general and abstract rule. Second: Laws are a form of social control that outlines rules, habits, and customs a society uses to enforce conformity to its norms. Third: a binding rule."
             },
             {
                 key: "contract",
-                title: "طھط¹ط±ظٹظپ ط§ظ„ط¹ظ‚ط¯ (Contract)",
+                title: "تعريف العقد (Contract)",
                 page: "16",
-                arabic: "ط§ظ„ط¹ظ‚ط¯ ظ‡ظˆ ط£ط­ط¯ ط£ظ‡ظ… ظ…طµط§ط¯ط± ط§ظ„ط§ظ„طھط²ط§ظ… ظˆظ‡ظˆ ط¹ط¨ط§ط±ط© ط¹ظ† ط§طھظپط§ظ‚ ط¨ظٹظ† ط¥ط±ط§ط¯طھظٹظ† ظ„ط¥ط­ط¯ط§ط« ط£ط«ط± ظ‚ط§ظ†ظˆظ†ظٹطŒ ظˆظٹظ†ط´ط£ ط­ظ‚ظˆظ‚ ظˆط§ظ„طھط²ط§ظ…ط§طھ ط¨ظٹظ† ط£ط·ط±ط§ظپ ط§ظ„ط¹ظ‚ط¯. ظˆط¨ط°ظ„ظƒ ظٹظ†ط´ط£ ط§ظ„ط¹ظ‚ط¯ ط¹ظ† ط·ط±ظٹظ‚ ط¥ظٹط¬ط§ط¨ ظ…ظ† ط§ظ„ط·ط±ظپ ط§ظ„ط£ظˆظ„ ظٹظ‚ط§ط¨ظ„ظ‡ ظ‚ط¨ظˆظ„ ظ…ظ† ط§ظ„ط·ط±ظپ ط§ظ„ط¢ط®ط±.",
+                arabic: "العقد هو أحد أهم مصادر الالتزام وهو عبارة عن اتفاق بين إرادتين لإحداث أثر قانوني، وينشأ حقوق والتزامات بين أطراف العقد. وبذلك ينشأ العقد عن طريق إيجاب من الطرف الأول يقابله قبول من الطرف الآخر.",
                 english: "A contract is one of the most important sources of obligation, and it is an agreement between two wills to produce a legal effect that establishes rights and obligations between the parties of the contract. A contract is concluded by an offer from the first party which is accepted by the second party."
             },
             {
                 key: "offer",
-                title: "طھط¹ط±ظٹظپ ط§ظ„ط¥ظٹط¬ط§ط¨ ظ„ظ„طھط¹ط§ظ‚ط¯ (Offer)",
+                title: "تعريف الإيجاب للتعاقد (Offer)",
                 page: "16",
-                arabic: "ط§ظ„ط¥ظٹط¬ط§ط¨ ظ‡ظˆ طھط¹ط¨ظٹط± ط¹ظ† ط§ظ„ط±ط؛ط¨ط© ظ„ظ„طھط¹ط§ظ‚ط¯ ظٹطھظ… ط¨ظ†ظٹط© ط£ظ† ظٹظƒظˆظ† ظ…ظ„ط²ظ…ط§ظ‹ ط¹ظ„ظ‰ ط§ظ„ط´ط®طµ ط§ظ„ظ…ط¹ط¨ط± ظپظˆط± ظ‚ط¨ظˆظ„ظ‡ ظ…ظ† ط§ظ„ظ…ظˆط¬ظ‡ ط¥ظ„ظٹظ‡.",
+                arabic: "الإيجاب هو تعبير عن الرغبة للتعاقد يتم بنية أن يكون ملزماً على الشخص المعبر فور قبوله من الموجه إليه.",
                 english: "An offer is essentially an expression of willingness to contract made with the intention that it shall become binding on the person making it as soon as it is accepted by the person to whom it is addressed."
             },
             {
                 key: "acceptance",
-                title: "طھط¹ط±ظٹظپ ط§ظ„ظ‚ط¨ظˆظ„ ظˆط£ط­ظƒط§ظ…ظ‡ (Acceptance)",
+                title: "تعريف القبول وأحكامه (Acceptance)",
                 page: "16",
-                arabic: "ط§ظ„ظ‚ط¨ظˆظ„: ظ‡ظˆ طھط¹ط¨ظٹط± ظ†ظ‡ط§ط¦ظٹ ظˆط؛ظٹط± ظ…ط´ط±ظˆط· ط¨ط£ط­ظƒط§ظ… ط§ظ„ط¥ظٹط¬ط§ط¨طŒ ظٹط¬ظˆط² ط¥ط«ط¨ط§طھ ط­ط¯ظˆط« ط§ظ„ظ‚ط¨ظˆظ„ ظپظٹ طھط¹ط§ظ…ظ„ط§طھ ط§ظ„ط£ط·ط±ط§ظپ.",
+                arabic: "القبول: هو تعبير نهائي وغير مشروط بأحكام الإيجاب، يجوز إثبات حدوث القبول في تعاملات الأطراف.",
                 english: "An acceptance is a final and unqualified expression of assent to the terms of an offer. Acceptance can be deemed to have taken place through the conduct of the parties."
             },
             {
                 key: "arbitration",
-                title: "طھط¹ط±ظٹظپ ط§ظ„طھط­ظƒظٹظ… (Arbitration)",
+                title: "تعريف التحكيم (Arbitration)",
                 page: "19",
-                arabic: "ط§ظ„طھط­ظƒظٹظ… ظ‡ظˆ ط§ظ„ط¥ط¬ط±ط§ط، ط§ظ„ط°ظٹ ظٹطھظ… ظپظٹظ‡ ط¹ط±ط¶ ط§ظ„ظ†ط²ط§ط¹طŒ ط¨ط§طھظپط§ظ‚ ط§ظ„ط£ط·ط±ط§ظپطŒ ط¹ظ„ظ‰ ظ…ط­ظƒظ… ظˆط§ط­ط¯ ط£ظˆ ط£ظƒط«ط± ظ„ط§طھط®ط§ط° ظ‚ط±ط§ط± ظ…ظ„ط²ظ… ط¨ط´ط£ظ† ط§ظ„ظ†ط²ط§ط¹. ط¹ظ†ط¯ ط§ط®طھظٹط§ط± ط§ظ„طھط­ظƒظٹظ…طŒ ظٹط®طھط§ط± ط§ظ„ط·ط±ظپط§ظ† ط¥ط¬ط±ط§ط،ظ‹ ط®ط§طµط§ظ‹ ظ„طھط³ظˆظٹط© ط§ظ„ظ…ظ†ط§ط²ط¹ط§طھ ط¨ط¯ظ„ط§ظ‹ ظ…ظ† ط§ظ„ظ„ط¬ظˆط، ط¥ظ„ظ‰ ط§ظ„ظ…ط­ظƒظ…ط©.",
+                arabic: "التحكيم هو الإجراء الذي يتم فيه عرض النزاع، باتفاق الأطراف، على محكم واحد أو أكثر لاتخاذ قرار ملزم بشأن النزاع. عند اختيار التحكيم، يختار الطرفان إجراءً خاصاً لتسوية المنازعات بدلاً من اللجوء إلى المحكمة.",
                 english: "Arbitration is a procedure in which a dispute is submitted, by agreement of the parties, to one or more arbitrators who make a binding decision on the dispute. In choosing arbitration, the parties opt for a private dispute resolution instead of court litigation."
             },
             {
                 key: "arbitration_char",
-                title: "ط®طµط§ط¦طµ ط§ظ„طھط­ظƒظٹظ… (Arbitration Characteristics)",
+                title: "خصائص التحكيم (Arbitration Characteristics)",
                 page: "19",
-                arabic: "ط§ظ„ط®طµط§ط¦طµ ط§ظ„ط±ط¦ظٹط³ظٹط© ظ„ظ„طھط­ظƒظٹظ… ظ‡ظٹ: 1- ط§ظ„طھط­ظƒظٹظ… ط±ط¶ط§ط¦ظٹ. 2- ط­ط±ظٹط© ط§ظ„ط£ط·ط±ط§ظپ ظپظٹ ط§ط®طھظٹط§ط± ط§ظ„ظ…ط­ظƒظ…ظٹظ†. 3- ط§ظ„طھط­ظƒظٹظ… ظ…ط­ط§ظٹط¯. 4- ط³ط±ظٹط© ط§ظ„طھط­ظƒظٹظ…. 5- ظ‚ط±ط§ط± ظ‡ظٹط¦ط© ط§ظ„طھط­ظƒظٹظ… ظ†ظ‡ط§ط¦ظٹ ظˆظ‚ط§ط¨ظ„ ظ„ظ„طھظ†ظپظٹط°.",
+                arabic: "الخصائص الرئيسية للتحكيم هي: 1- التحكيم رضائي. 2- حرية الأطراف في اختيار المحكمين. 3- التحكيم محايد. 4- سرية التحكيم. 5- قرار هيئة التحكيم نهائي وقابل للتنفيذ.",
                 english: "The main characteristics of arbitration are: 1- Arbitration is consensual. 2- The parties' freedom to choose the arbitrator. 3- Arbitration is neutral. 4- Confidentiality of Arbitration. 5- The decision of the arbitral tribunal is final and enforceable."
             }
         ];
@@ -925,7 +925,7 @@
         // Cloze tests sub-mapping
         const definitionsData = {
             law: {
-                title: "طھط¹ط±ظٹظپ ط§ظ„ظ‚ط§ظ†ظˆظ†",
+                title: "تعريف القانون",
                 arabic: passagesData[0].arabic,
                 fullEnglish: passagesData[0].english,
                 blanks: [
@@ -934,7 +934,7 @@
                 passage: "Law is a {set} of {general}, {abstract}, and {binding} rules that {states} enact or order their {application}, accompanied by a {present} and {material} {penalty} imposed by the public authority when these rules are {violated}."
             },
             characteristics: {
-                title: "ط®طµط§ط¦طµ ط§ظ„ظ‚ط§ظ†ظˆظ† ظˆظ…ظپظ‡ظˆظ… ط§ظ„ط¶ط¨ط· ط§ظ„ط§ط¬طھظ…ط§ط¹ظٹ",
+                title: "خصائص القانون ومفهوم الضبط الاجتماعي",
                 arabic: passagesData[1].arabic,
                 fullEnglish: passagesData[1].english,
                 blanks: [
@@ -943,7 +943,7 @@
                 passage: "Characteristics of law are first: a {general} and {abstract} rule. Second: Laws are a form of {social} {control} that outlines rules, habits, and {customs} a society uses to {enforce} conformity to its {norms}. Third: a {binding} rule."
             },
             contract: {
-                title: "طھط¹ط±ظٹظپ ط§ظ„ط¹ظ‚ط¯ ظˆط£ط·ط±ط§ظپظ‡",
+                title: "تعريف العقد وأطرافه",
                 arabic: passagesData[2].arabic,
                 fullEnglish: passagesData[2].english,
                 blanks: [
@@ -952,7 +952,7 @@
                 passage: "A {contract} is one of the most important {sources} of {obligation}, and it is an {agreement} between two {wills} to produce a {legal} effect that establishes {rights} and obligations between the parties of the contract. A contract is {concluded} by an {offer} from the first party which is {accepted} by the second party."
             },
             offer: {
-                title: "طھط¹ط±ظٹظپ ط§ظ„ط¥ظٹط¬ط§ط¨ ظ„ظ„طھط¹ط§ظ‚ط¯",
+                title: "تعريف الإيجاب للتعاقد",
                 arabic: passagesData[3].arabic,
                 fullEnglish: passagesData[3].english,
                 blanks: [
@@ -961,7 +961,7 @@
                 passage: "An {offer} is essentially an expression of {willingness} to contract made with the {intention} that it shall become {binding} on the person making it as soon as it is {accepted} by the person to whom it is {addressed}."
             },
             acceptance: {
-                title: "طھط¹ط±ظٹظپ ط§ظ„ظ‚ط¨ظˆظ„ ظˆط£ط­ظƒط§ظ…ظ‡",
+                title: "تعريف القبول وأحكامه",
                 arabic: passagesData[4].arabic,
                 fullEnglish: passagesData[4].english,
                 blanks: [
@@ -970,7 +970,7 @@
                 passage: "An {acceptance} is a {final} and {unqualified} expression of {assent} to the terms of an offer. Acceptance can be {deemed} to have taken place through the {conduct} of the parties."
             },
             arbitration: {
-                title: "طھط¹ط±ظٹظپ ط§ظ„طھط­ظƒظٹظ… ط§ظ„طھط¬ط§ط±ظٹ ظˆط§ظ„ط¯ظˆظ„ظٹ",
+                title: "تعريف التحكيم التجاري والدولي",
                 arabic: passagesData[5].arabic,
                 fullEnglish: passagesData[5].english,
                 blanks: [
@@ -979,7 +979,7 @@
                 passage: "{Arbitration} is a {procedure} in which a {dispute} is {submitted}, by {agreement} of the parties, to one or more {arbitrators} who make a {binding} decision on the dispute. In choosing arbitration, the parties opt for a {private} dispute resolution instead of court {litigation}."
             },
             arbitration_char: {
-                title: "ط®طµط§ط¦طµ ظˆظ…ط¨ط§ط¯ط¦ ط§ظ„طھط­ظƒظٹظ… ط§ظ„ط£ط³ط§ط³ظٹط©",
+                title: "خصائص ومبادئ التحكيم الأساسية",
                 arabic: passagesData[6].arabic,
                 fullEnglish: passagesData[6].english,
                 blanks: [
@@ -992,8 +992,8 @@
         // Application State
         let state = {
             userId: null,
-            userTitle: "ط¯ظƒطھظˆط±",
-            userName: "ط§ظ„ط¨ط§ط­ط«",
+            userTitle: "دكتور",
+            userName: "الباحث",
             score: 0,
             completedExercises: 0,
             failures: [], // tracked failed terms
@@ -1041,7 +1041,7 @@
 
         function changeReviewFilter() {
             state.reviewFilter = document.getElementById('review-filter-select').value;
-            showToast("طھظ… طھط­ط¯ظٹط« ظ†ط·ط§ظ‚ ط§ظ„ظ…ط±ط§ط¬ط¹ط©", true);
+            showToast("تم تحديث نطاق المراجعة", true);
         }
 
         let selectedGenderType = "male";
@@ -1061,7 +1061,7 @@
         function processLogin() {
             const phone = document.getElementById('login-phone-input').value.trim();
             if (phone.length < 4) {
-                showToast("ط§ظ„ط±ط¬ط§ط، ط¥ط¯ط®ط§ظ„ ط±ظ‚ظ… ظ‡ط§طھظپ طµط­ظٹط­", false);
+                showToast("الرجاء إدخال رقم هاتف صحيح", false);
                 return;
             }
             
@@ -1069,7 +1069,7 @@
             state.userId = phone;
             document.getElementById('login-modal').classList.add('hidden');
             
-            showToast("ط¬ط§ط±ظٹ ط§ظ„طھط­ظ‚ظ‚ ظ…ظ† ط§ظ„ط³ط­ط§ط¨ط©...", true);
+            showToast("جاري التحقق من السحابة...", true);
             
             // Fetch from Firestore
             db.collection("users").doc(phone).get().then(doc => {
@@ -1087,7 +1087,7 @@
                         localStorage.setItem('userCustomTerms', JSON.stringify(data.customTerms));
                     }
                     
-                    showToast("طھظ… طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„ ظˆط§ط³طھط±ط¬ط§ط¹ ط¨ظٹط§ظ†ط§طھظƒ ط¨ظ†ط¬ط§ط­!", true);
+                    showToast("تم تسجيل الدخول واسترجاع بياناتك بنجاح!", true);
                     setTimeout(() => location.reload(), 1500);
                 } else {
                     // New user! Show profile setup
@@ -1095,7 +1095,7 @@
                 }
             }).catch(e => {
                 console.error("Login fetch error:", e);
-                showToast("ط­ط¯ط« ط®ط·ط£ ظپظٹ ط§ظ„ط§طھطµط§ظ„ ط¨ط§ظ„ط³ط­ط§ط¨ط©.", false);
+                showToast("حدث خطأ في الاتصال بالسحابة.", false);
                 document.getElementById('login-modal').classList.add('hidden');
             });
         }
@@ -1105,7 +1105,7 @@
             const title = document.getElementById('setup-title').value;
             
             if (!name) {
-                showToast("ط§ظ„ط±ط¬ط§ط، ط¥ط¯ط®ط§ظ„ ط§ط³ظ…ظƒ ط£ظˆظ„ط§ظ‹", false);
+                showToast("الرجاء إدخال اسمك أولاً", false);
                 return;
             }
             
@@ -1116,7 +1116,7 @@
             state.userTitle = title;
             
             document.getElementById('profile-setup-modal').classList.add('hidden');
-            showToast("طھظ… ط¥ظ†ط´ط§ط، ط§ظ„ط­ط³ط§ط¨ ط¨ظ†ط¬ط§ط­! ط¬ط§ط±ظٹ ط§ظ„طھظ‡ظٹط¦ط©...", true);
+            showToast("تم إنشاء الحساب بنجاح! جاري التهيئة...", true);
             syncToCloud();
             setTimeout(() => location.reload(), 1500);
         }
@@ -1127,7 +1127,7 @@
 
         function syncToCloud() {
             const uid = getUserId();
-            if (!uid || !state.userName || state.userName === "ط§ظ„ط¨ط§ط­ط«") return;
+            if (!uid || !state.userName || state.userName === "الباحث") return;
             
             db.collection("users").doc(uid).set({
                 name: state.userName,
@@ -1186,7 +1186,7 @@
                 if (welcomeHeader) welcomeHeader.innerText = `${state.userTitle} / ${state.userName}`;
                 
                 const greetingDash = document.getElementById('dash-greeting');
-                if (greetingDash) greetingDash.innerText = `ط£ظ‡ظ„ط§ظ‹ ط¨ظƒ ظٹط§ ${state.userTitle} ${state.userName}`;
+                if (greetingDash) greetingDash.innerText = `أهلاً بك يا ${state.userTitle} ${state.userName}`;
             }
             
             // Load user score
@@ -1295,7 +1295,7 @@
                         
                         const isPlaying = !document.getElementById('game-playground-container').classList.contains('hidden');
                         if (isPlaying) {
-                            showToast("طھظ… ظ…ط²ط§ظ…ظ†ط© ط¨ظٹط§ظ†ط§طھظƒ ط§ظ„ط¬ط¯ظٹط¯ط© ظپظٹ ط§ظ„ط®ظ„ظپظٹط© ط¨ظٹط§ط¶ط§ظ‹.", true);
+                            showToast("تم مزامنة بياناتك الجديدة في الخلفية بياضاً.", true);
                         }
                     }
                 }
@@ -1332,19 +1332,19 @@
                 toggle.className = "w-10 h-6 bg-red-500 rounded-full flex items-center p-1 transition-all";
                 knob.className = "w-4 h-4 bg-white rounded-full shadow-md transition-all transform -translate-x-4";
                 title.className = "text-xs font-bold text-red-400";
-                title.innerText = "طھط­ط¯ظٹ ط§ظ„طµط¹ظˆط¨ط§طھ ظˆط§ظ„ط£ط®ط·ط§ط، ظپظ‚ط·";
+                title.innerText = "تحدي الصعوبات والأخطاء فقط";
                 desc.className = "text-[9px] text-red-300/70";
-                desc.innerText = "طھظ… ظ‚طµط± ط§ظ„طھظ…ط§ط±ظٹظ† ط¹ظ„ظ‰ ط£ط®ط·ط§ط¦ظƒ ط§ظ„ط³ط§ط¨ظ‚ط© ظپظ‚ط·.";
-                showToast("طھظ… طھظپط¹ظٹظ„ ظˆط¶ط¹ ط§ظ„طھط­ط¯ظٹ ظ„ظ„طµط¹ظˆط¨ط§طھ ظپظ‚ط·!", false);
+                desc.innerText = "تم قصر التمارين على أخطائك السابقة فقط.";
+                showToast("تم تفعيل وضع التحدي للصعوبات فقط!", false);
             } else {
                 container.className = "mt-3 bg-slate-900 border border-slate-800 p-2.5 rounded-xl flex items-center justify-between cursor-pointer transition-all";
                 toggle.className = "w-10 h-6 bg-slate-800 rounded-full flex items-center p-1 transition-all";
                 knob.className = "w-4 h-4 bg-slate-400 rounded-full shadow-md transition-all transform translate-x-0";
                 title.className = "text-xs font-bold text-slate-300";
-                title.innerText = "ط§ظ„ظˆط¶ط¹ ط§ظ„ط°ظƒظٹ (طھظپط¶ظٹظ„ ط§ظ„ط£ط®ط·ط§ط،)";
+                title.innerText = "الوضع الذكي (تفضيل الأخطاء)";
                 desc.className = "text-[9px] text-slate-500";
-                desc.innerText = "ط§ظ†ظ‚ط± ظ„ظ‚طµط± ط§ظ„طھظ…ط§ط±ظٹظ† ط¹ظ„ظ‰ ط§ظ„ظƒظ„ظ…ط§طھ ظˆط§ظ„ظ‚ط·ط¹ ط§ظ„طµط¹ط¨ط© ظپظ‚ط·.";
-                showToast("طھظ… ط¥ظٹظ‚ط§ظپ ظˆط¶ط¹ طھط­ط¯ظٹ ط§ظ„طµط¹ظˆط¨ط§طھ.", false);
+                desc.innerText = "انقر لقصر التمارين على الكلمات والقطع الصعبة فقط.";
+                showToast("تم إيقاف وضع تحدي الصعوبات.", false);
             }
         }
 
@@ -1358,14 +1358,14 @@
                 toggle.className = "w-10 h-6 bg-amber-500 rounded-full flex items-center p-1 transition-all";
                 knob.className = "w-4 h-4 bg-white rounded-full shadow-md transition-all transform -translate-x-4";
                 title.className = "text-xs font-bold text-amber-400";
-                title.innerText = "طھط±طھظٹط¨ ط¹ط´ظˆط§ط¦ظٹ";
-                showToast("طھظ… طھظپط¹ظٹظ„ ط§ظ„طھط±طھظٹط¨ ط§ظ„ط¹ط´ظˆط§ط¦ظٹ", true);
+                title.innerText = "ترتيب عشوائي";
+                showToast("تم تفعيل الترتيب العشوائي", true);
             } else {
                 toggle.className = "w-10 h-6 bg-slate-800 rounded-full flex items-center p-1 transition-all";
                 knob.className = "w-4 h-4 bg-slate-400 rounded-full shadow-md transition-all transform translate-x-0";
                 title.className = "text-xs font-bold text-slate-300";
-                title.innerText = "طھط±طھظٹط¨ ظ…طھط³ظ„ط³ظ„";
-                showToast("طھظ… ط¥ظٹظ‚ط§ظپ ط§ظ„طھط±طھظٹط¨ ط§ظ„ط¹ط´ظˆط§ط¦ظٹ", false);
+                title.innerText = "ترتيب متسلسل";
+                showToast("تم إيقاف الترتيب العشوائي", false);
             }
         }
 
@@ -1419,7 +1419,7 @@
                 const settingsUser = document.getElementById('settings-username');
                 const settingsTitle = document.getElementById('settings-title');
                 if (settingsUser) settingsUser.value = state.userName || '';
-                if (settingsTitle) settingsTitle.value = state.userTitle || 'ط¯ظƒطھظˆط±';
+                if (settingsTitle) settingsTitle.value = state.userTitle || 'دكتور';
                 if(typeof switchSettingsSubTab === 'function') switchSettingsSubTab('profile');
             }
         }
@@ -1451,7 +1451,7 @@
                 utterance.rate = 0.85;
                 window.speechSynthesis.speak(utterance);
             } else {
-                showToast("ظ…ط­ط±ظƒ ظ†ط·ظ‚ ط§ظ„طµظˆطھ ط؛ظٹط± ظ…ط¯ط¹ظˆظ… ظپظٹ ط¬ظ‡ط§ط²ظƒ.", false);
+                showToast("محرك نطق الصوت غير مدعوم في جهازك.", false);
             }
         }
 
@@ -1502,7 +1502,7 @@
         function showToast(message, isSuccess = true) {
             const toast = document.createElement('div');
             toast.className = `fixed bottom-20 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-2xl shadow-2xl text-xs font-bold transition-all duration-300 flex items-center gap-2 text-center ${isSuccess ? 'bg-emerald-950 border border-emerald-500/50 text-emerald-300' : 'bg-red-950 border border-red-500/50 text-red-300'}`;
-            toast.innerHTML = `<span>${isSuccess ? 'âœ”' : 'âڑ ï¸ڈ'}</span><span>${message}</span>`;
+            toast.innerHTML = `<span>${isSuccess ? '✔' : '⚠️'}</span><span>${message}</span>`;
             document.body.appendChild(toast);
             setTimeout(() => {
                 toast.classList.add('opacity-0', 'translate-y-2');
@@ -1515,7 +1515,7 @@
             const item = glossaryData.find(t => t.id === id);
             if (item) {
                 item.ignored = !item.ignored;
-                showToast(item.ignored ? `طھظ… ط§ط³طھط¨ط¹ط§ط¯ [${item.arabic}] ظ…ظ† ط§ظ„ظ…ط±ط§ط¬ط¹ط© ظˆط§ظ„ط£ط³ط¦ظ„ط©` : `طھظ…طھ ط¥ط¹ط§ط¯ط© طھظپط¹ظٹظ„ [${item.arabic}] ظپظٹ ط§ظ„ط£ظ„ط¹ط§ط¨`);
+                showToast(item.ignored ? `تم استبعاد [${item.arabic}] من المراجعة والأسئلة` : `تمت إعادة تفعيل [${item.arabic}] في الألعاب`);
                 initStudyMode();
                 updateOverallProgress();
             }
@@ -1549,7 +1549,7 @@
         function renderMistakesWidget() {
             const container = document.getElementById('dash-mistakes-container');
             if (state.failures.length === 0) {
-                container.innerHTML = `<p class="text-[10px] text-slate-500 text-center py-4">ظ„ط§ طھظˆط¬ط¯ ط£ط®ط·ط§ط، ظ…ط³ط¬ظ„ط© ط­ط§ظ„ظٹط§ظ‹. ظˆط§طµظ„ طھظپظˆظ‚ظƒ!</p>`;
+                container.innerHTML = `<p class="text-[10px] text-slate-500 text-center py-4">لا توجد أخطاء مسجلة حالياً. واصل تفوقك!</p>`;
                 return;
             }
 
@@ -1563,8 +1563,8 @@
                         <span class="english-text text-amber-500 font-bold ml-2">${item.english}</span>
                     </div>
                     <div class="flex items-center gap-1.5">
-                        <button onclick="speakWord('${item.english}')" class="text-xs bg-slate-900 p-1.5 rounded-lg border border-slate-800">ًں”ٹ</button>
-                        <button onclick="removeMistake(${item.id})" class="text-[9px] bg-red-950 text-red-300 font-bold px-2 py-1 rounded-lg">ط¥ط²ط§ظ„ط© âœ“</button>
+                        <button onclick="speakWord('${item.english}')" class="text-xs bg-slate-900 p-1.5 rounded-lg border border-slate-800">🔊</button>
+                        <button onclick="removeMistake(${item.id})" class="text-[9px] bg-red-950 text-red-300 font-bold px-2 py-1 rounded-lg">إزالة ✓</button>
                     </div>
                 `;
                 container.appendChild(row);
@@ -1588,7 +1588,7 @@
                         english: passageTextEn,
                         type: "passage_mistake",
                         page: def.page || "-",
-                        category: "ط£ط®ط·ط§ط، ط§ظ„ظ‚ط·ط¹",
+                        category: "أخطاء القطع",
                         ignored: false,
                         isCustom: true
                     };
@@ -1613,7 +1613,7 @@
             const container = document.getElementById('dash-passages-mistakes-container');
             if (!container) return;
             if (state.failedPassages.length === 0) {
-                container.innerHTML = `<p class="text-[10px] text-slate-500 text-center py-4">ط£ط¯ط§ط¤ظƒ ظ…ظ…طھط§ط²! ظ„ط§ طھظˆط¬ط¯ ظ‚ط·ط¹ طµط¹ط¨ط© ظ…ط³ط¬ظ„ط©.</p>`;
+                container.innerHTML = `<p class="text-[10px] text-slate-500 text-center py-4">أداؤك ممتاز! لا توجد قطع صعبة مسجلة.</p>`;
                 return;
             }
 
@@ -1626,7 +1626,7 @@
                         <span class="font-bold text-slate-200 block truncate" title="${item.title}">${item.title}</span>
                     </div>
                     <div class="flex items-center gap-1.5 shrink-0">
-                        <button onclick="removePassageMistake('${item.title}')" class="text-[9px] bg-red-950 text-red-300 font-bold px-2 py-1 rounded-lg">ط¥ط²ط§ظ„ط© âœ“</button>
+                        <button onclick="removePassageMistake('${item.title}')" class="text-[9px] bg-red-950 text-red-300 font-bold px-2 py-1 rounded-lg">إزالة ✓</button>
                     </div>
                 `;
                 container.appendChild(row);
@@ -1719,15 +1719,15 @@
                     <div class="flex-grow text-right space-y-0.5">
                         <div class="flex items-center gap-1.5 flex-wrap">
                             <span class="font-bold text-xs sm:text-sm text-slate-100 transition-opacity duration-200" style="opacity: ${state.hideArStudy ? '0' : '1'}">${item.arabic}</span>
-                            ${item.ignored ? '<span class="text-[8px] bg-emerald-500/20 text-emerald-400 px-1 py-0.5 rounded font-black">âœ“ طھظ… ط§ظ„ط­ظپط¸</span>' : ''}
+                            ${item.ignored ? '<span class="text-[8px] bg-emerald-500/20 text-emerald-400 px-1 py-0.5 rounded font-black">✓ تم الحفظ</span>' : ''}
                         </div>
                         <p class="english-text text-xs sm:text-sm text-amber-400 font-bold transition-opacity duration-200" style="opacity: ${state.hideEnStudy ? '0' : '1'}">${item.english}</p>
-                        <p class="text-[9px] text-slate-500">طµ: ${item.page} | ${item.category}</p>
+                        <p class="text-[9px] text-slate-500">ص: ${item.page} | ${item.category}</p>
                     </div>
                     <div class="flex items-center gap-1.5">
-                        <button onclick="speakWord('${item.english}')" class="bg-slate-900 p-2 rounded-xl text-xs border border-slate-800 text-slate-300">ًں”ٹ</button>
-                        <button onclick="toggleIgnoreTerm(${item.id})" class="text-[10px] bg-slate-900 border border-slate-800 text-slate-300 p-2 rounded-xl" title="ط¹ظ„ظ… ظƒطھظ… ط§ظ„ط­ظپط¸ ظˆط§ط³طھط¨ط¹ط¯ظ‡">
-                            ${item.ignored ? 'ًں”“ ط¥ظ„ط؛ط§ط،' : 'âœ“ ط­ظپط¸'}
+                        <button onclick="speakWord('${item.english}')" class="bg-slate-900 p-2 rounded-xl text-xs border border-slate-800 text-slate-300">🔊</button>
+                        <button onclick="toggleIgnoreTerm(${item.id})" class="text-[10px] bg-slate-900 border border-slate-800 text-slate-300 p-2 rounded-xl" title="علم كتم الحفظ واستبعده">
+                            ${item.ignored ? '🔓 إلغاء' : '✓ حفظ'}
                         </button>
                     </div>
                 `;
@@ -1738,10 +1738,10 @@
         function toggleStudyColumn(lang) {
             if (lang === 'ar') {
                 state.hideArStudy = !state.hideArStudy;
-                showToast(state.hideArStudy ? "طھظ… ط¥ط®ظپط§ط، ط§ظ„ط¹ظ…ظˆط¯ ط§ظ„ط¹ط±ط¨ظٹ ظ„ظ„طھط³ظ…ظٹط¹" : "طھظ… ط¥ط¸ظ‡ط§ط± ط§ظ„ط¹ظ…ظˆط¯ ط§ظ„ط¹ط±ط¨ظٹ");
+                showToast(state.hideArStudy ? "تم إخفاء العمود العربي للتسميع" : "تم إظهار العمود العربي");
             } else {
                 state.hideEnStudy = !state.hideEnStudy;
-                showToast(state.hideEnStudy ? "طھظ… ط¥ط®ظپط§ط، ط§ظ„ظ…ظ‚ط§ط¨ظ„ط§طھ ط§ظ„ط¥ظ†ط¬ظ„ظٹط²ظٹط©" : "طھظ… ط¥ط¸ظ‡ط§ط± ط§ظ„ظ…ظ‚ط§ط¨ظ„ط§طھ ط§ظ„ط¥ظ†ط¬ظ„ظٹط²ظٹط©");
+                showToast(state.hideEnStudy ? "تم إخفاء المقابلات الإنجليزية" : "تم إظهار المقابلات الإنجليزية");
             }
             initStudyMode();
         }
@@ -1765,12 +1765,12 @@
                 card.innerHTML = `
                     <div class="flex justify-between items-center mb-1">
                         <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-black">${p.title}</span>
-                        <span class="text-[9px] text-slate-500">ط§ظ„طµظپط­ط©: ${p.page}</span>
+                        <span class="text-[9px] text-slate-500">الصفحة: ${p.page}</span>
                     </div>
                     <p class="text-xs text-slate-300 leading-relaxed border-r-2 border-amber-500 pr-3">${p.arabic}</p>
                     <p class="english-text text-xs text-slate-100 font-semibold text-left border-l-2 border-slate-800 pl-3 pt-1 select-all" dir="ltr">${p.english}</p>
                     <div class="flex justify-start">
-                        <button onclick="speakWord('${p.english.replace(/'/g, "\\'")}')" class="bg-slate-900 border border-slate-800 text-slate-300 text-[10px] font-bold px-2 py-1 rounded-lg">ًں”ٹ ط§ط³طھظ…ط¹ ظ„ظ„ظ†طµ ط§ظ„ظƒط§ظ…ظ„</button>
+                        <button onclick="speakWord('${p.english.replace(/'/g, "\\'")}')" class="bg-slate-900 border border-slate-800 text-slate-300 text-[10px] font-bold px-2 py-1 rounded-lg">🔊 استمع للنص الكامل</button>
                     </div>
                 `;
                 container.appendChild(card);
@@ -1789,9 +1789,9 @@
             if (state.reviewFilter === 'failures') {
                 terms = terms.filter(t => state.failures.some(f => f.id === t.id));
             } else if (state.reviewFilter === 'custom') {
-                terms = terms.filter(t => t.isCustom && t.category !== "ط£ط®ط·ط§ط، ط§ظ„ظ‚ط·ط¹");
+                terms = terms.filter(t => t.isCustom && t.category !== "أخطاء القطع");
             } else if (state.reviewFilter === 'passage-mistakes') {
-                terms = terms.filter(t => t.isCustom && t.category === "ط£ط®ط·ط§ط، ط§ظ„ظ‚ط·ط¹");
+                terms = terms.filter(t => t.isCustom && t.category === "أخطاء القطع");
             }
             return terms.map((t, idx) => {
                 let isFailed = state.failures.some(f => f.id === t.id);
@@ -1814,12 +1814,12 @@
 
             const smartTerms = getSmartTermsList();
             if (smartTerms.length === 0) {
-                mount.innerHTML = `<p class="text-center text-xs text-red-400 py-6 font-bold">ظ„ط§ ظٹظˆط¬ط¯ ظƒظ„ظ…ط§طھ ظƒط§ظپظٹط© ظ„ظ„ط¹ط¨ ط¨ظ‡ط°ط§ ط§ظ„ظˆط¶ط¹! (ظ‚ط¯ ظ„ط§ ظٹظƒظˆظ† ظ„ط¯ظٹظƒ ط£ط®ط·ط§ط، ظ…ط³ط¬ظ„ط©)</p>`;
+                mount.innerHTML = `<p class="text-center text-xs text-red-400 py-6 font-bold">لا يوجد كلمات كافية للعب بهذا الوضع! (قد لا يكون لديك أخطاء مسجلة)</p>`;
                 return;
             }
 
             if (gameType === 'flashcards') {
-                document.getElementById('game-title-header').innerText = "ط¨ط·ط§ظ‚ط§طھ ط§ظ„ط§ط³طھط°ظƒط§ط± (Flashcards)";
+                document.getElementById('game-title-header').innerText = "بطاقات الاستذكار (Flashcards)";
                 state.activeFlashcards = smartTerms;
                 state.flashcardIndex = 0;
                 mount.innerHTML = `
@@ -1827,63 +1827,63 @@
                         <div class="flip-card w-full max-w-sm h-60 cursor-pointer" id="active-card" onclick="flipActiveCard()">
                             <div class="flip-card-inner shadow-2xl border border-slate-800 rounded-3xl" id="card-inner">
                                 <div class="flip-card-front bg-slate-950 flex flex-col justify-between p-6">
-                                    <span class="text-[9px] text-slate-500 text-right">ط§ط¶ط؛ط· ظ„ظ‚ظ„ط¨ ط§ظ„ط¨ط·ط§ظ‚ط© ًں”„</span>
+                                    <span class="text-[9px] text-slate-500 text-right">اضغط لقلب البطاقة 🔄</span>
                                     <h4 class="text-xl font-black text-slate-100" id="g-card-ar"></h4>
                                     <span id="g-card-cat" class="text-[9px] text-amber-500"></span>
                                 </div>
                                 <div class="flip-card-back bg-slate-900 border-2 border-amber-500/20 flex flex-col justify-between p-6">
                                     <div class="flex justify-between items-center">
-                                        <span class="text-[9px] text-amber-500 font-bold">ط§ظ„ظ…ظ‚ط§ط¨ظ„ ط§ظ„ط¥ظ†ط¬ظ„ظٹط²ظٹ</span>
-                                        <button onclick="speakCurrentWord(event)" class="text-[9px] bg-slate-800 px-2 py-1 rounded text-white font-bold">ًں”ٹ ظ†ط·ظ‚</button>
+                                        <span class="text-[9px] text-amber-500 font-bold">المقابل الإنجليزي</span>
+                                        <button onclick="speakCurrentWord(event)" class="text-[9px] bg-slate-800 px-2 py-1 rounded text-white font-bold">🔊 نطق</button>
                                     </div>
                                     <h4 class="text-xl font-black text-amber-400 english-text" id="g-card-en"></h4>
-                                    <span class="text-[9px] text-slate-500">ط§ط¶ط؛ط· ظ„ظ„ط±ط¬ظˆط¹</span>
+                                    <span class="text-[9px] text-slate-500">اضغط للرجوع</span>
                                 </div>
                             </div>
                         </div>
                         <div class="flex gap-2 w-full max-w-sm">
-                            <button onclick="answerFlashcard(false)" class="flex-1 bg-red-950/60 border border-red-900 text-red-200 text-[11px] sm:text-xs py-2.5 rounded-xl font-bold">â‌Œ طµط¹ط¨ط©</button>
-                            <button onclick="skipFlashcard()" class="flex-1 bg-slate-800 border border-slate-700 text-slate-300 text-[11px] sm:text-xs py-2.5 rounded-xl font-bold">âڈ­ï¸ڈ طھط¬ط§ظˆط²</button>
-                            <button onclick="answerFlashcard(true)" class="flex-1 bg-emerald-950/60 border border-emerald-900 text-emerald-200 text-[11px] sm:text-xs py-2.5 rounded-xl font-bold">âœ” ط­ظپط¸طھظ‡ط§</button>
+                            <button onclick="answerFlashcard(false)" class="flex-1 bg-red-950/60 border border-red-900 text-red-200 text-[11px] sm:text-xs py-2.5 rounded-xl font-bold">❌ صعبة</button>
+                            <button onclick="skipFlashcard()" class="flex-1 bg-slate-800 border border-slate-700 text-slate-300 text-[11px] sm:text-xs py-2.5 rounded-xl font-bold">⏭️ تجاوز</button>
+                            <button onclick="answerFlashcard(true)" class="flex-1 bg-emerald-950/60 border border-emerald-900 text-emerald-200 text-[11px] sm:text-xs py-2.5 rounded-xl font-bold">✔ حفظتها</button>
                         </div>
                         <p class="text-[10px] text-slate-500" id="g-card-progress"></p>
                     </div>
                 `;
                 renderPlaycard();
             } else if (gameType === 'match') {
-                document.getElementById('game-title-header').innerText = "ظ„ط¹ط¨ط© ط§ظ„ظ…ط·ط§ط¨ظ‚ط© ط§ظ„ط³ط±ظٹط¹ط© (Match)";
+                document.getElementById('game-title-header').innerText = "لعبة المطابقة السريعة (Match)";
                 mount.innerHTML = `
                     <div class="space-y-4">
                         <div class="flex justify-between items-center">
-                            <span class="text-xs font-mono font-bold text-amber-500" id="match-timer-label">âڈ±ï¸ڈ ط§ظ„ظ…ط¤ظ‚طھ: 00:00</span>
-                            <button onclick="launchReviewGame('match')" class="text-[10px] bg-slate-800 text-slate-300 px-2 py-1 rounded-lg">ط¥ط¹ط§ط¯ط© ط®ظ„ط· ًں”„</button>
+                            <span class="text-xs font-mono font-bold text-amber-500" id="match-timer-label">⏱️ المؤقت: 00:00</span>
+                            <button onclick="launchReviewGame('match')" class="text-[10px] bg-slate-800 text-slate-300 px-2 py-1 rounded-lg">إعادة خلط 🔄</button>
                         </div>
                         <div class="grid grid-cols-2 gap-2" id="playground-match-grid"></div>
                     </div>
                 `;
                 initPlaygroundMatch();
             } else if (gameType === 'spelling') {
-                document.getElementById('game-title-header').innerText = "طھط­ط¯ظٹ ط§ظ„ظƒطھط§ط¨ط© ط§ظ„ط­ط±ط© ظˆط§ظ„ط¥ظ…ظ„ط§ط،";
+                document.getElementById('game-title-header').innerText = "تحدي الكتابة الحرة والإملاء";
                 state.writingTerms = getSmartTermsList();
                 state.writingCurrentIndex = 0;
                 mount.innerHTML = `
                     <div class="max-w-sm mx-auto space-y-4 text-center">
                         <div>
-                            <span class="text-[9px] text-slate-500 block">ط§ظ„ظ…طµط·ظ„ط­ ط§ظ„ظ…ط·ظ„ظˆط¨ ظƒطھط§ط¨طھظ‡ ط¨ط§ظ„ط¹ط±ط¨ظٹط©:</span>
+                            <span class="text-[9px] text-slate-500 block">المصطلح المطلوب كتابته بالعربية:</span>
                             <h4 id="g-spell-ar" class="text-xl font-black text-amber-400 mt-1"></h4>
                         </div>
-                        <input type="text" id="g-spell-input" autocomplete="off" onkeydown="if(event.key === 'Enter') checkPlaygroundSpelling()" placeholder="ط§ظƒطھط¨ ط§ظ„ظ…طµط·ظ„ط­ ط§ظ„ط¥ظ†ط¬ظ„ظٹط²ظٹ ط§ظ„ظ…ظ‚ط§ط¨ظ„..." class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl py-3 text-center text-sm font-bold focus:border-amber-400 focus:outline-none">
-                        <button onclick="checkPlaygroundSpelling()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-2.5 rounded-xl text-xs">طھط­ظ‚ظ‚ ظ…ظ† ط§ظ„ط¥ظ…ظ„ط§ط،</button>
+                        <input type="text" id="g-spell-input" autocomplete="off" onkeydown="if(event.key === 'Enter') checkPlaygroundSpelling()" placeholder="اكتب المصطلح الإنجليزي المقابل..." class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl py-3 text-center text-sm font-bold focus:border-amber-400 focus:outline-none">
+                        <button onclick="checkPlaygroundSpelling()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-2.5 rounded-xl text-xs">تحقق من الإملاء</button>
                         <div class="flex justify-between items-center text-[10px] text-slate-500 px-1 mt-4">
-                            <button onclick="revealSpellHint()" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-3 py-2 rounded-xl transition">ًں’، طھظ„ظ…ظٹط­</button>
+                            <button onclick="revealSpellHint()" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-3 py-2 rounded-xl transition">💡 تلميح</button>
                             <span id="g-spell-hint-lbl" class="font-mono text-amber-500 font-bold"></span>
-                            <button onclick="nextPlaygroundSpelling()" class="bg-red-950 hover:bg-red-900 text-red-300 font-bold px-5 py-2 rounded-xl border border-red-900/50 transition">طھط¬ط§ظˆط² â¬…</button>
+                            <button onclick="nextPlaygroundSpelling()" class="bg-red-950 hover:bg-red-900 text-red-300 font-bold px-5 py-2 rounded-xl border border-red-900/50 transition">تجاوز ⬅</button>
                         </div>
                     </div>
                 `;
                 renderPlaygroundSpelling();
             } else if (gameType === 'quiz') {
-                document.getElementById('game-title-header').innerText = "ط§ط®طھط¨ط§ط± ط§ظ„ط®ظٹط§ط±ط§طھ ط§ظ„ظ…طھط¹ط¯ط¯ط© (MCQ)";
+                document.getElementById('game-title-header').innerText = "اختبار الخيارات المتعددة (MCQ)";
                 state.quizCurrentIndex = 0;
                 state.quizScore = 0;
                 
@@ -1901,7 +1901,7 @@
                     const answersList = [...alternatives, correctAnswer].sort(() => 0.5 - Math.random());
 
                     return {
-                        question: isArToEn ? `ظ…ط§ ظ‡ظˆ ط§ظ„ظ…ظ‚ط§ط¨ظ„ ط§ظ„ط¥ظ†ط¬ظ„ظٹط²ظٹ ظ„ظ€ [${item.arabic}]طں` : `ظ…ط§ ظ‡ظˆ ط§ظ„ظ…ط¹ظ†ظ‰ ط§ظ„ظ…ظ‚ط§ط¨ظ„ ظ„ظ„ظ…طµط·ظ„ط­ [${item.english}]طں`,
+                        question: isArToEn ? `ما هو المقابل الإنجليزي لـ [${item.arabic}]؟` : `ما هو المعنى المقابل للمصطلح [${item.english}]؟`,
                         correctAnswer: correctAnswer,
                         answers: answersList,
                         termReference: item
@@ -1911,8 +1911,8 @@
                 mount.innerHTML = `
                     <div class="max-w-md mx-auto space-y-4">
                         <div class="flex justify-between text-xs text-slate-400">
-                            <span id="g-quiz-progress-text">ط§ظ„ط³ط¤ط§ظ„ 1</span>
-                            <span id="g-quiz-score-text">ط§ظ„ط¯ط±ط¬ط©: 0</span>
+                            <span id="g-quiz-progress-text">السؤال 1</span>
+                            <span id="g-quiz-score-text">الدرجة: 0</span>
                         </div>
                         <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800">
                             <h4 id="g-quiz-question-lbl" class="text-sm font-bold text-slate-100"></h4>
@@ -1920,28 +1920,28 @@
                         <div class="space-y-2" id="g-quiz-answers-box"></div>
                         <div id="g-quiz-feedback-box" class="p-3 rounded-xl border hidden text-xs leading-relaxed text-right"></div>
                         <div class="mt-4 flex justify-end">
-                            <button onclick="skipQuizQuestion()" class="bg-slate-800 border border-slate-700 text-slate-300 px-4 py-2 rounded-xl text-xs font-bold hover:bg-slate-700 transition shadow-md">âڈ­ï¸ڈ طھط¬ط§ظˆط² ط§ظ„ط³ط¤ط§ظ„</button>
+                            <button onclick="skipQuizQuestion()" class="bg-slate-800 border border-slate-700 text-slate-300 px-4 py-2 rounded-xl text-xs font-bold hover:bg-slate-700 transition shadow-md">⏭️ تجاوز السؤال</button>
                         </div>
                     </div>
                 `;
                 renderPlaygroundQuizQuestion();
             } else if (gameType === 'cloze') {
-                document.getElementById('game-title-header').innerText = "طھط­ط¯ظٹ ط¥ظƒظ…ط§ظ„ ظپط±ط§ط؛ط§طھ ط§ظ„ظ‚ط·ط¹ (Cloze Test)";
+                document.getElementById('game-title-header').innerText = "تحدي إكمال فراغات القطع (Cloze Test)";
                 mount.innerHTML = `
                     <div class="space-y-4 text-right max-w-xl mx-auto">
                         <div id="cloze-selector-view" class="space-y-3">
-                            <h4 class="text-xs font-bold text-slate-400 mb-2">ط§ط®طھط± ط§ظ„ظ‚ط·ط¹ط© ط§ظ„ظ‚ط§ظ†ظˆظ†ظٹط© ظ„ظ„طھط¯ط±ظٹط¨ ط¹ظ„ظٹظ‡ط§:</h4>
+                            <h4 class="text-xs font-bold text-slate-400 mb-2">اختر القطعة القانونية للتدريب عليها:</h4>
                             <div class="grid grid-cols-1 gap-2" id="cloze-passage-buttons"></div>
                         </div>
                         
                         <div id="cloze-play-view" class="hidden space-y-4">
                             <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                                 <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-0.5 rounded font-black" id="cloze-title"></span>
-                                <button onclick="exitClozeToSelector()" class="text-[10px] text-slate-400 hover:text-white transition">ًں”™ طھط؛ظٹظٹط± ط§ظ„ظ‚ط·ط¹ط©</button>
+                                <button onclick="exitClozeToSelector()" class="text-[10px] text-slate-400 hover:text-white transition">🔙 تغيير القطعة</button>
                             </div>
                             
                             <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-850">
-                                <span class="text-[9px] text-slate-500 block mb-1">ط§ظ„طھط±ط¬ظ…ط© ط§ظ„ط¹ط±ط¨ظٹط© ظ„ظ„ظ…ط³ط§ط¹ط¯ط©:</span>
+                                <span class="text-[9px] text-slate-500 block mb-1">الترجمة العربية للمساعدة:</span>
                                 <p id="cloze-arabic-context" class="text-xs text-slate-300 leading-relaxed"></p>
                             </div>
                             
@@ -1949,38 +1949,38 @@
                             </div>
                             
                             <div class="space-y-2">
-                                <span class="text-[9px] text-slate-500 block text-right">ط§ظ„ظƒظ„ظ…ط§طھ ط§ظ„ظ…طھط§ط­ط© (ط§ظ†ظ‚ط± ط¹ظ„ظ‰ ظپط±ط§ط؛ ط«ظ… ط§ظ†ظ‚ط± ط¹ظ„ظ‰ ط§ظ„ظƒظ„ظ…ط© ظ„ظˆط¶ط¹ظ‡ط§):</span>
+                                <span class="text-[9px] text-slate-500 block text-right">الكلمات المتاحة (انقر على فراغ ثم انقر على الكلمة لوضعها):</span>
                                 <div class="flex flex-wrap gap-2 justify-center" id="cloze-words-bank">
                                 </div>
                             </div>
                             
                             <div class="flex gap-2">
-                                <button onclick="checkClozeAnswer()" class="flex-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-2.5 rounded-xl text-[10px] sm:text-xs transition">طھط­ظ‚ظ‚ ظ…ظ† ط§ظ„ط¥ط¬ط§ط¨ط©</button>
-                                <button onclick="nextClozePassage()" class="flex-1 bg-blue-900 hover:bg-blue-800 text-blue-200 font-bold py-2.5 rounded-xl text-[10px] sm:text-xs transition shadow-md">ط§ظ„طھط§ظ„ظٹط© âڈ­ï¸ڈ</button>
-                                <button onclick="prevClozePassage()" class="flex-1 bg-blue-900 hover:bg-blue-800 text-blue-200 font-bold py-2.5 rounded-xl text-[10px] sm:text-xs transition shadow-md">ط§ظ„ط³ط§ط¨ظ‚ط© âڈ®ï¸ڈ</button>
-                                <button onclick="resetClozeGame()" class="bg-slate-850 hover:bg-slate-800 text-slate-300 font-bold px-3 py-2.5 rounded-xl text-[10px] sm:text-xs transition">ط¥ط¹ط§ط¯ط©</button>
+                                <button onclick="checkClozeAnswer()" class="flex-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-2.5 rounded-xl text-[10px] sm:text-xs transition">تحقق من الإجابة</button>
+                                <button onclick="nextClozePassage()" class="flex-1 bg-blue-900 hover:bg-blue-800 text-blue-200 font-bold py-2.5 rounded-xl text-[10px] sm:text-xs transition shadow-md">التالية ⏭️</button>
+                                <button onclick="prevClozePassage()" class="flex-1 bg-blue-900 hover:bg-blue-800 text-blue-200 font-bold py-2.5 rounded-xl text-[10px] sm:text-xs transition shadow-md">السابقة ⏮️</button>
+                                <button onclick="resetClozeGame()" class="bg-slate-850 hover:bg-slate-800 text-slate-300 font-bold px-3 py-2.5 rounded-xl text-[10px] sm:text-xs transition">إعادة</button>
                             </div>
                         </div>
                     </div>
                 `;
                 startClozeGameSelector();
             } else if (gameType === 'reorder') {
-                document.getElementById('game-title-header').innerText = "طھط­ط¯ظٹ طھط±طھظٹط¨ ط¬ظ…ظ„ ط§ظ„ظ‚ط·ط¹ط© (Sentence Reordering)";
+                document.getElementById('game-title-header').innerText = "تحدي ترتيب جمل القطعة (Sentence Reordering)";
                 mount.innerHTML = `
                     <div class="space-y-4 text-right max-w-xl mx-auto">
                         <div id="reorder-selector-view" class="space-y-3">
-                            <h4 class="text-xs font-bold text-slate-400 mb-2">ط§ط®طھط± ط§ظ„ظ‚ط·ط¹ط© ظ„طھط±طھظٹط¨ظ‡ط§:</h4>
+                            <h4 class="text-xs font-bold text-slate-400 mb-2">اختر القطعة لترتيبها:</h4>
                             <div class="grid grid-cols-1 gap-2" id="reorder-passage-buttons"></div>
                         </div>
                         
                         <div id="reorder-play-view" class="hidden space-y-4">
                             <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                                 <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-0.5 rounded font-black" id="reorder-title"></span>
-                                <button onclick="exitReorderToSelector()" class="text-[10px] text-slate-400 hover:text-white transition">ًں”™ طھط؛ظٹظٹط± ط§ظ„ظ‚ط·ط¹ط©</button>
+                                <button onclick="exitReorderToSelector()" class="text-[10px] text-slate-400 hover:text-white transition">🔙 تغيير القطعة</button>
                             </div>
                             
                             <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-850">
-                                <span class="text-[9px] text-slate-500 block mb-1">ط§ظ„ط³ظٹط§ظ‚ ط§ظ„ط¹ط±ط¨ظٹ ظ„ظ„ظ‚ط·ط¹ط©:</span>
+                                <span class="text-[9px] text-slate-500 block mb-1">السياق العربي للقطعة:</span>
                                 <p id="reorder-arabic-context" class="text-xs text-slate-300 leading-relaxed"></p>
                             </div>
                             
@@ -1988,47 +1988,47 @@
                             </div>
                             
                             <div class="space-y-2">
-                                <span class="text-[9px] text-slate-500 block text-right">ط§ظ„ط£ط¬ط²ط§ط، ط§ظ„ظ…ط¨ط¹ط«ط±ط© (ط§ظ†ظ‚ط± ظ„طھط±طھظٹط¨ظ‡ط§):</span>
+                                <span class="text-[9px] text-slate-500 block text-right">الأجزاء المبعثرة (انقر لترتيبها):</span>
                                 <div class="flex flex-wrap gap-2 justify-end" id="reorder-chunks-bank" dir="ltr">
                                 </div>
                             </div>
                             
                             <div class="flex gap-2">
-                                <button onclick="checkReorderAnswer()" class="flex-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-2.5 rounded-xl text-[10px] sm:text-xs transition">طھط­ظ‚ظ‚</button>
-                                <button onclick="nextReorderPassage()" class="flex-1 bg-blue-900 hover:bg-blue-800 text-blue-200 font-bold py-2.5 rounded-xl text-[10px] sm:text-xs transition shadow-md">ط§ظ„طھط§ظ„ظٹط© âڈ­ï¸ڈ</button>
-                                <button onclick="prevReorderPassage()" class="flex-1 bg-blue-900 hover:bg-blue-800 text-blue-200 font-bold py-2.5 rounded-xl text-[10px] sm:text-xs transition shadow-md">ط§ظ„ط³ط§ط¨ظ‚ط© âڈ®ï¸ڈ</button>
-                                <button onclick="resetReorderGame()" class="bg-slate-850 hover:bg-slate-800 text-slate-300 font-bold px-3 py-2.5 rounded-xl text-[10px] sm:text-xs transition">ط¥ط¹ط§ط¯ط©</button>
-                                <button onclick="undoReorderChunk()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-3 py-2.5 rounded-xl text-[10px] sm:text-xs transition">طھط±ط§ط¬ط¹</button>
+                                <button onclick="checkReorderAnswer()" class="flex-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-2.5 rounded-xl text-[10px] sm:text-xs transition">تحقق</button>
+                                <button onclick="nextReorderPassage()" class="flex-1 bg-blue-900 hover:bg-blue-800 text-blue-200 font-bold py-2.5 rounded-xl text-[10px] sm:text-xs transition shadow-md">التالية ⏭️</button>
+                                <button onclick="prevReorderPassage()" class="flex-1 bg-blue-900 hover:bg-blue-800 text-blue-200 font-bold py-2.5 rounded-xl text-[10px] sm:text-xs transition shadow-md">السابقة ⏮️</button>
+                                <button onclick="resetReorderGame()" class="bg-slate-850 hover:bg-slate-800 text-slate-300 font-bold px-3 py-2.5 rounded-xl text-[10px] sm:text-xs transition">إعادة</button>
+                                <button onclick="undoReorderChunk()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-3 py-2.5 rounded-xl text-[10px] sm:text-xs transition">تراجع</button>
                             </div>
                         </div>
                     </div>
                 `;
                 startReorderGameSelector();
             } else if (gameType === 'passage_spelling') {
-                document.getElementById('game-title-header').innerText = "طھط­ط¯ظٹ ط¥ظ…ظ„ط§ط، ط§ظ„ظ‚ط·ط¹ ظƒط§ظ…ظ„ط©";
+                document.getElementById('game-title-header').innerText = "تحدي إملاء القطع كاملة";
                 mount.innerHTML = `
                     <div class="space-y-4 text-right max-w-xl mx-auto">
                         <div id="pspell-selector-view" class="space-y-3">
-                            <h4 class="text-xs font-bold text-slate-400 mb-2">ط§ط®طھط± ط§ظ„ظ‚ط·ط¹ط© ظ„طھط³ظ…ظٹط¹ظ‡ط§ ظƒطھط§ط¨ظٹط§ظ‹:</h4>
+                            <h4 class="text-xs font-bold text-slate-400 mb-2">اختر القطعة لتسميعها كتابياً:</h4>
                             <div class="grid grid-cols-1 gap-2" id="pspell-passage-buttons"></div>
                         </div>
                         
                         <div id="pspell-play-view" class="hidden space-y-4">
                             <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                                 <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-0.5 rounded font-black" id="pspell-title"></span>
-                                <button onclick="exitPSpellToSelector()" class="text-[10px] text-slate-400 hover:text-white transition">ًں”™ طھط؛ظٹظٹط± ط§ظ„ظ‚ط·ط¹ط©</button>
+                                <button onclick="exitPSpellToSelector()" class="text-[10px] text-slate-400 hover:text-white transition">🔙 تغيير القطعة</button>
                             </div>
                             
                             <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-850">
-                                <span class="text-[9px] text-slate-500 block mb-1">ط§ظ„ظ…ط·ظ„ظˆط¨ طھط±ط¬ظ…طھظ‡ ظˆظƒطھط§ط¨طھظ‡ ط¨ط§ظ„ط¥ظ†ط¬ظ„ظٹط²ظٹط©:</span>
+                                <span class="text-[9px] text-slate-500 block mb-1">المطلوب ترجمته وكتابته بالإنجليزية:</span>
                                 <p id="pspell-arabic-context" class="text-xs text-slate-300 leading-relaxed font-bold"></p>
                             </div>
                             
-                            <textarea id="pspell-input" rows="4" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); checkPSpellAnswer(); }" placeholder="ط§ظƒطھط¨ ط§ظ„طھط±ط¬ظ…ط© ط§ظ„ط¥ظ†ط¬ظ„ظٹط²ظٹط© ظ‡ظ†ط§..." class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl p-4 text-left text-sm font-serif focus:border-amber-400 focus:outline-none" dir="ltr"></textarea>
+                            <textarea id="pspell-input" rows="4" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); checkPSpellAnswer(); }" placeholder="اكتب الترجمة الإنجليزية هنا..." class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl p-4 text-left text-sm font-serif focus:border-amber-400 focus:outline-none" dir="ltr"></textarea>
                             
                             <div class="flex gap-2">
-                                <button onclick="checkPSpellAnswer()" class="flex-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-2.5 rounded-xl text-xs transition">طھط­ظ‚ظ‚ ظ…ظ† ط§ظ„ط¥ظ…ظ„ط§ط،</button>
-                                <button onclick="revealPSpellHint()" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-4 py-2.5 rounded-xl text-xs transition">ًں’، ط¥ط¸ظ‡ط§ط± طھظ„ظ…ظٹط­</button>
+                                <button onclick="checkPSpellAnswer()" class="flex-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-2.5 rounded-xl text-xs transition">تحقق من الإملاء</button>
+                                <button onclick="revealPSpellHint()" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-4 py-2.5 rounded-xl text-xs transition">💡 إظهار تلميح</button>
                             </div>
                             
                             <div id="pspell-feedback" class="hidden p-3 rounded-xl border text-xs leading-relaxed text-right mt-2"></div>
@@ -2037,31 +2037,31 @@
                 `;
                 startPSpellGameSelector();
             } else if (gameType === 'vanishing') {
-                document.getElementById('game-title-header').innerText = "طھط­ط¯ظٹ ط§ظ„ظ†طµ ط§ظ„ظ…طھظ„ط§ط´ظٹ (Vanishing Text)";
+                document.getElementById('game-title-header').innerText = "تحدي النص المتلاشي (Vanishing Text)";
                 mount.innerHTML = `
                     <div class="space-y-4 text-right max-w-xl mx-auto">
                         <div id="vanishing-selector-view" class="space-y-3">
-                            <h4 class="text-xs font-bold text-slate-400 mb-2">ط§ط®طھط± ط§ظ„ظ‚ط·ط¹ط© ظ„طھط­ط¯ظٹ ط§ظ„ظ†طµ ط§ظ„ظ…طھظ„ط§ط´ظٹ:</h4>
+                            <h4 class="text-xs font-bold text-slate-400 mb-2">اختر القطعة لتحدي النص المتلاشي:</h4>
                             <div class="grid grid-cols-1 gap-2" id="vanishing-passage-buttons"></div>
                         </div>
                         
                         <div id="vanishing-play-view" class="hidden space-y-4">
                             <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                                 <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-0.5 rounded font-black" id="vanishing-title"></span>
-                                <button onclick="exitVanishingToSelector()" class="text-[10px] text-slate-400 hover:text-white transition">ًں”™ طھط؛ظٹظٹط± ط§ظ„ظ‚ط·ط¹ط©</button>
+                                <button onclick="exitVanishingToSelector()" class="text-[10px] text-slate-400 hover:text-white transition">🔙 تغيير القطعة</button>
                             </div>
                             
                             <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-850">
-                                <span class="text-[9px] text-slate-500 block mb-1">ط§ظ„طھط±ط¬ظ…ط© ط§ظ„ط¹ط±ط¨ظٹط© ظ„ظ„ط³ظٹط§ظ‚:</span>
+                                <span class="text-[9px] text-slate-500 block mb-1">الترجمة العربية للسياق:</span>
                                 <p id="vanishing-arabic-context" class="text-xs text-slate-300 leading-relaxed font-bold"></p>
                             </div>
                             
                             <!-- The difficulty buttons -->
                             <div class="flex justify-center gap-2 mb-2 flex-wrap">
-                                <button onclick="setVanishingLevel(0.2)" class="text-[10px] bg-emerald-900/40 text-emerald-300 px-3 py-1.5 rounded-lg border border-emerald-500/30 hover:bg-emerald-800/60 transition">ط¥ط®ظپط§ط، 20%</button>
-                                <button onclick="setVanishingLevel(0.5)" class="text-[10px] bg-blue-900/40 text-blue-300 px-3 py-1.5 rounded-lg border border-blue-500/30 hover:bg-blue-800/60 transition">ط¥ط®ظپط§ط، 50%</button>
-                                <button onclick="setVanishingLevel(0.8)" class="text-[10px] bg-amber-900/40 text-amber-300 px-3 py-1.5 rounded-lg border border-amber-500/30 hover:bg-amber-800/60 transition">ط¥ط®ظپط§ط، 80%</button>
-                                <button onclick="setVanishingLevel(1.0)" class="text-[10px] bg-red-900/40 text-red-300 px-3 py-1.5 rounded-lg border border-red-500/30 hover:bg-red-800/60 transition">ط؛ظٹط§ط¨ظٹ (100%)</button>
+                                <button onclick="setVanishingLevel(0.2)" class="text-[10px] bg-emerald-900/40 text-emerald-300 px-3 py-1.5 rounded-lg border border-emerald-500/30 hover:bg-emerald-800/60 transition">إخفاء 20%</button>
+                                <button onclick="setVanishingLevel(0.5)" class="text-[10px] bg-blue-900/40 text-blue-300 px-3 py-1.5 rounded-lg border border-blue-500/30 hover:bg-blue-800/60 transition">إخفاء 50%</button>
+                                <button onclick="setVanishingLevel(0.8)" class="text-[10px] bg-amber-900/40 text-amber-300 px-3 py-1.5 rounded-lg border border-amber-500/30 hover:bg-amber-800/60 transition">إخفاء 80%</button>
+                                <button onclick="setVanishingLevel(1.0)" class="text-[10px] bg-red-900/40 text-red-300 px-3 py-1.5 rounded-lg border border-red-500/30 hover:bg-red-800/60 transition">غيابي (100%)</button>
                             </div>
 
                             <div class="bg-slate-950 p-5 rounded-2xl border border-slate-850 text-left font-serif leading-relaxed text-slate-200 text-sm sm:text-base select-none relative" dir="ltr">
@@ -2069,30 +2069,30 @@
                             </div>
                             
                             <div class="flex gap-2">
-                                <button onclick="checkVanishingAnswer()" class="flex-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-2.5 rounded-xl text-xs transition">طھط­ظ‚ظ‚ ظ…ظ† ط§ظ„ط¥ط¬ط§ط¨ط©</button>
-                                <button onclick="revealVanishingHint()" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-4 py-2.5 rounded-xl text-xs transition">ًں’، ظ…ط³ط§ط¹ط¯ط©</button>
+                                <button onclick="checkVanishingAnswer()" class="flex-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-2.5 rounded-xl text-xs transition">تحقق من الإجابة</button>
+                                <button onclick="revealVanishingHint()" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-4 py-2.5 rounded-xl text-xs transition">💡 مساعدة</button>
                             </div>
                         </div>
                     </div>
                 `;
                 startVanishingGameSelector();
             } else if (gameType === 'muscle') {
-                document.getElementById('game-title-header').innerText = "ط§ظ„ط°ط§ظƒط±ط© ط§ظ„ط¹ط¶ظ„ظٹط© (Typing Speed Test)";
+                document.getElementById('game-title-header').innerText = "الذاكرة العضلية (Typing Speed Test)";
                 mount.innerHTML = `
                     <div class="space-y-4 text-right max-w-xl mx-auto">
                         <div id="muscle-selector-view" class="space-y-3">
-                            <h4 class="text-xs font-bold text-slate-400 mb-2">ط§ط®طھط± ط§ظ„ظ‚ط·ط¹ط© ظ„طھط­ط¯ظٹ ط³ط±ط¹ط© ط§ظ„ط·ط¨ط§ط¹ط©:</h4>
+                            <h4 class="text-xs font-bold text-slate-400 mb-2">اختر القطعة لتحدي سرعة الطباعة:</h4>
                             <div class="grid grid-cols-1 gap-2" id="muscle-passage-buttons"></div>
                         </div>
                         
                         <div id="muscle-play-view" class="hidden space-y-4">
                             <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                                 <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-0.5 rounded font-black" id="muscle-title"></span>
-                                <button onclick="exitMuscleToSelector()" class="text-[10px] text-slate-400 hover:text-white transition">ًں”™ طھط؛ظٹظٹط± ط§ظ„ظ‚ط·ط¹ط©</button>
+                                <button onclick="exitMuscleToSelector()" class="text-[10px] text-slate-400 hover:text-white transition">🔙 تغيير القطعة</button>
                             </div>
                             
                             <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-850">
-                                <span class="text-[9px] text-slate-500 block mb-1">ط§ظ„ط³ظٹط§ظ‚ ط§ظ„ط¹ط±ط¨ظٹ ظ„ظ„ظ‚ط·ط¹ط©:</span>
+                                <span class="text-[9px] text-slate-500 block mb-1">السياق العربي للقطعة:</span>
                                 <p id="muscle-arabic-context" class="text-xs text-slate-300 leading-relaxed font-bold"></p>
                             </div>
                             
@@ -2111,30 +2111,30 @@
                 `;
                 startMuscleGameSelector();
             } else if (gameType === 'dictation') {
-                document.getElementById('game-title-header').innerText = "طھط­ط¯ظٹ ط§ظ„ط¥ظ…ظ„ط§ط، ط§ظ„طµظˆطھظٹ ط§ظ„ظ…ط®ظپظٹ (Blind Dictation)";
+                document.getElementById('game-title-header').innerText = "تحدي الإملاء الصوتي المخفي (Blind Dictation)";
                 mount.innerHTML = `
                     <div class="space-y-4 text-right max-w-xl mx-auto">
                         <div id="dictation-selector-view" class="space-y-3">
-                            <h4 class="text-xs font-bold text-slate-400 mb-2">ط§ط®طھط± ط§ظ„ظ‚ط·ط¹ط© ظ„ظ„ط¥ظ…ظ„ط§ط، ط§ظ„طµظˆطھظٹ:</h4>
+                            <h4 class="text-xs font-bold text-slate-400 mb-2">اختر القطعة للإملاء الصوتي:</h4>
                             <div class="grid grid-cols-1 gap-2" id="dictation-passage-buttons"></div>
                         </div>
                         
                         <div id="dictation-play-view" class="hidden space-y-4">
                             <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                                 <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-0.5 rounded font-black" id="dictation-title"></span>
-                                <button onclick="exitDictationToSelector()" class="text-[10px] text-slate-400 hover:text-white transition">ًں”™ طھط؛ظٹظٹط± ط§ظ„ظ‚ط·ط¹ط©</button>
+                                <button onclick="exitDictationToSelector()" class="text-[10px] text-slate-400 hover:text-white transition">🔙 تغيير القطعة</button>
                             </div>
                             
                             <div class="text-center py-6 bg-slate-950/80 rounded-2xl border border-slate-850 space-y-3">
                                 <button onclick="playDictationAudio()" class="w-16 h-16 bg-blue-600 hover:bg-blue-500 text-white rounded-full mx-auto flex items-center justify-center shadow-lg shadow-blue-900/50 transition transform active:scale-95 group">
-                                    <span class="text-3xl group-hover:scale-110 transition">ًں”ٹ</span>
+                                    <span class="text-3xl group-hover:scale-110 transition">🔊</span>
                                 </button>
-                                <p class="text-[10px] text-slate-400">ط§ظ†ظ‚ط± ظ„ظ„ط§ط³طھظ…ط§ط¹ ظ„ظ„ظ†ط·ظ‚ ط§ظ„طµط­ظٹط­ (ظٹظ…ظƒظ†ظƒ ط§ظ„طھظƒط±ط§ط±)</p>
+                                <p class="text-[10px] text-slate-400">انقر للاستماع للنطق الصحيح (يمكنك التكرار)</p>
                             </div>
                             
-                            <textarea id="dictation-input" rows="5" placeholder="ط§ظƒطھط¨ ظ…ط§ طھط³ظ…ط¹ظ‡ ط¨ط§ظ„ظ„ط؛ط© ط§ظ„ط¥ظ†ط¬ظ„ظٹط²ظٹط© ظ‡ظ†ط§..." class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl p-4 text-left text-sm font-serif focus:border-amber-400 focus:outline-none" dir="ltr" spellcheck="false"></textarea>
+                            <textarea id="dictation-input" rows="5" placeholder="اكتب ما تسمعه باللغة الإنجليزية هنا..." class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl p-4 text-left text-sm font-serif focus:border-amber-400 focus:outline-none" dir="ltr" spellcheck="false"></textarea>
                             
-                            <button onclick="checkDictationAnswer()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-3 rounded-xl text-xs transition">طھط³ظ„ظٹظ… ط§ظ„ط¥ط¬ط§ط¨ط© ظˆطھظ‚ظٹظٹظ…ظ‡ط§</button>
+                            <button onclick="checkDictationAnswer()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-3 rounded-xl text-xs transition">تسليم الإجابة وتقييمها</button>
                             
                             <div id="dictation-feedback" class="hidden p-3 rounded-xl border text-xs leading-relaxed text-right mt-2"></div>
                         </div>
@@ -2160,14 +2160,14 @@
                         <h5 class="font-bold text-xs text-slate-200 group-hover:text-amber-400 transition">${item.title}</h5>
                         <p class="text-[9px] text-slate-400 mt-1 truncate max-w-xs">${item.arabic}</p>
                     </div>
-                    <span class="text-xs text-amber-500">ط§ط¨ط¯ط£ ط§ظ„طھط­ط¯ظٹ â¬…</span>
+                    <span class="text-xs text-amber-500">ابدأ التحدي ⬅</span>
                 `;
                 btn.onclick = () => selectClozePassage(key);
                 container.appendChild(btn);
             });
             
             if (container.children.length === 0) {
-                container.innerHTML = `<p class="text-center text-xs text-red-400 py-6 font-bold">ظ„ط§ ظٹظˆط¬ط¯ طھط¹ط§ط±ظٹظپ طµط¹ط¨ط© ظ…ط³ط¬ظ„ط©! ط£ظ„ط؛ظگ طھظپط¹ظٹظ„ طھط­ط¯ظٹ ط§ظ„طµط¹ظˆط¨ط§طھ ظ„ظ„ط¹ط¨.</p>`;
+                container.innerHTML = `<p class="text-center text-xs text-red-400 py-6 font-bold">لا يوجد تعاريف صعبة مسجلة! ألغِ تفعيل تحدي الصعوبات للعب.</p>`;
             }
         }
         
@@ -2211,7 +2211,7 @@
             
             def.blanks.forEach(b => {
                 const blankIndex = b.index;
-                const placedWord = clozeState.answers[blankIndex] || ` [ ط§ظ„ظپط±ط§ط؛ ${blankIndex} ] `;
+                const placedWord = clozeState.answers[blankIndex] || ` [ الفراغ ${blankIndex} ] `;
                 const isSelected = clozeState.selectedBlankIndex === blankIndex;
                 const isFilled = !!clozeState.answers[blankIndex];
                 
@@ -2255,7 +2255,7 @@
         
         function placeWordInClozeBlank(word) {
             if (clozeState.selectedBlankIndex === null) {
-                showToast("ظٹط±ط¬ظ‰ ط§ط®طھظٹط§ط± ظپط±ط§ط؛ ط£ظˆظ„ط§ظ‹ ط¨ط§ظ„ط¶ط؛ط· ط¹ظ„ظٹظ‡.", false);
+                showToast("يرجى اختيار فراغ أولاً بالضغط عليه.", false);
                 return;
             }
             
@@ -2287,7 +2287,7 @@
             if (currentIndex >= 0 && currentIndex < keys.length - 1) {
                 selectClozePassage(keys[currentIndex + 1]);
             } else {
-                showToast("ظ„ظ‚ط¯ ظˆطµظ„طھ ط¥ظ„ظ‰ ظ†ظ‡ط§ظٹط© ط§ظ„ظ‚ط·ط¹ ط§ظ„ظ…طھط§ط­ط©.", true);
+                showToast("لقد وصلت إلى نهاية القطع المتاحة.", true);
             }
         }
         
@@ -2301,7 +2301,7 @@
             if (currentIndex > 0) {
                 selectClozePassage(keys[currentIndex - 1]);
             } else {
-                showToast("ظ‡ط°ظ‡ ظ‡ظٹ ط§ظ„ظ‚ط·ط¹ط© ط§ظ„ط£ظˆظ„ظ‰.", true);
+                showToast("هذه هي القطعة الأولى.", true);
             }
         }
         
@@ -2310,7 +2310,7 @@
             
             const unfilled = def.blanks.find(b => !clozeState.answers[b.index]);
             if (unfilled) {
-                showToast("ظٹط±ط¬ظ‰ ظ…ظ„ط، ط¬ظ…ظٹط¹ ط§ظ„ظپط±ط§ط؛ط§طھ ظ‚ط¨ظ„ ط§ظ„طھط­ظ‚ظ‚.", false);
+                showToast("يرجى ملء جميع الفراغات قبل التحقق.", false);
                 return;
             }
             
@@ -2343,10 +2343,10 @@
                 state.score += 50;
                 updateDashboardStats();
                 incrementCompletedExercises();
-                showToast(`ط£ط¯ط§ط، ظ…ط°ظ‡ظ„ ظˆظ…ط·ط§ط¨ظ‚ط© ط­ط±ظپظٹط© 100% ظ„ظ„طھط¹ط±ظٹظپ ط§ظ„ظ‚ط§ظ†ظˆظ†ظٹ! +50 ظ†ظ‚ط·ط©`, true);
+                showToast(`أداء مذهل ومطابقة حرفية 100% للتعريف القانوني! +50 نقطة`, true);
             } else {
                 addPassageMistake(def);
-                showToast(`ط£ط­ط³ظ†طھ ظ…ط­ط§ظˆظ„ط© ط§ظ„ط­ظپط¸. ط¥ط¬ط§ط¨ط§طھظƒ ط§ظ„طµط­ظٹط­ط©: ${correctCount} ظ…ظ† ط£طµظ„ ${total}. ظٹط±ط¬ظ‰ ط§ظ„ظ…ط±ط§ط¬ط¹ط© ظˆط¥ط¹ط§ط¯ط© ط§ظ„ظ…ط­ط§ظˆظ„ط©.`, false);
+                showToast(`أحسنت محاولة الحفظ. إجاباتك الصحيحة: ${correctCount} من أصل ${total}. يرجى المراجعة وإعادة المحاولة.`, false);
             }
         }
 
@@ -2365,14 +2365,14 @@
                         <h5 class="font-bold text-xs text-slate-200 group-hover:text-amber-400 transition">${item.title}</h5>
                         <p class="text-[9px] text-slate-400 mt-1 truncate max-w-xs">${item.arabic}</p>
                     </div>
-                    <span class="text-xs text-amber-500">ط§ط¨ط¯ط£ ط§ظ„طھط­ط¯ظٹ â¬…</span>
+                    <span class="text-xs text-amber-500">ابدأ التحدي ⬅</span>
                 `;
                 btn.onclick = () => selectReorderPassage(index);
                 container.appendChild(btn);
             });
             
             if (container.children.length === 0) {
-                container.innerHTML = `<p class="text-center text-xs text-red-400 py-6 font-bold">ظ„ط§ ظٹظˆط¬ط¯ ظ‚ط·ط¹ طµط¹ط¨ط© ظ…ط³ط¬ظ„ط©! ط£ظ„ط؛ظگ طھظپط¹ظٹظ„ طھط­ط¯ظٹ ط§ظ„طµط¹ظˆط¨ط§طھ ظ„ظ„ط¹ط¨.</p>`;
+                container.innerHTML = `<p class="text-center text-xs text-red-400 py-6 font-bold">لا يوجد قطع صعبة مسجلة! ألغِ تفعيل تحدي الصعوبات للعب.</p>`;
             }
         }
         
@@ -2450,16 +2450,16 @@
             const current = reorderState.constructed.join(' ').trim();
             const correct = reorderState.correctOrder.join(' ').trim();
             if (current === correct && reorderState.constructed.length === reorderState.correctOrder.length) {
-                showToast("ظ…ظ…طھط§ط²! طھط±طھظٹط¨ ط§ظ„ظ‚ط·ط¹ط© طµط­ظٹط­ 100%.", true);
+                showToast("ممتاز! ترتيب القطعة صحيح 100%.", true);
                 if (typeof triggerConfetti === "function") triggerConfetti();
                 state.score += 20;
                 updateDashboardStats();
                 incrementCompletedExercises();
             } else if (reorderState.constructed.length < reorderState.correctOrder.length) {
-                showToast("ط§ظ„ط±ط¬ط§ط، ط¥ظƒظ…ط§ظ„ طھط±طھظٹط¨ ط¬ظ…ظٹط¹ ط§ظ„ط£ط¬ط²ط§ط، ط§ظ„ظ…طھط§ط­ط© ط£ظˆظ„ط§ظ‹.", false);
+                showToast("الرجاء إكمال ترتيب جميع الأجزاء المتاحة أولاً.", false);
             } else {
                 addPassageMistake(passagesData[reorderState.index]);
-                showToast("ظٹظˆط¬ط¯ ط®ط·ط£ ظپظٹ ط§ظ„طھط±طھظٹط¨طŒ ظ‚ظ… ط¨ط§ظ„طھط±ط§ط¬ط¹ ط¹ظ† ط¨ط¹ط¶ ط§ظ„ط®ط·ظˆط§طھ ظˆط­ط§ظˆظ„ ظ…ط±ط© ط£ط®ط±ظ‰.", false);
+                showToast("يوجد خطأ في الترتيب، قم بالتراجع عن بعض الخطوات وحاول مرة أخرى.", false);
             }
         }
         
@@ -2485,7 +2485,7 @@
             if (currentIndex >= 0 && currentIndex < indices.length - 1) {
                 selectReorderPassage(indices[currentIndex + 1]);
             } else {
-                showToast("ظ„ظ‚ط¯ ظˆطµظ„طھ ط¥ظ„ظ‰ ظ†ظ‡ط§ظٹط© ط§ظ„ظ‚ط·ط¹ ط§ظ„ظ…طھط§ط­ط©.", true);
+                showToast("لقد وصلت إلى نهاية القطع المتاحة.", true);
             }
         }
 
@@ -2495,7 +2495,7 @@
             if (currentIndex > 0) {
                 selectReorderPassage(indices[currentIndex - 1]);
             } else {
-                showToast("ظ‡ط°ظ‡ ظ‡ظٹ ط§ظ„ظ‚ط·ط¹ط© ط§ظ„ط£ظˆظ„ظ‰.", true);
+                showToast("هذه هي القطعة الأولى.", true);
             }
         }
         
@@ -2519,14 +2519,14 @@
                         <h5 class="font-bold text-xs text-slate-200 group-hover:text-amber-400 transition">${item.title}</h5>
                         <p class="text-[9px] text-slate-400 mt-1 truncate max-w-xs">${item.arabic}</p>
                     </div>
-                    <span class="text-xs text-amber-500">طھط³ظ…ظٹط¹ â¬…</span>
+                    <span class="text-xs text-amber-500">تسميع ⬅</span>
                 `;
                 btn.onclick = () => selectPSpellPassage(index);
                 container.appendChild(btn);
             });
             
             if (container.children.length === 0) {
-                container.innerHTML = `<p class="text-center text-xs text-red-400 py-6 font-bold">ظ„ط§ ظٹظˆط¬ط¯ ظ‚ط·ط¹ طµط¹ط¨ط© ظ…ط³ط¬ظ„ط©! ط£ظ„ط؛ظگ طھظپط¹ظٹظ„ طھط­ط¯ظٹ ط§ظ„طµط¹ظˆط¨ط§طھ ظ„ظ„ط¹ط¨.</p>`;
+                container.innerHTML = `<p class="text-center text-xs text-red-400 py-6 font-bold">لا يوجد قطع صعبة مسجلة! ألغِ تفعيل تحدي الصعوبات للعب.</p>`;
             }
         }
         
@@ -2560,18 +2560,18 @@
             feedbackBox.classList.remove('hidden', 'border-emerald-500', 'bg-emerald-950/50', 'text-emerald-300', 'border-red-500', 'bg-red-950/50', 'text-red-300', 'border-amber-500', 'bg-amber-950/50', 'text-amber-300');
             
             if (normalizedInput === normalizedTarget && normalizedInput.length > 0) {
-                showToast("ظ…ظ…طھط§ط²! ط§ظ„طھط³ظ…ظٹط¹ طµط­ظٹط­ 100%.", true);
+                showToast("ممتاز! التسميع صحيح 100%.", true);
                 if (typeof triggerConfetti === "function") triggerConfetti();
                 state.score += 30;
                 updateDashboardStats();
                 incrementCompletedExercises();
                 
                 feedbackBox.classList.add('border-emerald-500', 'bg-emerald-950/50', 'text-emerald-300');
-                feedbackBox.innerHTML = `<b>ط£ط­ط³ظ†طھ! ط¥ط¬ط§ط¨ط© ظ…ط«ط§ظ„ظٹط©:</b><br><span dir="ltr" class="font-serif block mt-1">${pspellState.english}</span>`;
+                feedbackBox.innerHTML = `<b>أحسنت! إجابة مثالية:</b><br><span dir="ltr" class="font-serif block mt-1">${pspellState.english}</span>`;
             } else {
                 addPassageMistake(passagesData[pspellState.index]);
                 feedbackBox.classList.add('border-red-500', 'bg-red-950/50', 'text-red-300');
-                feedbackBox.innerHTML = `<b>ظٹظˆط¬ط¯ ط®ط·ط£ ظپظٹ ط§ظ„ط¥ظ…ظ„ط§ط،.</b> ط­ط§ظˆظ„ ط§ظ„ظ…ط±ط§ط¬ط¹ط© ظˆط§ظ„طھطµط­ظٹط­. ط¥ط°ط§ ظƒظ†طھ ط¨ط­ط§ط¬ط© ظ„ظ„ظ…ط³ط§ط¹ط¯ط©طŒ ط§ط³طھط®ط¯ظ… ط²ط± ط§ظ„طھظ„ظ…ظٹط­.`;
+                feedbackBox.innerHTML = `<b>يوجد خطأ في الإملاء.</b> حاول المراجعة والتصحيح. إذا كنت بحاجة للمساعدة، استخدم زر التلميح.`;
             }
         }
         
@@ -2584,7 +2584,7 @@
             const hintLength = Math.max(3, Math.floor(words.length / 2));
             const hintText = words.slice(0, hintLength).join(' ') + ' ...';
             
-            feedbackBox.innerHTML = `<b>طھظ„ظ…ظٹط­:</b> ظٹط¨ط¯ط£ ط§ظ„ظ†طµ ط¨ظ€<br><span dir="ltr" class="font-serif block mt-1">${hintText}</span>`;
+            feedbackBox.innerHTML = `<b>تلميح:</b> يبدأ النص بـ<br><span dir="ltr" class="font-serif block mt-1">${hintText}</span>`;
             state.score = Math.max(0, state.score - 5);
             updateDashboardStats();
         }
@@ -2612,20 +2612,20 @@
 
             document.getElementById('g-card-ar').innerText = currentItem.arabic;
             document.getElementById('g-card-en').innerText = currentItem.english;
-            document.getElementById('g-card-cat').innerText = `ط§ظ„ظپط¦ط©: ${currentItem.category}`;
+            document.getElementById('g-card-cat').innerText = `الفئة: ${currentItem.category}`;
 
             const total = state.activeFlashcards.length;
-            document.getElementById('g-card-progress').innerText = `ط§ظ„ط¨ط·ط§ظ‚ط© ${state.flashcardIndex + 1} ظ…ظ† ${total}`;
+            document.getElementById('g-card-progress').innerText = `البطاقة ${state.flashcardIndex + 1} من ${total}`;
         }
 
         function answerFlashcard(mastered) {
             const currentItem = state.activeFlashcards[state.flashcardIndex];
             if (mastered) {
                 state.score += 10;
-                showToast("ظ…ظ…طھط§ط²! ط§ط³طھظ…ط± ظپظٹ ط§ظ„ط­ظپط¸.");
+                showToast("ممتاز! استمر في الحفظ.");
             } else {
                 addMistake(currentItem);
-                showToast("طھظ… ط¥ط¶ط§ظپطھظ‡ط§ ظ„ظ‚ط§ط¦ظ…ط© ط§ظ„طھط­ط¯ظٹ ظˆط§ظ„طµط¹ظˆط¨ط§طھ ط¨ط§ظ„ط±ط¦ظٹط³ظٹط©.");
+                showToast("تم إضافتها لقائمة التحدي والصعوبات بالرئيسية.");
             }
             updateDashboardStats();
 
@@ -2633,7 +2633,7 @@
                 state.flashcardIndex++;
                 renderPlaycard();
             } else {
-                showToast("ط£ظ†ظ‡ظٹطھ ظƒط§ظ…ظ„ ط§ظ„ط¨ط·ط§ظ‚ط§طھ ط§ظ„طھط³ظ…ظٹط¹ظٹط© ط¨ظ†ط¬ط§ط­!", true);
+                showToast("أنهيت كامل البطاقات التسميعية بنجاح!", true);
                 closeCurrentGame();
             }
         }
@@ -2643,7 +2643,7 @@
                 state.flashcardIndex++;
                 renderPlaycard();
             } else {
-                showToast("ظ„ظ‚ط¯ ط£ظ†ظ‡ظٹطھ ط¬ظ…ظٹط¹ ط§ظ„ط¨ط·ط§ظ‚ط§طھ ط§ظ„ظ…طھط§ط­ط©!", true);
+                showToast("لقد أنهيت جميع البطاقات المتاحة!", true);
                 closeCurrentGame();
             }
         }
@@ -2671,7 +2671,7 @@
                 matchSecs++;
                 const mins = String(Math.floor(matchSecs / 60)).padStart(2, '0');
                 const secs = String(matchSecs % 60).padStart(2, '0');
-                document.getElementById('match-timer-label').innerText = `âڈ±ï¸ڈ ط§ظ„ظ…ط¤ظ‚طھ: ${mins}:${secs}`;
+                document.getElementById('match-timer-label').innerText = `⏱️ المؤقت: ${mins}:${secs}`;
             }, 1000);
 
             renderPlaygroundMatchGrid();
@@ -2724,7 +2724,7 @@
                     const allMatched = state.matchPairs.every(p => p.matched);
                     if (allMatched) {
                         clearInterval(state.matchTimerInterval);
-                        showToast(`ط£ط¯ط§ط، ط®ط§ط±ظ‚ ظˆظ…ط·ط§ط¨ظ‚ط© ط³ظ„ظٹظ…ط© ظˆظ…ظ…طھط§ط²ط© ظٹط§ ط¯ظƒطھظˆط±!`, true);
+                        showToast(`أداء خارق ومطابقة سليمة وممتازة يا دكتور!`, true);
                         setTimeout(() => closeCurrentGame(), 1500);
                     }
                 } else {
@@ -2771,11 +2771,11 @@
             if (val === correct) {
                 state.score += 20;
                 updateDashboardStats();
-                showToast("ط¥ظ…ظ„ط§ط، ط±ط§ط¦ط¹ ظˆطµط­ظٹط­ ظ…ط¦ط© ط¨ط§ظ„ظ…ط¦ط©!", true);
+                showToast("إملاء رائع وصحيح مئة بالمئة!", true);
                 nextPlaygroundSpelling();
             } else {
                 addMistake(currentItem);
-                showToast(`ط®ط·ط£! ط§ظ„ط¥ظ…ظ„ط§ط، ط§ظ„ط¯ظ‚ظٹظ‚: ${currentItem.english}`, false);
+                showToast(`خطأ! الإملاء الدقيق: ${currentItem.english}`, false);
             }
         }
 
@@ -2798,7 +2798,7 @@
                 state.writingCurrentIndex++;
                 renderPlaygroundSpelling();
             } else {
-                showToast("ط£طھظ…ظ…طھ طھط­ط¯ظٹ ط§ظ„ظƒطھط§ط¨ط© ظˆط§ظ„ط¥ظ…ظ„ط§ط، ط¨ظ†ط¬ط§ط­!", true);
+                showToast("أتممت تحدي الكتابة والإملاء بنجاح!", true);
                 closeCurrentGame();
             }
         }
@@ -2806,8 +2806,8 @@
         // --- SUB GAME 4: MCQ QUIZ ENGINE ---
         function renderPlaygroundQuizQuestion() {
             const currentQ = state.quizQuestions[state.quizCurrentIndex];
-            document.getElementById('g-quiz-progress-text').innerText = `ط³ط¤ط§ظ„ ${state.quizCurrentIndex + 1} ظ…ظ† ${state.quizQuestions.length}`;
-            document.getElementById('g-quiz-score-text').innerText = `ط§ظ„ظ†ظ‚ط§ط· ط§ظ„ظ…ظƒطھط³ط¨ط©: ${state.quizScore * 10}`;
+            document.getElementById('g-quiz-progress-text').innerText = `سؤال ${state.quizCurrentIndex + 1} من ${state.quizQuestions.length}`;
+            document.getElementById('g-quiz-score-text').innerText = `النقاط المكتسبة: ${state.quizScore * 10}`;
             document.getElementById('g-quiz-question-lbl').innerText = currentQ.question;
             
             document.getElementById('g-quiz-feedback-box').classList.add('hidden');
@@ -2842,7 +2842,7 @@
                 btnElement.className = "quiz-sub-choice w-full p-3.5 bg-emerald-950 border-2 border-emerald-500 text-emerald-300 font-bold rounded-2xl text-right text-xs";
                 
                 fbBox.className = "p-3 rounded-xl border border-emerald-500/30 bg-emerald-950/20 text-emerald-300 text-xs mt-3 text-right";
-                fbBox.innerText = `ط±ط§ط¦ط¹ ط¯. ${state.userName}! ط§ظ„ظ…ط·ط§ط¨ظ‚ط© طµط­ظٹط­ط© ط¨ط§ظ„ظƒط§ظ…ظ„.`;
+                fbBox.innerText = `رائع د. ${state.userName}! المطابقة صحيحة بالكامل.`;
             } else {
                 addMistake(currentQ.termReference);
                 btnElement.className = "quiz-sub-choice w-full p-3.5 bg-red-950 border-2 border-red-500 text-red-200 font-bold rounded-2xl text-right text-xs";
@@ -2855,7 +2855,7 @@
                 });
 
                 fbBox.className = "p-3 rounded-xl border border-red-500/30 bg-red-950/20 text-red-300 text-xs mt-3 text-right";
-                fbBox.innerText = `ط¥ط¬ط§ط¨ط© ط®ط§ط·ط¦ط©! ط§ظ„ط¬ظˆط§ط¨ ط§ظ„طµط­ظٹط­ ظ‡ظˆ: [ ${currentQ.correctAnswer} ] - طھظ…طھ ط¥ط¶ط§ظپط© ط§ظ„ظ…طµط·ظ„ط­ ظ„ظ„ظƒظ„ظ…ط§طھ ط§ظ„ط£ظƒط«ط± طµط¹ظˆط¨ط© ظ„طھط±ط³ظٹط®ظ‡ ظ„ط§ط­ظ‚ط§ظ‹.`;
+                fbBox.innerText = `إجابة خاطئة! الجواب الصحيح هو: [ ${currentQ.correctAnswer} ] - تمت إضافة المصطلح للكلمات الأكثر صعوبة لترسيخه لاحقاً.`;
             }
 
             // Next button or finish
@@ -2864,7 +2864,7 @@
                     state.quizCurrentIndex++;
                     renderPlaygroundQuizQuestion();
                 } else {
-                    showToast(`ط£ظ†ظ‡ظٹطھ ط§ظ„ط§ط®طھط¨ط§ط± ط¨ظ†ط¬ط§ط­ ط¨ظ…ط¹ط¯ظ„ ${state.quizScore}/${state.quizQuestions.length}`, true);
+                    showToast(`أنهيت الاختبار بنجاح بمعدل ${state.quizScore}/${state.quizQuestions.length}`, true);
                     closeCurrentGame();
                 }
             }, 2500);
@@ -2890,13 +2890,13 @@
                         <h5 class="font-bold text-xs text-slate-200 group-hover:text-amber-400 transition">${item.title}</h5>
                         <p class="text-[9px] text-slate-400 mt-1 truncate max-w-xs">${item.arabic}</p>
                     </div>
-                    <span class="text-xs text-amber-500">ط§ط¨ط¯ط£ ط§ظ„طھط­ط¯ظٹ â¬…</span>
+                    <span class="text-xs text-amber-500">ابدأ التحدي ⬅</span>
                 `;
                 btn.onclick = () => selectVanishingPassage(index);
                 container.appendChild(btn);
             });
             if (container.children.length === 0) {
-                container.innerHTML = `<p class="text-center text-xs text-red-400 py-6 font-bold">ظ„ط§ ظٹظˆط¬ط¯ ظ‚ط·ط¹ طµط¹ط¨ط© ظ…ط³ط¬ظ„ط©!</p>`;
+                container.innerHTML = `<p class="text-center text-xs text-red-400 py-6 font-bold">لا يوجد قطع صعبة مسجلة!</p>`;
             }
         }
 
@@ -2955,14 +2955,14 @@
             });
             
             if (correct === inputs.length && inputs.length > 0) {
-                showToast(`ظ…ظ…طھط§ط²! طھط°ظƒط±طھ ظƒظ„ ط§ظ„ظƒظ„ظ…ط§طھ ط§ظ„ظ…ظپظ‚ظˆط¯ط© ط¨ط¯ظ‚ط©. +30 ظ†ظ‚ط·ط©`, true);
+                showToast(`ممتاز! تذكرت كل الكلمات المفقودة بدقة. +30 نقطة`, true);
                 if (typeof triggerConfetti === "function") triggerConfetti();
                 state.score += 30;
                 updateDashboardStats();
                 incrementCompletedExercises();
             } else {
                 addPassageMistake(passagesData[vanishingState.index]);
-                showToast(`ط¥ط¬ط§ط¨ط§طھ طµط­ظٹط­ط©: ${correct} ظ…ظ† ${inputs.length}. ط­ط§ظˆظ„ ظ…ط¬ط¯ط¯ط§ظ‹!`, false);
+                showToast(`إجابات صحيحة: ${correct} من ${inputs.length}. حاول مجدداً!`, false);
             }
         }
         
@@ -3000,13 +3000,13 @@
                         <h5 class="font-bold text-xs text-slate-200 group-hover:text-amber-400 transition">${item.title}</h5>
                         <p class="text-[9px] text-slate-400 mt-1 truncate max-w-xs">${item.arabic}</p>
                     </div>
-                    <span class="text-xs text-amber-500">ط§ط¨ط¯ط£ ط§ظ„طھط­ط¯ظٹ â¬…</span>
+                    <span class="text-xs text-amber-500">ابدأ التحدي ⬅</span>
                 `;
                 btn.onclick = () => selectMusclePassage(index);
                 container.appendChild(btn);
             });
             if (container.children.length === 0) {
-                container.innerHTML = `<p class="text-center text-xs text-red-400 py-6 font-bold">ظ„ط§ ظٹظˆط¬ط¯ ظ‚ط·ط¹ طµط¹ط¨ط© ظ…ط³ط¬ظ„ط©!</p>`;
+                container.innerHTML = `<p class="text-center text-xs text-red-400 py-6 font-bold">لا يوجد قطع صعبة مسجلة!</p>`;
             }
         }
 
@@ -3052,7 +3052,7 @@
                 fb.classList.remove('hidden', 'border-emerald-500', 'text-emerald-400', 'border-red-500', 'text-red-400');
                 if (isPerfect) {
                     fb.classList.add('border-emerald-500', 'text-emerald-400');
-                    fb.innerText = "ط±ط§ط¦ط¹! ط°ط§ظƒط±ط© ط¹ط¶ظ„ظٹط© ظ…ط«ط§ظ„ظٹط©. +30 ظ†ظ‚ط·ط©";
+                    fb.innerText = "رائع! ذاكرة عضلية مثالية. +30 نقطة";
                     if (typeof triggerConfetti === "function") triggerConfetti();
                     state.score += 30;
                     updateDashboardStats();
@@ -3060,7 +3060,7 @@
                 } else {
                     addPassageMistake(passagesData[muscleState.index]);
                     fb.classList.add('border-red-500', 'text-red-400');
-                    fb.innerText = "ظٹظˆط¬ط¯ ط£ط®ط·ط§ط، ظپظٹ ط§ظ„ط·ط¨ط§ط¹ط©. ظ…ط³ط§ظپط§طھ ط£ظˆ ط­ط±ظˆظپ ط®ط§ط·ط¦ط©. ط±ط§ط¬ط¹ ط§ظ„ط£ظ„ظˆط§ظ† ط§ظ„ط­ظ…ط±ط§ط، ظˆطµط­ط­ظ‡ط§ (Backspace).";
+                    fb.innerText = "يوجد أخطاء في الطباعة. مسافات أو حروف خاطئة. راجع الألوان الحمراء وصححها (Backspace).";
                 }
             }
         }
@@ -3089,13 +3089,13 @@
                         <h5 class="font-bold text-xs text-slate-200 group-hover:text-amber-400 transition">${item.title}</h5>
                         <p class="text-[9px] text-slate-400 mt-1 truncate max-w-xs">${item.arabic}</p>
                     </div>
-                    <span class="text-xs text-amber-500">ط§ط¨ط¯ط£ ط§ظ„طھط­ط¯ظٹ â¬…</span>
+                    <span class="text-xs text-amber-500">ابدأ التحدي ⬅</span>
                 `;
                 btn.onclick = () => selectDictationPassage(index);
                 container.appendChild(btn);
             });
             if (container.children.length === 0) {
-                container.innerHTML = `<p class="text-center text-xs text-red-400 py-6 font-bold">ظ„ط§ ظٹظˆط¬ط¯ ظ‚ط·ط¹ طµط¹ط¨ط© ظ…ط³ط¬ظ„ط©!</p>`;
+                container.innerHTML = `<p class="text-center text-xs text-red-400 py-6 font-bold">لا يوجد قطع صعبة مسجلة!</p>`;
             }
         }
 
@@ -3129,18 +3129,18 @@
             fb.classList.remove('hidden', 'border-emerald-500', 'bg-emerald-950/50', 'text-emerald-300', 'border-red-500', 'bg-red-950/50', 'text-red-300');
             
             if (normalizedInput === normalizedTarget && normalizedInput.length > 0) {
-                showToast("ظ…ظ…طھط§ط²! ط¥ظ…ظ„ط§ط، طµظˆطھظٹ طµط­ظٹط­ 100%. +30 ظ†ظ‚ط·ط©", true);
+                showToast("ممتاز! إملاء صوتي صحيح 100%. +30 نقطة", true);
                 if (typeof triggerConfetti === "function") triggerConfetti();
                 state.score += 30;
                 updateDashboardStats();
                 incrementCompletedExercises();
                 
                 fb.classList.add('border-emerald-500', 'bg-emerald-950/50', 'text-emerald-300');
-                fb.innerHTML = `<b>ط£ط­ط³ظ†طھ! ط§ظ„ط¥ط¬ط§ط¨ط© ط§ظ„ظ…ط«ط§ظ„ظٹط©:</b><br><span dir="ltr" class="font-serif block mt-1">${dictationState.english}</span>`;
+                fb.innerHTML = `<b>أحسنت! الإجابة المثالية:</b><br><span dir="ltr" class="font-serif block mt-1">${dictationState.english}</span>`;
             } else {
                 addPassageMistake(passagesData[dictationState.index]);
                 fb.classList.add('border-red-500', 'bg-red-950/50', 'text-red-300');
-                fb.innerHTML = `<b>ظٹظˆط¬ط¯ ط£ط®ط·ط§ط، ظپظٹ ط§ظ„ط¥ظ…ظ„ط§ط،.</b> ط­ط§ظˆظ„ ط§ظ„ط§ط³طھظ…ط§ط¹ ظˆط§ظ„ظ…ط±ط§ط¬ط¹ط© ظ…ط±ط© ط£ط®ط±ظ‰.<br><span class="text-[10px] mt-2 block opacity-70">ط§ظ„ظ†طµ ط§ظ„ط£طµظ„ظٹ ظƒط§ظ†: ${dictationState.english}</span>`;
+                fb.innerHTML = `<b>يوجد أخطاء في الإملاء.</b> حاول الاستماع والمراجعة مرة أخرى.<br><span class="text-[10px] mt-2 block opacity-70">النص الأصلي كان: ${dictationState.english}</span>`;
             }
         }
 
@@ -3153,16 +3153,16 @@
 
         // --- TAB 4: OFFICIAL INTERACTIVE EXAM SIMULATOR ---
         const officialExamQuestionsList = [
-            { id: 1, arabic: "ظ‚ظˆط§ط¹ط¯ ظ…ط¬ط±ط¯ط©", english: "Abstract rules" },
-            { id: 2, arabic: "ظ‡ظٹط¦ط© ط§ظ„ظ†ظٹط§ط¨ط© ط§ظ„ط¥ط¯ط§ط±ظٹط©", english: "Administrative Prosecution Authority" },
-            { id: 3, arabic: "ظ…ط´ط±ظˆط¹ ط§ظ„ظ‚ط§ظ†ظˆظ†", english: "Bill" },
-            { id: 4, arabic: "ظ‚ظˆط§ط¹ط¯ ظ…ظƒظ…ظ„ط©", english: "Supplementary rules" },
-            { id: 5, arabic: "ط§ظ„ط¹ط±ظپ", english: "Custom" },
-            { id: 6, arabic: "ط¹ظ‚ظˆط¨ط© ط¥ط¯ط§ط±ظٹط©", english: "Administrative penalty" },
-            { id: 7, arabic: "ط³ظ„ط·ط©", english: "Authority" },
-            { id: 8, arabic: "ط§ظ„ظ…ظˆط§ط·ظ†", english: "Citizen" },
-            { id: 9, arabic: "ط­ط§ظ„ط© ط§ظ„ط·ظˆط§ط±ط¦", english: "State of emergency" },
-            { id: 10, arabic: "ط§ظ†طھط®ط§ط¨ط§طھ", english: "Elections" }
+            { id: 1, arabic: "قواعد مجردة", english: "Abstract rules" },
+            { id: 2, arabic: "هيئة النيابة الإدارية", english: "Administrative Prosecution Authority" },
+            { id: 3, arabic: "مشروع القانون", english: "Bill" },
+            { id: 4, arabic: "قواعد مكملة", english: "Supplementary rules" },
+            { id: 5, arabic: "العرف", english: "Custom" },
+            { id: 6, arabic: "عقوبة إدارية", english: "Administrative penalty" },
+            { id: 7, arabic: "سلطة", english: "Authority" },
+            { id: 8, arabic: "المواطن", english: "Citizen" },
+            { id: 9, arabic: "حالة الطوارئ", english: "State of emergency" },
+            { id: 10, arabic: "انتخابات", english: "Elections" }
         ];
 
         function startOfficialExam() {
@@ -3225,7 +3225,7 @@
 
             // Evaluate Q2 (Translate paragraph from EN to AR)
             const q2Input = document.getElementById('exam-q2-input').value.trim();
-            const q2Keywords = ["ظ…ط¬ظ…ظˆط¹ط©", "ط§ظ„ظ‚ظˆط§ط¹ط¯", "ط§ظ„ط¹ط§ظ…ط©", "ط§ظ„ظ…ط¬ط±ط¯ط©", "ط§ظ„ظ…ظ„ط²ظ…ط©", "ط³ظ†ظ‡ط§", "طھط·ط¨ظٹظ‚ظ‡ط§", "ط¹ظ‚ظˆط¨ط©", "ط­ط§ظ„ظٹط©", "ظ…ط§ط¯ظٹط©", "ط§ظ„ط³ظ„ط·ط©", "ط§ظ„ط¹ط§ظ…ط©", "ط§ظ†طھظ‡ط§ظƒ"];
+            const q2Keywords = ["مجموعة", "القواعد", "العامة", "المجردة", "الملزمة", "سنها", "تطبيقها", "عقوبة", "حالية", "مادية", "السلطة", "العامة", "انتهاك"];
             let q2Matches = 0;
             q2Keywords.forEach(keyword => {
                 if (q2Input.includes(keyword)) q2Matches++;
@@ -3253,25 +3253,25 @@
             document.getElementById('exam-final-score').innerText = `${totalExamScore} / 15`;
 
             let gradeText = "";
-            let emoji = "ًںژ“";
+            let emoji = "🎓";
             const certificate = document.getElementById('exam-certificate');
 
             if (totalExamScore >= 13) {
-                gradeText = "ط§ظ„طھظ‚ط¯ظٹط±: ظ…ظ…طھط§ط² ظ…ط±طھظپط¹ (ظ…ط¹ ظ…ط±طھط¨ط© ط§ظ„ط´ط±ظپ ط§ظ„ط£ظƒط§ط¯ظٹظ…ظٹط©)";
-                emoji = "ًںڈ†ًں¥‡ًں‘‘";
+                gradeText = "التقدير: ممتاز مرتفع (مع مرتبة الشرف الأكاديمية)";
+                emoji = "🏆🥇👑";
                 certificate.classList.remove('hidden');
-                document.getElementById('certificate-user-name').innerText = `ط¯ظƒطھظˆط± / ط¯ظƒطھظˆط±ط© [ ${state.userName} ]`;
+                document.getElementById('certificate-user-name').innerText = `دكتور / دكتورة [ ${state.userName} ]`;
             } else if (totalExamScore >= 10.5) {
-                gradeText = "ط§ظ„طھظ‚ط¯ظٹط±: ط¬ظٹط¯ ط¬ط¯ط§ظ‹ ظ…ط±طھظپط¹";
-                emoji = "ًںژ–ï¸ڈًںژ“";
+                gradeText = "التقدير: جيد جداً مرتفع";
+                emoji = "🎖️🎓";
                 certificate.classList.add('hidden');
             } else if (totalExamScore >= 7.5) {
-                gradeText = "ط§ظ„طھظ‚ط¯ظٹط±: ظ…ظ‚ط¨ظˆظ„ (طھط­طھط§ط¬ ظ„ط¨ط¹ط¶ ط§ظ„ظ…ط±ط§ط¬ط¹ط© ظ…ط¹ ط§ظ„ظ…ط³طھط´ط§ط±)";
-                emoji = "âڈ³ًں“ڑ";
+                gradeText = "التقدير: مقبول (تحتاج لبعض المراجعة مع المستشار)";
+                emoji = "⏳📚";
                 certificate.classList.add('hidden');
             } else {
-                gradeText = "ط§ظ„طھظ‚ط¯ظٹط±: ط¶ط¹ظٹظپ (ظٹط±ط¬ظ‰ ظ…ط±ط§ط¬ط¹ط© ظˆط¶ط¹ ط§ظ„ظ…ط°ط§ظƒط±ط© ظˆط¥ط¹ط§ط¯ط© ط§ظ„ظ…ط­ط§ظˆظ„ط©)";
-                emoji = "âڑ ï¸ڈ";
+                gradeText = "التقدير: ضعيف (يرجى مراجعة وضع المذاكرة وإعادة المحاولة)";
+                emoji = "⚠️";
                 certificate.classList.add('hidden');
             }
 
@@ -3298,7 +3298,7 @@
             const title = document.getElementById('settings-title').value;
 
             if (!name) {
-                showToast("ط§ظ„ط§ط³ظ… ظ„ط§ ظٹظ…ظƒظ† ط£ظ† ظٹظƒظˆظ† ظپط§ط±ط؛ط§ظ‹.", false);
+                showToast("الاسم لا يمكن أن يكون فارغاً.", false);
                 return;
             }
 
@@ -3308,17 +3308,17 @@
             // Save to localStorage
             localStorage.setItem('userName', state.userName);
             localStorage.setItem('userTitle', state.userTitle);
-            localStorage.setItem('selectedGenderType', title === "ط¯ظƒطھظˆط±" ? "male" : "female");
+            localStorage.setItem('selectedGenderType', title === "دكتور" ? "male" : "female");
 
             document.getElementById('user-header-welcome').innerText = `${state.userTitle} / ${state.userName}`;
-            document.getElementById('dash-greeting').innerText = `ط£ظ‡ظ„ط§ظ‹ ط¨ظƒ ظٹط§ ${state.userTitle} ${state.userName}`;
+            document.getElementById('dash-greeting').innerText = `أهلاً بك يا ${state.userTitle} ${state.userName}`;
             
             const studyTitleWelcome = document.getElementById('study-title-welcome');
             if (studyTitleWelcome) {
-                studyTitleWelcome.innerText = `ط£ظ‡ظ„ط§ظ‹ ط¨ظƒ ${state.userTitle} ظپظٹ ظˆط¶ط¹ ط§ظ„ظ…ط°ط§ظƒط±ط©`;
+                studyTitleWelcome.innerText = `أهلاً بك ${state.userTitle} في وضع المذاكرة`;
             }
 
-            showToast("طھظ… طھط­ط¯ظٹط« ط§ظ„ظ…ظ„ظپ ط§ظ„ط´ط®طµظٹ ط¨ظ†ط¬ط§ط­!");
+            showToast("تم تحديث الملف الشخصي بنجاح!");
         }
 
         function changeUserPasscode() {
@@ -3326,15 +3326,15 @@
             const oldCode = getUserId();
             
             if (newCode.length < 4) {
-                showToast("ط§ظ„ط±ط¬ط§ط، ط¥ط¯ط®ط§ظ„ ط±ظ‚ظ… ظ‡ط§طھظپ طµط­ظٹط­", false);
+                showToast("الرجاء إدخال رقم هاتف صحيح", false);
                 return;
             }
             if (newCode === oldCode) {
-                showToast("ط±ظ‚ظ… ط§ظ„ظ‡ط§طھظپ ط§ظ„ط¬ط¯ظٹط¯ ظ…ط·ط§ط¨ظ‚ ظ„ظ„ط±ظ‚ظ… ط§ظ„ط­ط§ظ„ظٹ!", false);
+                showToast("رقم الهاتف الجديد مطابق للرقم الحالي!", false);
                 return;
             }
 
-            showToast("ط¬ط§ط±ظٹ ظ†ظ‚ظ„ ط§ظ„ط¨ظٹط§ظ†ط§طھ...", true);
+            showToast("جاري نقل البيانات...", true);
             // Sync to new code
             db.collection("users").doc(newCode).set({
                 name: state.userName,
@@ -3355,17 +3355,17 @@
                 // Update local storage
                 localStorage.setItem('user_device_id', newCode);
                 state.userId = newCode;
-                showToast("طھظ… طھط؛ظٹظٹط± ط±ظ‚ظ… ط§ظ„ظ‡ط§طھظپ ظˆظ†ظ‚ظ„ ط¨ظٹط§ظ†ط§طھظƒ ط¨ظ†ط¬ط§ط­!", true);
+                showToast("تم تغيير رقم الهاتف ونقل بياناتك بنجاح!", true);
                 document.getElementById('settings-passcode').value = '';
             }).catch(e => {
                 console.error(e);
-                showToast("ظپط´ظ„ ظ†ظ‚ظ„ ط§ظ„ط¨ظٹط§ظ†ط§طھ. طھط£ظƒط¯ ظ…ظ† ط§طھطµط§ظ„ظƒ ط¨ط§ظ„ط¥ظ†طھط±ظ†طھ.", false);
+                showToast("فشل نقل البيانات. تأكد من اتصالك بالإنترنت.", false);
             });
         }
 
         function logoutUser() {
             localStorage.clear();
-            showToast("طھظ… طھط³ط¬ظٹظ„ ط§ظ„ط®ط±ظˆط¬. ط¬ط§ط±ظٹ ط¥ط؛ظ„ط§ظ‚ ط§ظ„طھط·ط¨ظٹظ‚...", true);
+            showToast("تم تسجيل الخروج. جاري إغلاق التطبيق...", true);
             setTimeout(() => location.reload(true), 1000);
         }
 
@@ -3380,13 +3380,13 @@
                     <div class="text-right">
                         <span class="font-bold text-slate-100 block">${item.arabic}</span>
                         <span class="english-text text-amber-500 font-bold block">${item.english}</span>
-                        <span class="text-[9px] text-slate-500">طµ: ${item.page} | ${item.category}</span>
+                        <span class="text-[9px] text-slate-500">ص: ${item.page} | ${item.category}</span>
                     </div>
                     <div class="flex items-center gap-1.5">
                         <button onclick="toggleIgnoreTerm(${item.id}); renderVocabSettingsList();" class="px-2 py-1.5 rounded-lg text-[9px] font-bold ${item.ignored ? 'bg-amber-500 text-slate-950' : 'bg-slate-850 text-slate-300'}">
-                            ${item.ignored ? 'ًںڑ« ظ…طھط¬ط§ظ‡ظ„' : 'ًں”” ظ†ط´ط·'}
+                            ${item.ignored ? '🚫 متجاهل' : '🔔 نشط'}
                         </button>
-                        <button onclick="deleteTermFromDB(${item.id})" class="bg-red-950 text-red-300 px-2 py-1.5 rounded-lg font-bold">ط­ط°ظپ</button>
+                        <button onclick="deleteTermFromDB(${item.id})" class="bg-red-950 text-red-300 px-2 py-1.5 rounded-lg font-bold">حذف</button>
                     </div>
                 `;
                 container.appendChild(card);
@@ -3395,7 +3395,7 @@
 
         function deleteTermFromDB(id) {
             glossaryData = glossaryData.filter(t => t.id !== id);
-            showToast("طھظ… ط­ط°ظپ ط§ظ„ظ…طµط·ظ„ط­ ط§ظ„ظ‚ط§ظ†ظˆظ†ظٹ ظ…ظ† ظ…ط³ط±ط¯ ط§ظ„ظ…ظ†طµط©.");
+            showToast("تم حذف المصطلح القانوني من مسرد المنصة.");
             renderVocabSettingsList();
             initStudyMode();
             updateOverallProgress();
@@ -3404,11 +3404,11 @@
         function addNewCustomTerm() {
             const ar = document.getElementById('add-term-ar').value.trim();
             const en = document.getElementById('add-term-en').value.trim();
-            const cat = document.getElementById('add-term-cat').value.trim() || "طھطµظ†ظٹظپ ظ…ط®طµطµ";
+            const cat = document.getElementById('add-term-cat').value.trim() || "تصنيف مخصص";
             const page = document.getElementById('add-term-page').value.trim() || "-";
 
             if (!ar || !en) {
-                showToast("ط§ظ„ط±ط¬ط§ط، ط¥ط¯ط®ط§ظ„ ط§ظ„ط­ظ‚ظˆظ„ ط§ظ„ط¥ظ„ط²ط§ظ…ظٹط© ط¨ط§ظ„ط¹ط±ط¨ظٹط© ظˆط§ظ„ط¥ظ†ط¬ظ„ظٹط²ظٹط©.", false);
+                showToast("الرجاء إدخال الحقول الإلزامية بالعربية والإنجليزية.", false);
                 return;
             }
 
@@ -3437,7 +3437,7 @@
             document.getElementById('add-term-cat').value = '';
             document.getElementById('add-term-page').value = '';
 
-            showToast(`طھظ… ط¥ط¯ط±ط§ط¬ ط§ظ„ظ…طµط·ظ„ط­ [ ${ar} ] ط¨ظ†ط¬ط§ط­!`);
+            showToast(`تم إدراج المصطلح [ ${ar} ] بنجاح!`);
             renderVocabSettingsList();
             initStudyMode();
             updateOverallProgress();
@@ -3445,7 +3445,7 @@
 
         function exportCustomTerms() {
             if (!state.customTerms || state.customTerms.length === 0) {
-                showToast("ظ„ط§ طھظˆط¬ط¯ ظƒظ„ظ…ط§طھ ظ…ط¶ط§ظپط© ظ„طھطµط¯ظٹط±ظ‡ط§.", false);
+                showToast("لا توجد كلمات مضافة لتصديرها.", false);
                 return;
             }
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state.customTerms));
@@ -3478,18 +3478,18 @@
                         if (addedCount > 0) {
                             localStorage.setItem('userCustomTerms', JSON.stringify(state.customTerms));
                             if (typeof syncToCloud === 'function') syncToCloud();
-                            showToast(`طھظ… ط§ط³طھظٹط±ط§ط¯ ${addedCount} ظƒظ„ظ…ط© ط¨ظ†ط¬ط§ط­!`, true);
+                            showToast(`تم استيراد ${addedCount} كلمة بنجاح!`, true);
                             renderVocabSettingsList();
                             initStudyMode();
                             updateOverallProgress();
                         } else {
-                            showToast("ط§ظ„ظƒظ„ظ…ط§طھ ط§ظ„ظ…ط³طھظˆط±ط¯ط© ظ…ظˆط¬ظˆط¯ط© ظ…ط³ط¨ظ‚ط§ظ‹.", false);
+                            showToast("الكلمات المستوردة موجودة مسبقاً.", false);
                         }
                     } else {
-                        showToast("ظ…ظ„ظپ ط؛ظٹط± طµط§ظ„ط­.", false);
+                        showToast("ملف غير صالح.", false);
                     }
                 } catch(err) {
-                    showToast("ط®ط·ط£ ظپظٹ ظ‚ط±ط§ط،ط© ط§ظ„ظ…ظ„ظپ.", false);
+                    showToast("خطأ في قراءة الملف.", false);
                 }
             };
             reader.readAsText(file);
