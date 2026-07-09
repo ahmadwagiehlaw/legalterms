@@ -200,51 +200,14 @@
         </div>
     </div>
 
-    <!-- PROFILE GREETING INITIATOR -->
-    <div id="welcome-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/95 backdrop-blur-md transition-all duration-300">
-        <div class="bg-gradient-to-b from-slate-900 to-slate-950 border-2 border-amber-500/30 w-full max-w-md p-6 rounded-3xl shadow-2xl relative text-center">
-            
-            <div class="w-16 h-16 bg-gradient-to-tr from-amber-500 to-yellow-300 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg text-slate-950">
-                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2a1 1 0 0 1 .993.883L13 3v1.171l5.317 1.772a1 1 0 0 1 .672 1.135l-.01.082l-.46 2.302c1.923.633 3.321 2.348 3.473 4.41l.008.243V15a3 3 0 0 1-2.824 2.995L19 18h-5v3h3a1 1 0 0 1 .117 1.993L17 23H7a1 1 0 0 1-.117-1.993L7 21h3v-3H5a3 3 0 0 1-2.995-2.824L2 15v-.885c0-2.222 1.542-4.053 3.655-4.571l-.348-1.74a1 1 0 0 1 .59-1.135l.092-.033L11 4.17V3a1 1 0 0 1 .883-.993L12 2zm6.673 8.35c.55 2.748-1.205 5.313-3.953 5.827l-.317.05v.678h4.673a1 1 0 0 0 .993-.883l.007-.117v-.885zm-13.346 0C3.9 10.615 3 12.115 3 13.615v.885a1 1 0 0 0 1 1h4.673v-.678l-.317-.05c-2.748-.514-4.503-3.08-3.953-5.827l.24-1.198zM12 6.396l-3.6 1.2v6.08a4.002 4.002 0 0 0 7.2 0V7.596z"/>
-                </svg>
-            </div>
-            
-            <h2 class="text-2xl font-black text-amber-400">المدرب القانوني</h2>
-
-            <div class="mt-4 space-y-3.5 text-right">
-                <div>
-                    <label class="block text-xs font-bold text-slate-300 mb-1.5">اللقب والنوع الأكاديمي:</label>
-                    <div class="grid grid-cols-2 gap-3">
-                        <button type="button" onclick="selectGender('male')" id="gender-male" class="w-full py-2.5 rounded-xl border-2 border-amber-500 bg-amber-500/10 text-amber-400 font-bold text-xs transition">
-                            👨‍⚖️ دكتور (باحث)
-                        </button>
-                        <button type="button" onclick="selectGender('female')" id="gender-female" class="w-full py-2.5 rounded-xl border-2 border-slate-800 bg-slate-900/50 text-slate-400 font-bold text-xs transition">
-                            👩‍⚖️ دكتورة (باحثة)
-                        </button>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-300 mb-1.5">الاسم الكريم للباحث:</label>
-                    <input type="text" id="user-name-input" onkeydown="if(event.key === 'Enter') saveUserProfile()" placeholder="اكتب اسمك هنا..." class="w-full bg-slate-950 border border-slate-800 text-white focus:border-amber-500 text-center text-sm font-bold py-2.5 rounded-xl focus:outline-none transition">
-                </div>
-            </div>
-
-            <button onclick="saveUserProfile()" class="w-full mt-5 bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-600 hover:to-yellow-500 text-slate-950 font-black py-3 rounded-xl text-xs shadow-lg shadow-amber-500/10 transition transform active:scale-95">
-                بدأ رحلة الحفظ والتميز الأكاديمي ⚖️
-            </button>
-        </div>
-    </div>
-
     <!-- MAIN HEADER -->
     <header class="bg-slate-900/90 border-b border-slate-800 sticky top-0 z-40 backdrop-blur-md flex-shrink-0">
         <div class="max-w-7xl mx-auto px-4 py-2 sm:px-6 lg:px-8 flex items-center justify-between gap-4 w-full">
             
             <div class="flex items-center gap-2">
                 <div class="bg-gradient-to-tr from-amber-500 to-yellow-300 p-1.5 rounded-lg text-slate-950 flex-shrink-0">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2a1 1 0 0 1 .993.883L13 3v1.171l5.317 1.772a1 1 0 0 1 .672 1.135l-.01.082l-.46 2.302c1.923.633 3.321 2.348 3.473 4.41l.008.243V15a3 3 0 0 1-2.824 2.995L19 18h-5v3h3a1 1 0 0 1 .117 1.993L17 23H7a1 1 0 0 1-.117-1.993L7 21h3v-3H5a3 3 0 0 1-2.995-2.824L2 15v-.885c0-2.222 1.542-4.053 3.655-4.571l-.348-1.74a1 1 0 0 1 .59-1.135l.092-.033L11 4.17V3a1 1 0 0 1 .883-.993L12 2zm6.673 8.35c.55 2.748-1.205 5.313-3.953 5.827l-.317.05v.678h4.673a1 1 0 0 0 .993-.883l.007-.117v-.885zm-13.346 0C3.9 10.615 3 12.115 3 13.615v.885a1 1 0 0 0 1 1h4.673v-.678l-.317-.05c-2.748-.514-4.503-3.08-3.953-5.827l.24-1.198zM12 6.396l-3.6 1.2v6.08a4.002 4.002 0 0 0 7.2 0V7.596z"/>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M11 2.25a.75.75 0 0 1 1.5 0v2.09c1.921.285 3.655.858 5.143 1.581a.75.75 0 0 1 .324 1.018l-1.396 2.531c.21.05.419.102.628.156a.75.75 0 0 1 .536.914l-2 8A.75.75 0 0 1 15 19.25a6.762 6.762 0 0 1-3-.7v2.2q0 .005.002.01a.75.75 0 0 1-1.5-.01v-2.2a6.762 6.762 0 0 1-3 .7.75.75 0 0 1-.726-.57l-2-8a.75.75 0 0 1 .536-.914c.21-.054.419-.106.628-.156L4.539 6.94a.75.75 0 0 1 .324-1.018c1.488-.723 3.222-1.296 5.143-1.581V2.25ZM6.242 7.82l-1.014 1.838a20.082 20.082 0 0 0 5.485 1.57v-4.14a18.315 18.315 0 0 0-4.471.731ZM17.771 9.658l-1.014-1.838A18.315 18.315 0 0 0 12.286 7.09v4.14a20.082 20.082 0 0 0 5.485-1.572ZM5.986 11.23c-1.395.275-2.73.66-3.993 1.135a.25.25 0 0 0-.153.308l1.714 6.858a5.271 5.271 0 0 0 3.32-.821L5.986 11.23ZM18.014 11.23l-1.464 5.856a5.271 5.271 0 0 0 3.32.82l1.714-6.857a.25.25 0 0 0-.153-.309 19.9 19.9 0 0 0-3.417-1.135Z" clip-rule="evenodd" />
                     </svg>
                 </div>
                 <div>
@@ -1194,10 +1157,6 @@
                 state.userTitle = savedTitle;
                 if (savedGender) selectedGenderType = savedGender;
                 
-                // Hide welcome modal immediately
-                const welcomeModal = document.getElementById('welcome-modal');
-                if (welcomeModal) welcomeModal.classList.add('hidden');
-                
                 // Apply personalization
                 const welcomeHeader = document.getElementById('user-header-welcome');
                 if (welcomeHeader) welcomeHeader.innerText = `${state.userTitle} / ${state.userName}`;
@@ -1249,51 +1208,6 @@
         function toggleInstallModal() {
             const modal = document.getElementById('install-modal');
             modal.classList.toggle('hidden');
-        }
-
-        function selectGender(type) {
-            selectedGenderType = type;
-            const btnMale = document.getElementById('gender-male');
-            const btnFemale = document.getElementById('gender-female');
-            if (type === 'male') {
-                btnMale.className = "w-full py-2.5 rounded-xl border-2 border-amber-500 bg-amber-500/10 text-amber-400 font-bold text-xs transition";
-                btnFemale.className = "w-full py-2.5 rounded-xl border-2 border-slate-800 bg-slate-900/50 text-slate-400 font-bold text-xs transition";
-            } else {
-                btnFemale.className = "w-full py-2.5 rounded-xl border-2 border-amber-500 bg-amber-500/10 text-amber-400 font-bold text-xs transition";
-                btnMale.className = "w-full py-2.5 rounded-xl border-2 border-slate-800 bg-slate-900/50 text-slate-400 font-bold text-xs transition";
-            }
-        }
-
-        function saveUserProfile() {
-            const nameInput = document.getElementById('user-name-input').value.trim();
-            if (!nameInput) {
-                showToast("يرجى إدخال اسمك الكريم لتخصيص الواجهة لك.", false);
-                return;
-            }
-
-            state.userTitle = selectedGenderType === 'male' ? "دكتور" : "دكتورة";
-            state.userName = nameInput;
-
-            // Save to localStorage
-            localStorage.setItem('userName', state.userName);
-            localStorage.setItem('userTitle', state.userTitle);
-            localStorage.setItem('selectedGenderType', selectedGenderType);
-
-            // Hide welcome panel
-            document.getElementById('welcome-modal').classList.add('hidden');
-
-            // Apply personalization
-            document.getElementById('user-header-welcome').innerText = `${state.userTitle} / ${state.userName}`;
-            document.getElementById('dash-greeting').innerText = `أهلاً بك يا ${state.userTitle} ${state.userName}`;
-            
-            const studyTitleWelcome = document.getElementById('study-title-welcome');
-            if (studyTitleWelcome) {
-                studyTitleWelcome.innerText = `أهلاً بك ${state.userTitle} في وضع المذاكرة`;
-            }
-
-            updateOverallProgress();
-            updateDashboardStats();
-            showToast(`مرحباً بك د. ${nameInput}! بالتوفيق والتميز الأكاديمي.`, true);
         }
 
         function updateDashboardStats() {
