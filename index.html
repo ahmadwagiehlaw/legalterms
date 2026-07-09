@@ -140,14 +140,40 @@
     <div id="login-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-sm hidden">
         <div class="bg-slate-900 border-2 border-amber-500/30 w-full max-w-sm p-6 rounded-3xl text-center">
             <span class="text-4xl block mb-2">🔐</span>
-            <h3 class="text-lg font-black text-amber-400">كود الدخول وحفظ البيانات</h3>
+            <h3 class="text-lg font-black text-amber-400">تسجيل الدخول برقم الهاتف</h3>
             <p class="text-xs text-slate-300 mt-2 mb-4 leading-relaxed">
-                الرجاء إدخال <strong class="text-amber-500">رقم الهاتف أو كود المتدرب</strong> الخاص بك للتعرف عليك وحفظ بياناتك (النقاط، الأخطاء، الإعدادات) تلقائياً لتكمل من أي جهاز في أي وقت.
+                الرجاء إدخال <strong class="text-amber-500">رقم هاتفك</strong> للتعرف عليك وحفظ بياناتك (النقاط، الأخطاء، الإعدادات) تلقائياً لتكمل من أي جهاز في أي وقت.
             </p>
-            <input type="tel" id="login-phone-input" placeholder="اكتب الكود/الرقم هنا..." dir="ltr" class="w-full text-center p-3 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 focus:border-amber-500 focus:outline-none font-bold text-lg mb-4">
+            <input type="tel" id="login-phone-input" placeholder="اكتب رقم هاتفك هنا..." dir="ltr" class="w-full text-center p-3 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 focus:border-amber-500 focus:outline-none font-bold text-lg mb-4">
             <button onclick="processLogin()" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-bold py-3 rounded-xl shadow-lg transition-all text-sm">
                 دخول وبدء التدريب
             </button>
+        </div>
+    </div>
+
+    <!-- PROFILE SETUP MODAL (NEW USERS) -->
+    <div id="profile-setup-modal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-sm hidden">
+        <div class="bg-slate-900 border-2 border-amber-500/30 w-full max-w-sm p-6 rounded-3xl text-right">
+            <h3 class="text-lg font-black text-amber-400 text-center mb-4">أهلاً بك لأول مرة 👋</h3>
+            <p class="text-xs text-slate-300 mb-6 text-center leading-relaxed">
+                يبدو أن رقم الهاتف هذا جديد. يرجى إدخال اسمك ولقبك لإنشاء ملفك التدريبي:
+            </p>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-slate-400 mb-1 text-xs">الاسم:</label>
+                    <input type="text" id="setup-username" placeholder="اكتب اسمك هنا..." class="w-full bg-slate-950 border border-slate-700 text-white rounded-xl px-3 py-2.5 focus:border-amber-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1 text-xs">اللقب:</label>
+                    <select id="setup-title" class="w-full bg-slate-950 border border-slate-700 text-white rounded-xl px-3 py-2.5 focus:border-amber-500 focus:outline-none">
+                        <option value="دكتور">دكتور (باحث)</option>
+                        <option value="دكتورة">دكتورة (باحثة)</option>
+                    </select>
+                </div>
+                <button onclick="submitProfileSetup()" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-bold py-3 mt-2 rounded-xl shadow-lg transition-all text-sm">
+                    حفظ الدخول وبدء التدريب
+                </button>
+            </div>
         </div>
     </div>
 
@@ -714,6 +740,17 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="grid grid-cols-1 gap-3 mt-3">
+                                <div>
+                                    <label class="block text-slate-400 mb-1">تغيير رقم الهاتف (الخاص بحسابك واسترجاع بياناتك):</label>
+                                    <div class="flex gap-2">
+                                        <input type="text" id="settings-passcode" class="flex-grow bg-slate-900 border border-slate-800 text-amber-400 font-bold rounded-xl px-3 py-2 focus:outline-none" dir="ltr" placeholder="اكتب رقم الهاتف الجديد...">
+                                        <button onclick="changeUserPasscode()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition whitespace-nowrap">
+                                            نقل البيانات للرقم الجديد
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="flex gap-2 mt-4">
                                 <button onclick="saveSettingsProfile()" class="flex-grow bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-2 rounded-xl text-xs transition">
                                     حفظ الملف الشخصي المعدل
@@ -1037,20 +1074,20 @@
         function processLogin() {
             const phone = document.getElementById('login-phone-input').value.trim();
             if (phone.length < 4) {
-                showToast("الرجاء إدخال كود أو رقم هاتف صحيح", false);
+                showToast("الرجاء إدخال رقم هاتف صحيح", false);
                 return;
             }
             
-            // Save locally
-            localStorage.setItem('user_device_id', phone);
+            // Temporarily save ID in state for the next step, don't write to localStorage yet
             state.userId = phone;
             document.getElementById('login-modal').classList.add('hidden');
             
-            showToast("جاري المزامنة مع السحابة...", true);
+            showToast("جاري التحقق من السحابة...", true);
             
             // Fetch from Firestore
             db.collection("users").doc(phone).get().then(doc => {
                 if (doc.exists) {
+                    localStorage.setItem('user_device_id', phone); // Commit ID
                     const data = doc.data();
                     if (data.score) localStorage.setItem('userScore', data.score);
                     if (data.name) localStorage.setItem('userName', data.name);
@@ -1063,16 +1100,38 @@
                         localStorage.setItem('userCustomTerms', JSON.stringify(data.customTerms));
                     }
                     
-                    showToast("تم استرجاع بياناتك بنجاح! جاري التحديث...", true);
+                    showToast("تم تسجيل الدخول واسترجاع بياناتك بنجاح!", true);
                     setTimeout(() => location.reload(), 1500);
                 } else {
-                    showToast("حساب جديد! تم الحفظ، يمكنك البدء الآن.", true);
-                    syncToCloud();
+                    // New user! Show profile setup
+                    document.getElementById('profile-setup-modal').classList.remove('hidden');
                 }
             }).catch(e => {
                 console.error("Login fetch error:", e);
                 showToast("حدث خطأ في الاتصال بالسحابة.", false);
+                document.getElementById('login-modal').classList.remove('hidden');
             });
+        }
+
+        function submitProfileSetup() {
+            const name = document.getElementById('setup-username').value.trim();
+            const title = document.getElementById('setup-title').value;
+            
+            if (!name) {
+                showToast("الرجاء إدخال اسمك أولاً", false);
+                return;
+            }
+            
+            localStorage.setItem('user_device_id', state.userId);
+            localStorage.setItem('userName', name);
+            localStorage.setItem('userTitle', title);
+            state.userName = name;
+            state.userTitle = title;
+            
+            document.getElementById('profile-setup-modal').classList.add('hidden');
+            showToast("تم إنشاء الحساب بنجاح! جاري التهيئة...", true);
+            syncToCloud();
+            setTimeout(() => location.reload(), 1500);
         }
 
         function getUserId() {
@@ -3121,23 +3180,52 @@
             showToast("تم تحديث الملف الشخصي بنجاح!");
         }
 
+        function changeUserPasscode() {
+            const newCode = document.getElementById('settings-passcode').value.trim();
+            const oldCode = getUserId();
+            
+            if (newCode.length < 4) {
+                showToast("الرجاء إدخال رقم هاتف صحيح", false);
+                return;
+            }
+            if (newCode === oldCode) {
+                showToast("رقم الهاتف الجديد مطابق للرقم الحالي!", false);
+                return;
+            }
+
+            showToast("جاري نقل البيانات...", true);
+            // Sync to new code
+            db.collection("users").doc(newCode).set({
+                name: state.userName,
+                title: state.userTitle,
+                score: state.score,
+                completedExercises: state.completedExercises || 0,
+                failures: state.failures || [],
+                failedPassages: state.failedPassages || [],
+                customTerms: state.customTerms || [],
+                lastActive: firebase.firestore.FieldValue.serverTimestamp(),
+                appVersion: APP_VERSION
+            }, { merge: true }).then(() => {
+                // Delete old code doc to prevent duplicates
+                if (oldCode) {
+                    db.collection("users").doc(oldCode).delete().catch(console.error);
+                }
+                
+                // Update local storage
+                localStorage.setItem('user_device_id', newCode);
+                state.userId = newCode;
+                showToast("تم تغيير رقم الهاتف ونقل بياناتك بنجاح!", true);
+                document.getElementById('settings-passcode').value = '';
+            }).catch(e => {
+                console.error(e);
+                showToast("فشل نقل البيانات. تأكد من اتصالك بالإنترنت.", false);
+            });
+        }
+
         function logoutUser() {
-            localStorage.removeItem('userName');
-            localStorage.removeItem('userTitle');
-            localStorage.removeItem('selectedGenderType');
-            
-            state.userName = "الباحث";
-            state.userTitle = "دكتور";
-            selectedGenderType = "male";
-            
-            const nameInput = document.getElementById('user-name-input');
-            if (nameInput) nameInput.value = '';
-            
-            const welcomeModal = document.getElementById('welcome-modal');
-            if (welcomeModal) welcomeModal.classList.remove('hidden');
-            
-            showToast("تم تسجيل الخروج بنجاح.");
-            switchTab('dashboard');
+            localStorage.clear();
+            showToast("تم تسجيل الخروج. جاري إغلاق التطبيق...", true);
+            setTimeout(() => location.reload(true), 1000);
         }
 
         function renderVocabSettingsList() {
