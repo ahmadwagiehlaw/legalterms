@@ -1230,7 +1230,7 @@
             db.collection("users").doc(uid).onSnapshot(doc => {
                 if (doc.exists) {
                     const data = doc.data();
-                    let needsReload = false;
+                    let needsUIUpdate = false;
 
                     if (data.score !== undefined && data.score > (state.score || 0)) {
                         state.score = data.score;
@@ -1242,23 +1242,47 @@
                         state.completedExercises = data.completedExercises;
                         localStorage.setItem('userCompletedExercises', state.completedExercises);
                     }
-                    if (data.customTerms && JSON.stringify(data.customTerms) !== JSON.stringify(state.customTerms)) {
+                    
+                    const getTermKeys = arr => (arr || []).map(a => a.arabic).sort().join(',');
+                    if (data.customTerms && getTermKeys(data.customTerms) !== getTermKeys(state.customTerms)) {
                         state.customTerms = data.customTerms;
                         localStorage.setItem('userCustomTerms', JSON.stringify(data.customTerms));
-                        needsReload = true;
+                        needsUIUpdate = true;
                     }
-                    if (data.failures && JSON.stringify(data.failures) !== JSON.stringify(state.failures)) {
+                    
+                    const getFailKeys = arr => (arr || []).map(a => a.id || a.title || a.arabic).sort().join(',');
+                    if (data.failures && getFailKeys(data.failures) !== getFailKeys(state.failures)) {
                         state.failures = data.failures;
                         localStorage.setItem('userFailures', JSON.stringify(data.failures));
-                        needsReload = true;
+                        needsUIUpdate = true;
+                    }
+                    
+                    if (data.failedPassages && getFailKeys(data.failedPassages) !== getFailKeys(state.failedPassages)) {
+                        state.failedPassages = data.failedPassages;
+                        localStorage.setItem('userFailedPassages', JSON.stringify(data.failedPassages));
+                        needsUIUpdate = true;
                     }
 
-                    if (needsReload) {
+                    if (needsUIUpdate) {
+                        // Inject custom terms if any
+                        if (state.customTerms) {
+                            [...state.customTerms].reverse().forEach(term => {
+                                if (!glossaryData.some(g => g.arabic === term.arabic && g.english === term.english)) {
+                                    glossaryData.unshift(term);
+                                }
+                            });
+                        }
+                        
+                        updateDashboardStats();
+                        renderMistakesWidget();
+                        if (typeof renderPassageMistakesWidget === 'function') renderPassageMistakesWidget();
+                        
+                        // Render study lists again in case we are looking at them
+                        initStudyMode();
+                        
                         const isPlaying = !document.getElementById('game-playground-container').classList.contains('hidden');
-                        if (!isPlaying) {
-                            location.reload();
-                        } else {
-                            showToast("تم تحديث بعض البيانات (الكلمات أو الأخطاء) من جهاز آخر في الخلفية.", true);
+                        if (isPlaying) {
+                            showToast("تم مزامنة بياناتك الجديدة في الخلفية بياضاً.", true);
                         }
                     }
                 }
