@@ -1117,19 +1117,7 @@
             
             document.getElementById('profile-setup-modal').classList.add('hidden');
             showToast("تم إنشاء الحساب بنجاح! جاري التهيئة...", true);
-            syncToCloud();
-            setTimeout(() => location.reload(), 1500);
-        }
-
-        function getUserId() {
-            return localStorage.getItem('user_device_id');
-        }
-
-        function syncToCloud() {
-            const uid = getUserId();
-            if (!uid || !state.userName || state.userName === "الباحث") return;
-            
-            db.collection("users").doc(uid).set({
+            db.collection("users").doc(state.userId).set({
                 name: state.userName,
                 title: state.userTitle,
                 score: state.score,
@@ -1139,7 +1127,36 @@
                 customTerms: state.customTerms || [],
                 lastActive: firebase.firestore.FieldValue.serverTimestamp(),
                 appVersion: APP_VERSION
-            }, { merge: true }).catch(err => console.error("Cloud sync failed: ", err));
+            }, { merge: true });
+            setTimeout(() => location.reload(), 1500);
+        }
+
+        function getUserId() {
+            return localStorage.getItem('user_device_id');
+        }
+
+        function updateCloudField(field, value) {
+            const uid = getUserId();
+            if (!uid || !state.userName || state.userName === "ضيف") return;
+            const obj = {};
+            obj[field] = value;
+            obj['lastActive'] = firebase.firestore.FieldValue.serverTimestamp();
+            db.collection("users").doc(uid).update(obj).catch(err => {
+                db.collection("users").doc(uid).set(obj, { merge: true });
+            });
+        }
+
+        function updateCloudArray(field, item, isAdd = true) {
+            const uid = getUserId();
+            if (!uid || !state.userName || state.userName === "ضيف") return;
+            const obj = {};
+            obj[field] = isAdd ? firebase.firestore.FieldValue.arrayUnion(item) : firebase.firestore.FieldValue.arrayRemove(item);
+            obj['lastActive'] = firebase.firestore.FieldValue.serverTimestamp();
+            db.collection("users").doc(uid).update(obj).catch(err => {
+                const fallbackObj = { lastActive: firebase.firestore.FieldValue.serverTimestamp() };
+                fallbackObj[field] = isAdd ? [item] : [];
+                db.collection("users").doc(uid).set(fallbackObj, { merge: true });
+            });
         }
 
         function checkAutoUpdate() {
@@ -1310,13 +1327,13 @@
         function updateDashboardStats() {
             document.getElementById('score-val').innerText = state.score;
             localStorage.setItem('userScore', state.score);
-            syncToCloud();
+            if (typeof updateCloudField === 'function') updateCloudField('score', state.score);
         }
 
         function incrementCompletedExercises() {
             state.completedExercises = (state.completedExercises || 0) + 1;
             localStorage.setItem('userCompletedExercises', state.completedExercises);
-            syncToCloud();
+            if (typeof updateCloudField === 'function') updateCloudField('completedExercises', state.completedExercises);
         }
 
         function toggleFailuresOnlyMode() {
@@ -1535,15 +1552,18 @@
                 state.failures.push(term);
                 localStorage.setItem('userFailures', JSON.stringify(state.failures));
                 renderMistakesWidget();
-                if (typeof syncToCloud === 'function') syncToCloud();
+                if (typeof updateCloudArray === 'function') updateCloudArray('failures', term, true);
             }
+        }
         }
 
         function removeMistake(id) {
+            const term = state.failures.find(t => t.id === id);
+            if (!term) return;
             state.failures = state.failures.filter(t => t.id !== id);
             localStorage.setItem('userFailures', JSON.stringify(state.failures));
             renderMistakesWidget();
-            if (typeof syncToCloud === 'function') syncToCloud();
+            if (typeof updateCloudArray === 'function') updateCloudArray('failures', term, false);
         }
 
         function renderMistakesWidget() {
@@ -1596,17 +1616,19 @@
                     glossaryData.unshift(newTerm);
                     localStorage.setItem('userCustomTerms', JSON.stringify(state.customTerms));
                     
-                    if (typeof syncToCloud === 'function') syncToCloud();
+                    if (typeof updateCloudArray === 'function') updateCloudArray('customTerms', newTerm, true);
                     if (typeof renderVocabSettingsList === 'function') renderVocabSettingsList();
                 }
             }
         }
 
         function removePassageMistake(title) {
+            const def = state.failedPassages.find(t => t.title === title);
+            if (!def) return;
             state.failedPassages = state.failedPassages.filter(t => t.title !== title);
             localStorage.setItem('userFailedPassages', JSON.stringify(state.failedPassages));
             renderPassageMistakesWidget();
-            if (typeof syncToCloud === 'function') syncToCloud();
+            if (typeof updateCloudArray === 'function') updateCloudArray('failedPassages', def, false);
         }
 
         function renderPassageMistakesWidget() {
@@ -3429,7 +3451,7 @@
             // Save locally
             localStorage.setItem('userCustomTerms', JSON.stringify(state.customTerms));
             // Sync to cloud immediately
-            if (typeof syncToCloud === 'function') syncToCloud();
+            if (typeof updateCloudArray === 'function') updateCloudArray('customTerms', newTerm, true);
 
             // reset inputs
             document.getElementById('add-term-ar').value = '';
@@ -3477,7 +3499,7 @@
                         });
                         if (addedCount > 0) {
                             localStorage.setItem('userCustomTerms', JSON.stringify(state.customTerms));
-                            if (typeof syncToCloud === 'function') syncToCloud();
+                            if (typeof updateCloudField === 'function') updateCloudField('customTerms', state.customTerms);
                             showToast(`تم استيراد ${addedCount} كلمة بنجاح!`, true);
                             renderVocabSettingsList();
                             initStudyMode();
